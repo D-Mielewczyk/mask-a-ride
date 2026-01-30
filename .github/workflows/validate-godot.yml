@@ -27,6 +27,10 @@ jobs:
                   godot --headless --script scripts/validate_project.gd
               continue-on-error: true
 
+            - name: Run headless tests
+              run: |
+                  godot --headless --script scripts/run_tests.gd
+
     godot-scenes:
         needs: lint
         runs-on: ubuntu-latest
