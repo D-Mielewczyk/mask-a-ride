@@ -23,7 +23,9 @@ func run() -> Array:
 	tree.root.add_child(player)
 	player._ready()
 
-	_assert_close(player.velocity.x, player.move_speed, "Initial velocity.x != move_speed", failures)
+	_assert_close(
+		player.velocity.x, player.move_speed, "Initial velocity.x != move_speed", failures
+	)
 
 	var start_x := player.position.x
 	player.collision_cooldown = 0.05
@@ -36,7 +38,9 @@ func run() -> Array:
 		"distance_traveled != actual delta x",
 		failures
 	)
-	_assert_true(player.collision_cooldown == 0.0, "collision_cooldown did not clamp to 0", failures)
+	_assert_true(
+		player.collision_cooldown == 0.0, "collision_cooldown did not clamp to 0", failures
+	)
 
 	player.queue_free()
 	return failures
