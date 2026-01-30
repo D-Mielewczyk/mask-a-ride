@@ -4,6 +4,10 @@
 
 Game about car masks
 
+## Credits
+
+- Spinning Pixel Coin animation by irmirx: https://opengameart.org/content/spinning-pixel-coin-0
+
 ## Linting
 
 This project uses **gdtoolkit** for GDScript linting.
