@@ -1,0 +1,24 @@
+name: Lint GDScript with gdtoolkit
+
+on:
+    pull_request:
+        types: [opened, synchronize, closed]
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Install gdtoolkit
+              run: pip install gdtoolkit
+
+            - name: Run gdlint on GDScript files
+              run: gdlint scripts/ scenes/
+              continue-on-error: true
