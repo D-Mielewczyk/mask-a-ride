@@ -1,0 +1,56 @@
+name: Discord notify on PR to main
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send PR message to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+          # Replace these with your server's emoji codes:
+          EMOJI_ALERT: "<a:alert:123456789012345678>"
+          EMOJI_PR: "🔀"
+          EMOJI_BRANCH: "🌿"
+          EMOJI_AUTHOR: "🧑‍💻"
+          EMOJI_LINK: "🔗"
+          EMOJI_CHECK: "✅"
+
+          ACTION: ${{ github.event.action }}
+          REPO: ${{ github.repository }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          DRAFT: ${{ github.event.pull_request.draft }}
+        run: |
+          short_sha="${SHORT_SHA:0:7}"
+
+          # Build message as a heredoc (safe multiline)
+          content=$(cat <<EOF
+          ${EMOJI_ALERT} ${EMOJI_ROCKET} **New push to \`${REPO}\`**
+          ${EMOJI_BRANCH} Branch: **\`${BRANCH}\`**
+          ${EMOJI_AUTHOR} Author: **${AUTHOR}**
+          ${EMOJI_COMMIT} Commit: **\`${short_sha}\`** - ${COMMIT_MSG}
+          🔗 ${COMMIT_URL}
+          EOF
+          )
+
+          # Create valid JSON with escaping
+          payload=$(jq -n --arg content "$content" '{content: $content}')
+
+          curl -H "Content-Type: application/json" \
+               -d "$payload" \
+               "$DISCORD_WEBHOOK_URL"
