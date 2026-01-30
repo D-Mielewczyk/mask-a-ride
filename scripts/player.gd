@@ -14,6 +14,9 @@ var money_collected: float = 0.0
 var is_alive: bool = true
 var current_terrain: String = "air" # "air" or terrain type name
 var is_on_ground: bool = false
+var last_collided_obstacle: Node = null
+var collision_cooldown: float = 0.0
+@export var collision_cooldown_duration: float = 0.2
 
 func _ready() -> void:
 	# Initial horizontal velocity
@@ -22,6 +25,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_alive:
 		return
+	
+	# Update collision cooldown
+	if collision_cooldown > 0:
+		collision_cooldown -= delta
 	
 	# Apply gravity (vertical velocity)
 	velocity.y += gravity * delta
@@ -74,6 +81,14 @@ func collide(collider: Node) -> void:
 	"""Handle collision with obstacle based on its type/groups"""
 	if not is_alive:
 		return
+	
+	# Prevent multiple collisions with same object within cooldown
+	if collider == last_collided_obstacle and collision_cooldown > 0:
+		return
+	
+	# Reset cooldown for this obstacle
+	last_collided_obstacle = collider
+	collision_cooldown = collision_cooldown_duration
 	
 	# Bouncy obstacles - balloon, trampoline, etc
 	if collider.is_in_group("obstacle_bounce"):
