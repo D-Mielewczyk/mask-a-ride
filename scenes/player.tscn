@@ -5,6 +5,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g2els"]
 friction = 0.2
+absorbent = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 37.0
@@ -12,7 +13,6 @@ height = 110.0
 
 [node name="Player" type="RigidBody2D" unique_id=358743943]
 physics_material_override = SubResource("PhysicsMaterial_g2els")
-gravity_scale = 1.5
 script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=221682578]
