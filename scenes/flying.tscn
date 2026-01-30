@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://u5u61x1dji02"]
 
+[ext_resource type="Script" uid="uid://csoxnujio7c0f" path="res://scripts/game_over_screen.gd" id="1_ertuq"]
+
 [node name="flying" type="Node2D" unique_id=903840644]
+script = ExtResource("1_ertuq")
