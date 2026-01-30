@@ -4,9 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://kagex78umunf" path="res://assets/placeholer1.png" id="2_ck653"]
 [ext_resource type="Texture2D" uid="uid://dppri1feyyyt8" path="res://assets/placeholder2.png" id="3_w6daa"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ck653"]
+friction = 0.01
+
 [node name="downhill" type="Node2D" unique_id=1582961432]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=715961560]
+physics_material_override = SubResource("PhysicsMaterial_ck653")
 script = ExtResource("1_5vib2")
 curve_power = 0.548
 ramp_length = 600.0
