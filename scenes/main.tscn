@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dl40whvpkliw0"]
+[gd_scene format=3 uid="uid://dl40whvpkliw0"]
 
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dvjb3m1wtxnku" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://b6jfxqhhlr681" path="res://scenes/downhill.tscn" id="2_0wfyh"]
 
-[node name="main" type="Node2D" unique_id="1679531480"]
+[node name="main" type="Node2D" unique_id=1679531480]
 
-[node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(100, 400)
+[node name="Player" parent="." unique_id=855097761 instance=ExtResource("1")]
+position = Vector2(378, -958)
+
+[node name="downhill" parent="." unique_id=1582961432 instance=ExtResource("2_0wfyh")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=710857234]
+zoom = Vector2(0.2, 0.2)
