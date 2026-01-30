@@ -1,32 +1,25 @@
-name: Discord notify on PR to main
+name: Discord notify on PR opened to main
 
 on:
   pull_request:
-    branches:
-      - main
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
+    branches: [main]
+    types: [opened]
 
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Send PR message to Discord
+      - name: Send Discord notification
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
-          # Replace these with your server's emoji codes:
+          # Podmien na swoje emoji z Discorda (mozna zostawic zwykle emoji)
           EMOJI_ALERT: ":point_right:"
           EMOJI_PR: "🔀"
           EMOJI_BRANCH: "🌿"
           EMOJI_AUTHOR: "🧑‍💻"
           EMOJI_LINK: "🔗"
-          EMOJI_CHECK: "✅"
 
-          ACTION: ${{ github.event.action }}
           REPO: ${{ github.repository }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_URL: ${{ github.event.pull_request.html_url }}
@@ -35,22 +28,26 @@ jobs:
           BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
           HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
           DRAFT: ${{ github.event.pull_request.draft }}
+        shell: bash
         run: |
-          short_sha="${SHORT_SHA:0:7}"
+          set -euo pipefail
 
-          # Build message as a heredoc (safe multiline)
-          content=$(cat <<EOF
-          ${EMOJI_ALERT} ${EMOJI_ROCKET} **New push to \`${REPO}\`**
-          ${EMOJI_BRANCH} Branch: **\`${BRANCH}\`**
-          ${EMOJI_AUTHOR} Author: **${AUTHOR}**
-          ${EMOJI_COMMIT} Commit: **\`${short_sha}\`** - ${COMMIT_MSG}
-          🔗 ${COMMIT_URL}
-          EOF
-          )
+          if [[ "${DRAFT}" == "true" ]]; then
+            draft_label="(draft)"
+          else
+            draft_label=""
+          fi
 
-          # Create valid JSON with escaping
-          payload=$(jq -n --arg content "$content" '{content: $content}')
+          # Budujemy tekst bez bawienia sie w reczne JSON-owanie
+          content="${EMOJI_ALERT} ${EMOJI_PR} PR opened in \`${REPO}\` ${draft_label}
+          ${EMOJI_BRANCH} Branch: \`${HEAD_BRANCH}\` -> \`${BASE_BRANCH}\`
+          ${EMOJI_AUTHOR} Author: ${AUTHOR}
+          ${EMOJI_LINK} #${PR_NUMBER}: ${PR_TITLE}
+          ${PR_URL}"
 
-          curl -H "Content-Type: application/json" \
-               -d "$payload" \
-               "$DISCORD_WEBHOOK_URL"
+          # jq robi poprawny JSON (ucieka cudzyslowy itd.)
+          payload="$(jq -n --arg content "$content" '{content: $content}')"
+
+          curl -sS -H "Content-Type: application/json" \
+            -d "$payload" \
+            "$DISCORD_WEBHOOK_URL"
