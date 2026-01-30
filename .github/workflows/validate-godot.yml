@@ -6,7 +6,6 @@ on:
 
 jobs:
     godot-export:
-        needs: lint
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -14,7 +13,7 @@ jobs:
             - name: Set up Godot
               uses: chickensoft-games/setup-godot@v2
               with:
-                  version: 4.6
+                  version: 4.6.0
 
             - name: Test export to HTML5
               run: |
@@ -27,8 +26,11 @@ jobs:
                   godot --headless --script scripts/validate_project.gd
               continue-on-error: true
 
+            - name: Run headless tests
+              run: |
+                  godot --headless --script scripts/run_tests.gd
+
     godot-scenes:
-        needs: lint
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -36,7 +38,7 @@ jobs:
             - name: Set up Godot
               uses: chickensoft-games/setup-godot@v2
               with:
-                  version: 4.6
+                  version: 4.6.0
 
             - name: Validate scene dependencies
               run: |
