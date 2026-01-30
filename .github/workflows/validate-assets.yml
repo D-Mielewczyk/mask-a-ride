@@ -1,0 +1,90 @@
+name: Validate Assets
+
+on:
+    pull_request:
+        types: [opened, synchronize, closed]
+
+jobs:
+    validate-images:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Install image tools
+              run: pip install Pillow
+
+            - name: Validate PNG images
+              run: |
+                  python3 << 'EOF'
+                  import os
+                  from PIL import Image
+
+                  errors = []
+                  for root, dirs, files in os.walk('assets'):
+                      for file in files:
+                          if file.endswith('.png'):
+                              path = os.path.join(root, file)
+                              try:
+                                  img = Image.open(path)
+                                  # Check dimensions (warn if too large or too small)
+                                  if img.width < 16 or img.height < 16:
+                                      errors.append(f"⚠️ {path}: Too small ({img.width}x{img.height})")
+                                  if img.width > 2048 or img.height > 2048:
+                                      errors.append(f"⚠️ {path}: Too large ({img.width}x{img.height})")
+                                  # Check file size
+                                  size_mb = os.path.getsize(path) / (1024*1024)
+                                  if size_mb > 10:
+                                      errors.append(f"⚠️ {path}: Large file ({size_mb:.2f}MB)")
+                                  print(f"✓ {path}: {img.width}x{img.height} ({size_mb:.2f}MB)")
+                              except Exception as e:
+                                  errors.append(f"❌ {path}: {e}")
+
+                  if errors:
+                      for error in errors:
+                          print(error)
+                      if any(e.startswith("❌") for e in errors):
+                          exit(1)
+                  EOF
+              continue-on-error: true
+
+    validate-audio:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Install audio tools
+              run: pip install pydub
+
+            - name: Validate audio files
+              run: |
+                  python3 << 'EOF'
+                  import os
+
+                  valid_formats = ['.mp3', '.ogg', '.wav']
+                  errors = []
+
+                  for root, dirs, files in os.walk('assets'):
+                      for file in files:
+                          if any(file.endswith(fmt) for fmt in valid_formats):
+                              path = os.path.join(root, file)
+                              size_mb = os.path.getsize(path) / (1024*1024)
+                              # Warn if audio file is very large
+                              if size_mb > 50:
+                                  errors.append(f"⚠️ {path}: Large audio file ({size_mb:.2f}MB)")
+                              print(f"✓ {path}: {size_mb:.2f}MB")
+
+                  if errors:
+                      for error in errors:
+                          print(error)
+                  EOF
+              continue-on-error: true
