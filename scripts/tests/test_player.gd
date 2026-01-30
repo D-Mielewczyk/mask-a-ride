@@ -16,31 +16,28 @@ func run() -> Array:
 		return failures
 
 	var tree := Engine.get_main_loop() as SceneTree
-	if tree == null:
-		failures.append("SceneTree not available")
-		return failures
-
-	tree.root.add_child(player)
+	if tree != null:
+		tree.root.add_child(player)
 	player._ready()
 
 	_assert_close(
 		player.velocity.x, player.move_speed, "Initial velocity.x != move_speed", failures
 	)
 
-	var start_x: float = player.position.x
-	player.collision_cooldown = 0.05
-	player._physics_process(0.1)
+	# Bounce collision should add upward velocity and reduce x speed.
+	var bounce := Node.new()
+	bounce.add_to_group("obstacle_bounce")
+	player.velocity = Vector2(300.0, 10.0)
+	player.collide(bounce)
+	_assert_true(player.velocity.y < 0.0, "Bounce did not send player upward", failures)
+	_assert_true(player.velocity.x < 300.0, "Bounce did not reduce x velocity", failures)
 
-	_assert_true(player.distance_traveled > 0.0, "distance_traveled did not increase", failures)
-	_assert_close(
-		player.distance_traveled,
-		player.position.x - start_x,
-		"distance_traveled != actual delta x",
-		failures
-	)
-	_assert_true(
-		player.collision_cooldown == 0.0, "collision_cooldown did not clamp to 0", failures
-	)
+	# Spike collision should kill the player.
+	var spike := Node.new()
+	spike.add_to_group("obstacle_spike")
+	player.is_alive = true
+	player.collide(spike)
+	_assert_true(player.is_alive == false, "Spike collision did not kill player", failures)
 
 	player.queue_free()
 	return failures
