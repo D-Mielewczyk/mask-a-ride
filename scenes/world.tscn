@@ -1,8 +1,16 @@
 [gd_scene format=3 uid="uid://ch16615gmuibv"]
 
 [ext_resource type="Script" uid="uid://dcif4hlgulvic" path="res://scripts/terrain_manager.gd" id="1_nnsk1"]
+[ext_resource type="Script" uid="uid://d0ray5wcy7jf7" path="res://scripts/camera_drone.gd" id="2_rwgxs"]
 
 [node name="World" type="Node" unique_id=1185056397]
 
-[node name="TerrainMngt" type="Node2D" parent="." unique_id=1921307693]
+[node name="TerrainMngt" type="Node2D" parent="." unique_id=1921307693 node_paths=PackedStringArray("player_node")]
 script = ExtResource("1_nnsk1")
+player_node = NodePath("../CameraDrone")
+
+[node name="CameraDrone" type="Node2D" parent="." unique_id=850391133]
+script = ExtResource("2_rwgxs")
+
+[node name="Camera2D" type="Camera2D" parent="CameraDrone" unique_id=1081654180]
+zoom = Vector2(0.5, 0.5)

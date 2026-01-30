@@ -4,7 +4,8 @@ extends Node2D
 @export var player_node: Node2D
 
 # Załaduj scenę chunka (przeciągnij plik .tscn w inspektorze lub wpisz ścieżkę)
-var chunk_scene = preload("res://scenes/terrain_chunk.tscn")
+var terrain_scene = preload("res://scenes/terrain_chunk.tscn")
+var chasm_scene = preload("res://scenes/chasm_chunk.tscn")
 
 var next_spawn_pos = Vector2(0, 300)  # Startujemy na wysokości Y=300
 var active_chunks = []
@@ -12,9 +13,8 @@ var active_chunks = []
 
 func _ready():
 	# Generujemy 3 kawałki na start
-	for i in range(3):
+	for i in range(10):
 		spawn_chunk()
-
 
 func _process(_delta):
 	# Jeśli gracz nie jest przypisany, nic nie rób (żeby nie wywaliło błędu)
@@ -28,7 +28,17 @@ func _process(_delta):
 
 
 func spawn_chunk():
-	var new_chunk = chunk_scene.instantiate()
+	var new_chunk
+	
+	# Prosta losowość: 20% szans na przepaść
+	# Ale UWAGA: Nie generuj przepaści jako pierwszej (bo gracz spadnie na starcie)
+	if active_chunks.size() > 2 and randf() < 0.2:
+		new_chunk = chasm_scene.instantiate()
+		print("Generuję PRZEPAŚĆ!")
+	else:
+		new_chunk = terrain_scene.instantiate()
+		print("Generuję zwykły teren.")
+
 	add_child(new_chunk)
 
 	# Generuj teren zaczynając od punktu zakończenia poprzedniego
