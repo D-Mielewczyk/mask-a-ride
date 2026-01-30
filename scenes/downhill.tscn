@@ -6,6 +6,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ck653"]
 friction = 0.01
+absorbent = true
 
 [node name="downhill" type="Node2D" unique_id=1582961432]
 
