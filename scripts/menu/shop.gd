@@ -1,11 +1,11 @@
 extends Control
 
 @export var decision_time := 10.0
+var _time_left := 0.0
 @onready var money_label: Label = $Frame/Layout/Header/MoneyPanel/MoneyRow/MoneyLabel
 @onready var decision_bar: ProgressBar = $Frame/Layout/DecisionProgress
 @onready var decision_label: Label = $Frame/Layout/DecisionProgress/DecisionTimeLabel
 
-var _time_left := 0.0
 
 func _ready() -> void:
 	_time_left = decision_time

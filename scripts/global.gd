@@ -5,7 +5,8 @@ static var global: GlobalSingleton = null
 # Use this singleton in any scene with:
 # Global.(fuction or field defined in this file)s
 
-var money :int = 0
+var money: int = 0
+
 
 func _init() -> void:
 	if global == null:
