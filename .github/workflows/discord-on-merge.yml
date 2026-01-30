@@ -19,7 +19,7 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
           # Replace these with your server's emoji codes:
-          EMOJI_ALERT: "<a:alert:123456789012345678>"
+          EMOJI_ALERT: ":point_right:"
           EMOJI_PR: "🔀"
           EMOJI_BRANCH: "🌿"
           EMOJI_AUTHOR: "🧑‍💻"
