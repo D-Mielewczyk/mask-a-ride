@@ -70,12 +70,29 @@ func _update_current_terrain() -> void:
 			else:
 				current_terrain = "default"
 
-func bounce(force: float = bounce_force) -> void:
-	"""Called when hitting an obstacle - bounce upward"""
+func collide(collider: Node) -> void:
+	"""Handle collision with obstacle based on its type/groups"""
 	if not is_alive:
 		return
-	velocity.y = - force
-	velocity.x *= 0.7
+	
+	# Bouncy obstacles - balloon, trampoline, etc
+	if collider.is_in_group("obstacle_bounce"):
+		velocity.y = - bounce_force
+		velocity.x *= 0.7
+	
+	# Spike/lethal obstacles - instant death
+	elif collider.is_in_group("obstacle_spike"):
+		die()
+	
+	# Heavy obstacles - smaller bounce, damage could be added later
+	elif collider.is_in_group("obstacle_heavy"):
+		velocity.y = - bounce_force * 0.5
+		velocity.x *= 0.5
+	
+	# Default collision - slight bounce
+	else:
+		velocity.y = - bounce_force * 0.3
+		velocity.x *= 0.8
 
 func collect_money(amount: float) -> void:
 	"""Called when hitting money/powerup"""
