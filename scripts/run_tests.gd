@@ -4,7 +4,12 @@ extends SceneTree
 func _initialize() -> void:
 	var failures: Array = []
 
-	var player_test = load("res://scripts/tests/test_player.gd").new()
+	var player_test_script := load("res://scripts/tests/test_player.gd") as Script
+	if player_test_script == null:
+		push_error("Failed to load res://scripts/tests/test_player.gd")
+		quit(1)
+		return
+	var player_test = player_test_script.new()
 	failures.append_array(player_test.run())
 
 	if failures.size() > 0:

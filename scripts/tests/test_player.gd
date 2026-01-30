@@ -5,7 +5,7 @@ const EPSILON := 0.001
 
 func run() -> Array:
 	var failures: Array = []
-	var player_script = load("res://scripts/player.gd")
+	var player_script := load("res://scripts/player.gd") as Script
 	if player_script == null:
 		failures.append("Player script not found at res://scripts/player.gd")
 		return failures
@@ -27,7 +27,7 @@ func run() -> Array:
 		player.velocity.x, player.move_speed, "Initial velocity.x != move_speed", failures
 	)
 
-	var start_x := player.position.x
+	var start_x: float = player.position.x
 	player.collision_cooldown = 0.05
 	player._physics_process(0.1)
 
