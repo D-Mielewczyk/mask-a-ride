@@ -14,8 +14,6 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
           # Replace these with your server's emoji codes:
-          # Example animated: <a:alert:123456789012345678>
-          # Example normal: <:check:123456789012345678>
           EMOJI_ALERT: "<a:alert:123456789012345678>"
           EMOJI_ROCKET: "🚀"
           EMOJI_BRANCH: "🌿"
@@ -31,12 +29,18 @@ jobs:
         run: |
           short_sha="${SHORT_SHA:0:7}"
 
-          payload=$(cat <<JSON
-          {
-            "content": "${EMOJI_ALERT} ${EMOJI_ROCKET} **New push to \`${REPO}\`**\n${EMOJI_BRANCH} Branch: **\`${BRANCH}\`**\n${EMOJI_AUTHOR} Author: **${AUTHOR}**\n${EMOJI_COMMIT} Commit: **\`${short_sha}\`** - ${COMMIT_MSG}\n🔗 ${COMMIT_URL}"
-          }
-          JSON
+          # Build message as a heredoc (safe multiline)
+          content=$(cat <<EOF
+          ${EMOJI_ALERT} ${EMOJI_ROCKET} **New push to \`${REPO}\`**
+          ${EMOJI_BRANCH} Branch: **\`${BRANCH}\`**
+          ${EMOJI_AUTHOR} Author: **${AUTHOR}**
+          ${EMOJI_COMMIT} Commit: **\`${short_sha}\`** - ${COMMIT_MSG}
+          🔗 ${COMMIT_URL}
+          EOF
           )
+
+          # Create valid JSON with escaping
+          payload=$(jq -n --arg content "$content" '{content: $content}')
 
           curl -H "Content-Type: application/json" \
                -d "$payload" \
