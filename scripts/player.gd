@@ -18,11 +18,15 @@ var current_terrain: String = "air"  # "air" or terrain type name
 var is_on_ground: bool = false
 var last_collided_obstacle: Node = null
 var collision_cooldown: float = 0.0
+var _last_position: Vector2 = Vector2.ZERO
+var _default_terrain_friction: float = 0.0
 
 
 func _ready() -> void:
 	# Initial horizontal velocity
 	velocity.x = move_speed
+	_last_position = position
+	_default_terrain_friction = terrain_friction
 
 
 func _physics_process(delta: float) -> void:
@@ -31,26 +35,33 @@ func _physics_process(delta: float) -> void:
 
 	# Update collision cooldown
 	if collision_cooldown > 0:
-		collision_cooldown -= delta
+		collision_cooldown = maxf(collision_cooldown - delta, 0.0)
 
 	# Apply gravity (vertical velocity)
 	velocity.y += gravity * delta
 
+	# Move using CharacterBody2D built-in physics
+	move_and_slide()
+
 	# Check if on ground
 	is_on_ground = is_on_floor()
+
+	# Update terrain based on what we're standing on
+	_update_current_terrain()
 
 	# Apply appropriate friction based on terrain
 	var current_friction = air_friction if not is_on_ground else terrain_friction
 	velocity.x *= current_friction
 
-	# Move using CharacterBody2D built-in physics
-	move_and_slide()
-
-	# Update terrain based on what we're standing on
-	_update_current_terrain()
+	# Maintain a minimum forward speed while allowing downhill boosts
+	if velocity.x < move_speed:
+		velocity.x = move_speed
 
 	# Track distance traveled
-	distance_traveled += move_speed * delta
+	var delta_x = position.x - _last_position.x
+	if delta_x > 0:
+		distance_traveled += delta_x
+	_last_position = position
 
 	# Check if player fell off world
 	if position.y > 1200:
@@ -80,6 +91,7 @@ func _update_current_terrain() -> void:
 				terrain_friction = 0.85
 			else:
 				current_terrain = "default"
+				terrain_friction = _default_terrain_friction
 
 
 func collide(collider: Node) -> void:
