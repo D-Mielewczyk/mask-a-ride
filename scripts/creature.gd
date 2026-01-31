@@ -15,7 +15,7 @@ extends CharacterBody2D
 @export var death_start_col: int = 0
 @export var death_frame_count: int = 4
 @export var death_fps: float = 10.0
-@export var coin_reward: int = 1
+@export var coin_reward: int = 10
 @export var sprite_scale: float = 8.0
 @export var feet_offset: float = 40.0
 
