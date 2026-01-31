@@ -8,6 +8,8 @@ var children : Array[Node]
 func _ready() -> void:
 	children = get_children()
 	print(children)
+	var viewport_height = get_viewport().get_visible_rect().size.y
+	position.y -= viewport_height / 5.0
 	for child in children:
 		proportions.append((child as Parallax2D).autoscroll.x)
 
