@@ -29,7 +29,7 @@ func _process(_delta):
 	# next_spawn_pos.x to koniec obecnego świata.
 	# player_node.position.x to pozycja gracza.
 	
-	var view_distance = chunk_width * 2 # Bufor bezpieczeństwa
+	var view_distance = chunk_width * 10 # Bufor bezpieczeństwa
 	
 	while player_node.position.x + view_distance > next_spawn_pos.x:
 		spawn_chunk()
