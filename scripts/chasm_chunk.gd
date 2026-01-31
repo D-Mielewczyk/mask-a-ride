@@ -13,7 +13,11 @@ extends Node2D
 @export_group("Random Drop Settings")
 @export var min_drop_height: float = 200.0 # Minimalny uskok w dół
 @export var max_drop_height: float = 700.0 # Maksymalny uskok (głęboki zjazd)
+<<<<<<< HEAD
 @export var tile_uv_scale: float = 0.08
+=======
+@export var tile_uv_scale: float = 0.01 # Odpowiada dzieleniu przez 100.0
+>>>>>>> 27fc173 (fix shit)
 
 # Punkt końcowy dla Managera Świata
 var end_point_world: Vector2
