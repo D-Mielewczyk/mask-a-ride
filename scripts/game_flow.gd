@@ -86,6 +86,8 @@ func _on_player_died() -> void:
 		return
 	_handled_death = true
 	_pause_game()
+	if GlobalSingleton.global != null:
+		GlobalSingleton.global.reset_coins()
 	_reset_level_state()
 	_start_new_run()
 
@@ -133,7 +135,6 @@ func _double_coins() -> void:
 			_player.add_coins(0)
 	elif GlobalSingleton.global != null:
 		GlobalSingleton.global.coins *= 2
-		GlobalSingleton.global.save_coins()
 
 
 func _start_new_run() -> void:

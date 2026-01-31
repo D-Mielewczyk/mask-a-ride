@@ -2,7 +2,6 @@
 extends SceneTree
 
 const UPGRADES_SAVE_PATH := "user://shop_upgrades.json"
-const COINS_SAVE_PATH := "user://coins.json"
 
 
 func reset_upgrades() -> void:
@@ -12,9 +11,8 @@ func reset_upgrades() -> void:
 
 
 func reset_coins() -> void:
-	_delete_file(COINS_SAVE_PATH)
 	if GlobalSingleton.global != null:
-		GlobalSingleton.global.coins = 0
+		GlobalSingleton.global.reset_coins()
 
 
 func reset_all() -> void:

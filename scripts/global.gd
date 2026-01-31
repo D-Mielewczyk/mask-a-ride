@@ -5,16 +5,15 @@ static var global: GlobalSingleton = null
 # Use this singleton in any scene with:
 # Global.(function or field defined in this file)
 
-var coins: int = 2000
+var coins: int = 0
 var bought_upgrades: Dictionary = {}
-const COINS_SAVE_PATH := "user://coins.json"
 
 
 func _init() -> void:
 	if global == null:
 		global = self
 		reset_upgrades()
-		_load_coins()
+		reset_coins()
 	else:
 		printerr("Trying to create another instance of MySingleton. Deleting it.")
 		queue_free()
@@ -50,18 +49,5 @@ func reset_upgrades() -> void:
 	bought_upgrades["rocket"] = true
 
 
-func _load_coins() -> void:
-	var file = FileAccess.open(COINS_SAVE_PATH, FileAccess.READ)
-	if file == null:
-		return
-	var data = JSON.parse_string(file.get_as_text())
-	if typeof(data) == TYPE_DICTIONARY and data.has("coins"):
-		coins = int(data["coins"])
-
-
-func save_coins() -> void:
-	var file = FileAccess.open(COINS_SAVE_PATH, FileAccess.WRITE)
-	if file == null:
-		return
-	var payload = {"coins": coins}
-	file.store_string(JSON.stringify(payload))
+func reset_coins() -> void:
+	coins = 0

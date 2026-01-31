@@ -32,7 +32,7 @@ var last_animation_was_not_slide = false
 
 ## --- ZMIENNE STANU ---
 var current_fuel = 0.0
-var coins: int = 2000
+var coins: int = 0
 var has_fire_extinguisher := false
 @onready var ray = $"rotating/RayCast2D"
 @onready var gostek = $"rotating/gostek"
@@ -67,8 +67,6 @@ func _ready():
 		coins = GlobalSingleton.global.coins
 		has_fire_extinguisher = GlobalSingleton.global.is_upgrade_bought("rocket")
 		set_meta("rocket_enabled", has_fire_extinguisher)
-		if coins > 0:
-			GlobalSingleton.global.save_coins()
 
 func _physics_process(delta):
 	if _is_dead:
@@ -256,7 +254,6 @@ func add_coins(amount: int) -> void:
 	coins = max(0, coins + amount)
 	if GlobalSingleton.global != null:
 		GlobalSingleton.global.coins = coins
-		GlobalSingleton.global.save_coins()
 
 
 func revive() -> void:
