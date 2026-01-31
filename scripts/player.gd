@@ -19,6 +19,9 @@ var _is_dead := false
 @export var dive_force = 1800.0          # Jak szybko nurkujesz w dół
 @export var alignment_speed = 12.0       # Jak szybko postać prostuje się do rampy
 
+@export_group("Ulepszenia")
+@export var bounce_force = 7000.0        # Siła pierwszego odbicia (Bounce Plate)
+
 @export_group("Rakieta (Boost)")
 @export var rocket_power = 2000.0       # Siła kopa rakiety
 @export var max_fuel = 100.0             # Maksymalne paliwo
@@ -34,6 +37,9 @@ var last_animation_was_not_slide = false
 var current_fuel = 0.0
 var coins: int = 0
 var has_fire_extinguisher := false
+var bounce_plate_used := false
+var _last_ground_is_ramp := false
+var _last_ground_is_terrain := false
 @onready var ray = $"rotating/RayCast2D"
 @onready var gostek = $"rotating/gostek"
 @onready var maska = $"rotating/maska"
@@ -88,6 +94,14 @@ func _physics_process(delta):
 		# --- LOGIKA NA ZIEMI ---
 		linear_damp = ground_damp
 		var n = ray.get_collision_normal()
+		var is_ramp = _is_on_starting_ramp()
+		var is_terrain = not is_ramp
+		if is_terrain and not _last_ground_is_terrain and not bounce_plate_used and _has_bounce_plate():
+			var bounce_dir = (n + Vector2.RIGHT * 0.6).normalized()
+			apply_central_impulse(bounce_dir * bounce_force)
+			bounce_plate_used = true
+		_last_ground_is_ramp = is_ramp
+		_last_ground_is_terrain = is_terrain
 		
 		# Docisk (tylko gdy lekko odrywamy się od ziemi)
 		if global_position.distance_to(ray.get_collision_point()) > 40:
@@ -127,6 +141,8 @@ func _physics_process(delta):
 	else:
 		# --- LOGIKA W POWIETRZU ---
 		linear_damp = air_damp
+		_last_ground_is_ramp = false
+		_last_ground_is_terrain = false
 		
 		if Input.is_action_pressed("ui_down"):
 			apply_central_force(Vector2.DOWN * dive_force)
@@ -258,7 +274,36 @@ func add_coins(amount: int) -> void:
 
 func revive() -> void:
 	_is_dead = false
+	bounce_plate_used = false
 	slide()
+
+
+func reset_bounce_plate() -> void:
+	bounce_plate_used = false
+
+
+func _has_bounce_plate() -> bool:
+	return GlobalSingleton.global != null and GlobalSingleton.global.is_upgrade_bought("bounce_plate")
+
+
+func _is_on_starting_ramp() -> bool:
+	if ray == null or not ray.is_colliding():
+		return false
+	var node := ray.get_collider() as Node
+	while node != null:
+		if node.is_in_group("starting_ramp") or _is_ramp_node(node):
+			return true
+		node = node.get_parent()
+	return false
+
+
+func _is_ramp_node(node: Node) -> bool:
+	if node == null:
+		return false
+	var script: Script = node.get_script() as Script
+	if script == null:
+		return false
+	return script.resource_path == "res://scripts/ramp.gd"
 
 func _on_death_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	death()

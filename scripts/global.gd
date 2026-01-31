@@ -47,6 +47,7 @@ func _save_upgrades() -> void:
 func reset_upgrades() -> void:
 	bought_upgrades.clear()
 	bought_upgrades["rocket"] = true
+	bought_upgrades["bounce_plate"] = true
 
 
 func reset_coins() -> void:
