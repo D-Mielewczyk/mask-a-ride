@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dl40whvpkliw0"]
 
-[ext_resource type="PackedScene" uid="uid://dkm3ian7s6x4y" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dvjb3m1wtxnku" path="res://scenes/player.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://b6jfxqhhlr681" path="res://scenes/downhill.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://diehvdm53lm11" path="res://scenes/camera_2d.gd" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://tcmhrnnnhloe" path="res://scenes/background.tscn" id="3_sugp2"]
@@ -9,10 +9,10 @@
 [ext_resource type="AudioStream" uid="uid://vqpvqd3gyo4s" path="res://assets/sound/!SKOK.mp3" id="5_ya4ey"]
 [ext_resource type="Shader" uid="uid://blsa7qo0mpxtb" path="res://shaders/Fog.gdshader" id="6_tefeu"]
 [ext_resource type="AudioStream" uid="uid://c5qxhcktk0eow" path="res://assets/sound/!CHAMOWANIE 2.mp3" id="6_ya4ey"]
-[ext_resource type="Script" path="res://scripts/creature_spawner.gd" id="7_creature_spawner"]
+[ext_resource type="Script" uid="uid://dlyvfwkd3ne7o" path="res://scripts/creature_spawner.gd" id="7_creature_spawner"]
 [ext_resource type="Script" path="res://scripts/rocket_fuel_boost_spawner.gd" id="8_boost_spawner"]
-[ext_resource type="Script" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
 [ext_resource type="AudioStream" uid="uid://g3tbqevq1j1p" path="res://assets/sound/demo 2.mp3" id="9_85g3d"]
+[ext_resource type="Script" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
 shader = ExtResource("6_tefeu")
@@ -68,11 +68,11 @@ attenuation = 0.0
 script = ExtResource("7_creature_spawner")
 player_path = NodePath("../Player")
 
-[node name="RocketFuelBoostSpawner" type="Node2D" parent="."]
+[node name="RocketFuelBoostSpawner" type="Node2D" parent="." unique_id=321472060]
 script = ExtResource("8_boost_spawner")
 player_path = NodePath("../Player")
 
-[node name="TrapSpawner" type="Node2D" parent="."]
+[node name="TrapSpawner" type="Node2D" parent="." unique_id=798311119]
 script = ExtResource("9_trap_spawner")
 player_path = NodePath("../Player")
 

@@ -13,6 +13,7 @@ texture_repeat = 2
 texture_repeat = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=268486641]
+build_mode = 1
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1871452081]
 rect = Rect2(-500, -1000, 3000, 2500)
