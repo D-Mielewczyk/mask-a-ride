@@ -77,3 +77,12 @@ func get_end_point():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
+	
+func _ready():
+	# Połącz sygnał, jeśli nie zrobiłeś tego w edytorze
+	# (Zakładając, że węzeł nazywa się VisibleOnScreenNotifier2D)
+	$VisibleOnScreenNotifier2D.screen_exited.connect(_on_screen_exited)
+
+func _on_screen_exited():
+	# Chunk wyszedł całkowicie z ekranu -> usuwamy go z pamięci
+	queue_free()

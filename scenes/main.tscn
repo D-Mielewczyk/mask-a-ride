@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dl40whvpkliw0"]
 
-[ext_resource type="PackedScene" uid="uid://dvjb3m1wtxnku" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dkm3ian7s6x4y" path="res://scenes/player.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://b6jfxqhhlr681" path="res://scenes/downhill.tscn" id="2_0wfyh"]
-[ext_resource type="Script" uid="uid://diehvdm53lm11" path="res://scenes/camera_2d.gd" id="2_sugp2"]
+[ext_resource type="Script" path="res://scenes/camera_2d.gd" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ch16615gmuibv" path="res://scenes/world.tscn" id="4_jyhfs"]
 
 [node name="main" type="Node2D" unique_id=1679531480]

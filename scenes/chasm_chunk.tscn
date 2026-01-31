@@ -4,6 +4,7 @@
 
 [node name="ChasmChunk" type="Node2D" unique_id=1297083911]
 script = ExtResource("1_q61qq")
+landing_width = 300.0
 
 [node name="RampBody" type="StaticBody2D" parent="." unique_id=1948681960]
 
@@ -26,3 +27,4 @@ script = ExtResource("1_q61qq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=1712223759]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1550035081]
+rect = Rect2(-500, -1000, 3000, 2500)

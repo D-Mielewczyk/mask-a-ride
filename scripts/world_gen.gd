@@ -2,8 +2,8 @@ extends StaticBody2D
 
 # Konfiguracja "Krzywizny" i "Hopek"
 @export var chunk_width: float = 1920.0  # Szerokość jednego kawałka terenu
-@export var num_hills: int = 3  # Ile górek na jeden kawałek (zagęszczenie)
-@export var height_variation: float = 400.0  # Jak bardzo góra/dół skacze Y
+@export var num_hills: int = 2  # Ile górek na jeden kawałek (zagęszczenie)
+@export var height_variation: float = 700.0  # Jak bardzo góra/dół skacze Y
 @export var hill_roughness: float = 0.4  # Siła "wygięcia" (0 = płasko, 1 = pętle)
 
 # Zmienne wewnętrzne
@@ -94,4 +94,13 @@ func get_end_point():
 
 # Sprzątanie terenu, gdy wyjdzie poza ekran (ważne dla optymalizacji!)
 func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
+	
+func _ready():
+	# Połącz sygnał, jeśli nie zrobiłeś tego w edytorze
+	# (Zakładając, że węzeł nazywa się VisibleOnScreenNotifier2D)
+	$VisibleOnScreenNotifier2D.screen_exited.connect(_on_screen_exited)
+
+func _on_screen_exited():
+	# Chunk wyszedł całkowicie z ekranu -> usuwamy go z pamięci
 	queue_free()
