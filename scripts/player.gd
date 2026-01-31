@@ -19,6 +19,7 @@ extends RigidBody2D
 
 ## --- ZMIENNE STANU ---
 var current_fuel = 0.0
+var coins: int = 0
 @onready var ray = $RayCast2D
 
 func _ready():
@@ -82,3 +83,9 @@ func _physics_process(delta):
 # Funkcja do ulepszeń: tankowanie paliwa (np. po zebraniu znajdźki)
 func add_fuel(amount):
 	current_fuel = clamp(current_fuel + amount, 0, max_fuel)
+
+
+func add_coins(amount: int) -> void:
+	coins = max(0, coins + amount)
+	if GlobalSingleton.global != null:
+		GlobalSingleton.global.money = coins

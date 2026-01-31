@@ -15,7 +15,7 @@ extends CharacterBody2D
 @export var death_start_col: int = 0
 @export var death_frame_count: int = 4
 @export var death_fps: float = 10.0
-@export var money_reward: int = 5
+@export var money_reward: int = 1
 @export var sprite_scale: float = 8.0
 @export var feet_offset: float = 40.0
 
@@ -30,7 +30,11 @@ func _ready() -> void:
 	_pick_row()
 	_build_animations()
 	anim.play("idle")
+	if anim.sprite_frames != null and anim.sprite_frames.has_animation("death"):
+		anim.sprite_frames.set_animation_loop("death", false)
 	anim.scale = Vector2(sprite_scale, sprite_scale)
+	collision_layer = 0
+	collision_mask = 0
 	z_index = 5
 	if hitbox != null and not hitbox.body_entered.is_connected(_on_body_entered):
 		hitbox.body_entered.connect(_on_body_entered)
@@ -118,10 +122,14 @@ func _on_body_entered(body: Node) -> void:
 func _die() -> void:
 	_dying = true
 	anim.play("death")
-	if GlobalSingleton.global != null:
-		GlobalSingleton.global.money += money_reward
+	_award_money()
 	anim.animation_finished.connect(_on_death_finished, CONNECT_ONE_SHOT)
 
 
 func _on_death_finished() -> void:
 	queue_free()
+
+
+func _award_money() -> void:
+	if _player != null:
+		_player.add_coins(money_reward)
