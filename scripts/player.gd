@@ -20,7 +20,7 @@ var _is_dead := false
 @export var alignment_speed = 12.0       # Jak szybko postać prostuje się do rampy
 
 @export_group("Ulepszenia")
-@export var bounce_force = 18000.0        # Siła pierwszego odbicia (Bounce Plate)
+@export var bounce_force = 7000.0        # Siła pierwszego odbicia (Bounce Plate)
 
 @export_group("Rakieta (Boost)")
 @export var rocket_power = 2000.0       # Siła kopa rakiety
@@ -276,6 +276,10 @@ func revive() -> void:
 	_is_dead = false
 	bounce_plate_used = false
 	slide()
+
+
+func reset_bounce_plate() -> void:
+	bounce_plate_used = false
 
 
 func _has_bounce_plate() -> bool:

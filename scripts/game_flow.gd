@@ -95,6 +95,8 @@ func _on_player_died() -> void:
 func _show_roulette() -> void:
 	if _player != null and "current_fuel" in _player:
 		_player.current_fuel = max(_player.current_fuel, 100)
+		if _player.has_method("reset_bounce_plate"):
+			_player.reset_bounce_plate()
 	_pause_game()
 	var roulette = roulette_scene.instantiate()
 	roulette.process_mode = Node.PROCESS_MODE_ALWAYS
