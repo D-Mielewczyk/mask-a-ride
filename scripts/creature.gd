@@ -38,7 +38,7 @@ func _ready() -> void:
 	anim.scale = Vector2(sprite_scale, sprite_scale)
 	collision_layer = 0
 	collision_mask = 0
-	z_index = 5
+	z_index = -1
 	if hitbox != null and not hitbox.body_entered.is_connected(_on_body_entered):
 		hitbox.body_entered.connect(_on_body_entered)
 
@@ -127,10 +127,11 @@ func _die() -> void:
 	anim.play("death")
 	_award_coins()
 	anim.animation_finished.connect(_on_death_finished, CONNECT_ONE_SHOT)
-	if randf() < 0.25:
-		if randf() < 0.5:
+	if randf() < 0.5:
+		if death1 != null:
 			death1.play()
-			return
+		return
+	if death2 != null:
 		death2.play()
 
 
