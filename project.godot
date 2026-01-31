@@ -13,7 +13,12 @@ config_version=5
 config/name="Mask a ride"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/bg_color=Color(0.9490196, 0.72156864, 0.5764706, 1)
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://be74nt2fkah6i"
 
 [display]
 
