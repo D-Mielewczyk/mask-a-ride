@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://roulettebar1"]
+[gd_scene format=3 uid="uid://roulettebar1"]
 
 [ext_resource type="Script" path="res://scripts/ui/roulette_bar.gd" id="1"]
 [ext_resource type="Texture2D" path="res://assets/shop.png" id="2"]

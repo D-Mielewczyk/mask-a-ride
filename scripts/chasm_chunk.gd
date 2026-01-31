@@ -13,6 +13,7 @@ extends Node2D
 @export_group("Random Drop Settings")
 @export var min_drop_height: float = 100.0 # Minimalny uskok w dół
 @export var max_drop_height: float = 600.0 # Maksymalny uskok (głęboki zjazd)
+@export var tile_uv_scale: float = 0.08
 
 # Punkt końcowy dla Managera Świata
 var end_point_world: Vector2
@@ -88,7 +89,8 @@ func build_island(body_node, curve: Curve2D):
 	body_node.get_node("Line2D").points = baked
 	
 	var uv = PackedVector2Array()
-	for p in poly: uv.append(p / 100.0)
+	for p in poly:
+		uv.append(p * tile_uv_scale)
 	body_node.get_node("Polygon2D").uv = uv
 
 func get_end_point():

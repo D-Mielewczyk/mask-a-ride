@@ -9,6 +9,7 @@ extends StaticBody2D
 @export var max_drop: float = 1200.0   # Maksymalny spadek (duża liczba = szybki zjazd)
 
 @export var hill_roughness: float = 0.4
+@export var tile_uv_scale: float = 0.08
 
 # Zmienne wewnętrzne
 var end_point_world: Vector2
@@ -88,7 +89,7 @@ func generate_terrain(start_world_pos: Vector2):
 	# UV
 	var uv_points = PackedVector2Array()
 	for p in poly_points:
-		uv_points.append(p / 100.0)
+		uv_points.append(p * tile_uv_scale)
 	$Polygon2D.uv = uv_points
 
 func get_end_point():

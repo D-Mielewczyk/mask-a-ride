@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dofttpydh7hri"]
 
 [ext_resource type="Script" uid="uid://7sy2j2dkmghv" path="res://scripts/chasm_chunk.gd" id="1_q61qq"]
+[ext_resource type="Texture2D" path="res://assets/slope_tile.png" id="2_slope"]
 
 [node name="ChasmChunk" type="Node2D" unique_id=1297083911]
 script = ExtResource("1_q61qq")
@@ -12,18 +13,26 @@ landing_width = 300.0
 [node name="RampBody" type="StaticBody2D" parent="." unique_id=1948681960]
 
 [node name="Polygon2D" type="Polygon2D" parent="RampBody" unique_id=954295586]
+texture = ExtResource("2_slope")
+texture_repeat = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RampBody" unique_id=21004626]
 
 [node name="Line2D" type="Line2D" parent="RampBody" unique_id=431298750]
+texture = ExtResource("2_slope")
+texture_repeat = 2
 
 [node name="LandingBody" type="StaticBody2D" parent="." unique_id=1197118813]
 
 [node name="Polygon2D" type="Polygon2D" parent="LandingBody" unique_id=522694148]
+texture = ExtResource("2_slope")
+texture_repeat = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LandingBody" unique_id=256337402]
 
 [node name="Line2D" type="Line2D" parent="LandingBody" unique_id=486006417]
+texture = ExtResource("2_slope")
+texture_repeat = 2
 
 [node name="DeathZone" type="Area2D" parent="." unique_id=1648260562]
 
