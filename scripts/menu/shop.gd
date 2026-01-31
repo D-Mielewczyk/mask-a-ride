@@ -11,6 +11,7 @@ var _pool := ShopUpgradePool.new()
 @onready var money_label: Label = $Frame/Layout/Header/MoneyPanel/MoneyRow/MoneyLabel
 @onready var decision_bar: ProgressBar = $Frame/Layout/DecisionProgress
 @onready var decision_label: Label = $Frame/Layout/DecisionProgress/DecisionTimeLabel
+@onready var skip_button: Button = $Frame/Layout/Footer/SkipButton
 @onready var option_roots: Array[Node] = [
 	$Frame/Layout/OptionsRow/Option1,
 	$Frame/Layout/OptionsRow/Option2,
@@ -27,6 +28,7 @@ func _ready() -> void:
 	_update_timer()
 	_update_progress()
 	_connect_buttons()
+	_connect_skip()
 
 
 func _process(delta: float) -> void:
@@ -37,7 +39,7 @@ func _process(delta: float) -> void:
 	_update_progress()
 	_update_glow_pulse(delta)
 	if _time_left <= 0.0:
-		_lock_shop()
+		_close_shop()
 
 
 func _connect_buttons() -> void:
@@ -45,6 +47,11 @@ func _connect_buttons() -> void:
 		var button = option_roots[index].get_node("Option%dContent/Option%dBuy" % [index + 1, index + 1]) as Button
 		if button != null and not button.pressed.is_connected(_on_buy_pressed.bind(index)):
 			button.pressed.connect(_on_buy_pressed.bind(index))
+
+
+func _connect_skip() -> void:
+	if skip_button != null and not skip_button.pressed.is_connected(_close_shop):
+		skip_button.pressed.connect(_close_shop)
 
 
 func _pick_options() -> void:
@@ -112,6 +119,7 @@ func _on_buy_pressed(index: int) -> void:
 	global.set_upgrade_bought(upgrade.id, true)
 	_update_money()
 	_render_option(index, upgrade)
+	_close_shop()
 
 
 func _update_money() -> void:
@@ -136,6 +144,12 @@ func _lock_shop() -> void:
 		var button := node as Button
 		if button != null:
 			button.disabled = true
+
+
+func _close_shop() -> void:
+	_lock_shop()
+	visible = false
+	set_process(false)
 
 
 func _update_progress() -> void:
