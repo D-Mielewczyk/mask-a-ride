@@ -104,6 +104,7 @@ script = ExtResource("1_bkp1e")
 repeat_size = Vector2(256, 0)
 autoscroll = Vector2(-5, 0)
 repeat_times = 11
+ignore_camera_scroll = true
 
 [node name="0" type="AnimatedSprite2D" parent="0" unique_id=153251153]
 texture_filter = 1
@@ -131,6 +132,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "04ec3920dfb5bc5660e89621403dc877"
 repeat_size = Vector2(256, 0)
 autoscroll = Vector2(-10, 0)
 repeat_times = 10
+ignore_camera_scroll = true
 
 [node name="1" type="AnimatedSprite2D" parent="1" unique_id=527112872]
 texture_filter = 1
@@ -158,6 +160,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "04ec3920dfb5bc5660e89621403dc877"
 repeat_size = Vector2(512, 0)
 autoscroll = Vector2(-10, 0)
 repeat_times = 5
+ignore_camera_scroll = true
 
 [node name="4" type="AnimatedSprite2D" parent="2" unique_id=1015198550]
 texture_filter = 1
@@ -185,6 +188,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "04ec3920dfb5bc5660e89621403dc877"
 repeat_size = Vector2(256, 0)
 autoscroll = Vector2(-17, 0)
 repeat_times = 10
+ignore_camera_scroll = true
 
 [node name="2" type="AnimatedSprite2D" parent="3" unique_id=836804529]
 texture_filter = 1
@@ -212,6 +216,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "04ec3920dfb5bc5660e89621403dc877"
 repeat_size = Vector2(256, 0)
 autoscroll = Vector2(-20, 0)
 repeat_times = 10
+ignore_camera_scroll = true
 
 [node name="3" type="AnimatedSprite2D" parent="4" unique_id=473241332]
 texture_filter = 1
