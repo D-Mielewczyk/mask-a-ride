@@ -189,7 +189,10 @@ func death():
 	collision_mask = 0
 	freeze = true 
 	
-	get_tree().paused = true
+	if is_inside_tree():
+		var tree = get_tree()
+		if tree != null:
+			tree.paused = true
 	
 	var death_height = global_position.y - 750 
 	var fall_height = global_position.y + 5000 

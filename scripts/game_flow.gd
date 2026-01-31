@@ -142,8 +142,11 @@ func _double_coins() -> void:
 
 func _start_new_run() -> void:
 	_handled_death = false
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	var tree = get_tree()
+	if tree == null:
+		return
+	tree.paused = false
+	tree.reload_current_scene()
 
 
 
@@ -155,10 +158,16 @@ func _resume_from_death() -> void:
 
 
 func _pause_game() -> void:
-	get_tree().paused = true
+	var tree = get_tree()
+	if tree == null:
+		return
+	tree.paused = true
 
 func _resume_game() -> void:
-	get_tree().paused = false
+	var tree = get_tree()
+	if tree == null:
+		return
+	tree.paused = false
 
 func _resolve_player() -> Node:
 	if player_path != NodePath():
