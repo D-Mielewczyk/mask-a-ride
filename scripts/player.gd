@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+signal died
+
 ## --- PARAMETRY DO ULEPSZEŃ (Eksportowane do Inspektora) ---
 @export_group("Ruch i Slidowanie")
 @export var acceleration_scale = 4000.0  # Jak mocno pcha w dół (Alto style)
@@ -140,10 +142,20 @@ func slide():
 	last_animation_was_not_slide = false
 
 func death():
+	if _is_dead:
+		return
+	_is_dead = true
 	print("ŚMIERĆ")
 	gostek.play("death")
 	maska.play("death")
 	last_animation_was_not_slide = false
+	died.emit()
+	get_tree().call_group("game_flow", "handle_player_death")
+	var current = get_tree().current_scene
+	if current != null and current.has_node("GameFlow"):
+		var flow = current.get_node("GameFlow")
+		if flow != null and flow.has_method("handle_player_death"):
+			flow.handle_player_death()
 
 func finished():
 	if last_animation_was_not_slide:
@@ -153,6 +165,11 @@ func add_coins(amount: int) -> void:
 	coins = max(0, coins + amount)
 	if GlobalSingleton.global != null:
 		GlobalSingleton.global.money = coins
+
+
+func revive() -> void:
+	_is_dead = false
+	slide()
 
 func _on_death_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	death()
@@ -166,3 +183,4 @@ func _setup_rocket_foam() -> void:
 	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
 	img.fill(Color(1, 1, 1, 1))
 	rocket_foam.texture = ImageTexture.create_from_image(img)
+var _is_dead := false

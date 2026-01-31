@@ -1,6 +1,8 @@
 # gdlint:ignore = class-definitions-order
 extends Control
 
+signal closed
+
 @export var decision_time := 10.0
 
 var _time_left := 0.0
@@ -150,6 +152,7 @@ func _close_shop() -> void:
 	_lock_shop()
 	visible = false
 	set_process(false)
+	closed.emit()
 
 
 func _update_progress() -> void:
