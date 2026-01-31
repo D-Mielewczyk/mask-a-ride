@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Mask a ride"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="uid://8gu8caguctdb"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.9490196, 0.72156864, 0.5764706, 1)
 config/icon="res://icon.svg"
@@ -41,4 +41,7 @@ common/physics_ticks_per_second=120
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+textures/default_filters/anisotropic_filtering_level=0
+environment/defaults/default_clear_color=Color(0.93333334, 0.84705883, 0.76862746, 1)

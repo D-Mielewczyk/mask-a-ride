@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dwosuvxhc6p7f"
+path="res://.godot/imported/start4.png-51b3de054b9a96b3ee1a7465ac16b54f.res"
+
+[deps]
+
+source_file="res://assets/tart/start4.png"
+dest_files=["res://.godot/imported/start4.png-51b3de054b9a96b3ee1a7465ac16b54f.res"]
+
+[params]
+
+create_from=0
+threshold=0.5
