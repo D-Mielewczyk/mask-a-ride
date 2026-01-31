@@ -25,6 +25,8 @@ var coins: int = 0
 @onready var ray = $"rotating/RayCast2D"
 @onready var gostek = $"rotating/gostek"
 @onready var maska = $"rotating/maska"
+var spawn_time
+var SPAWN_PROTECTION_TIME: int = 2000
 
 func _ready():
 	current_fuel = max_fuel # Startujemy z pełnym bakiem
@@ -33,6 +35,7 @@ func _ready():
 	slide()
 	last_animation_was_not_slide = false
 	gostek.connect("animation_finished", slide)
+	spawn_time = Time.get_ticks_msec()
 
 func _physics_process(delta):
 	var rot_dir = Input.get_axis("ui_left", "ui_right")
@@ -86,7 +89,11 @@ func _physics_process(delta):
 		var boost_dir = Vector2.RIGHT.rotated(rotation)
 		apply_central_force(boost_dir * rocket_power)
 		current_fuel -= fuel_consumption * delta
-		print("Paliwo: ", int(current_fuel)) # Debug w konsoli
+		
+	if (linear_velocity.x < 30) and (Time.get_ticks_msec() - spawn_time > SPAWN_PROTECTION_TIME):
+		death()
+		
+	
 
 # Funkcja do ulepszeń: tankowanie paliwa (np. po zebraniu znajdźki)
 func add_fuel(amount):
@@ -108,6 +115,7 @@ func slide():
 	last_animation_was_not_slide = false
 
 func death():
+	print("ŚMIERĆ")
 	gostek.play("death")
 	maska.play("death")
 	last_animation_was_not_slide = false
@@ -120,3 +128,6 @@ func add_coins(amount: int) -> void:
 	coins = max(0, coins + amount)
 	if GlobalSingleton.global != null:
 		GlobalSingleton.global.money = coins
+
+func _on_death_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	death()
