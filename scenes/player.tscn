@@ -1,12 +1,87 @@
 [gd_scene format=3 uid="uid://dvjb3m1wtxnku"]
 
 [ext_resource type="Script" uid="uid://cn8520kfh0r18" path="res://scripts/player.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dk8waetq24ifw" path="res://assets/player/ludzik4.png" id="2_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://c5gh6l2e8ira7" path="res://assets/player/ludzik2.png" id="3_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://b6b6it1xhhe5u" path="res://assets/player/ludzik5.png" id="4_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cvcevkmukub05" path="res://assets/player/ludzik1.png" id="5_smehm"]
+[ext_resource type="Texture2D" uid="uid://ncjrl1q1305e" path="res://assets/player/rampa1.png" id="6_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://bvf6gcl4gvhtk" path="res://assets/player/rampa3.png" id="7_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://dwp301p0wkkc0" path="res://assets/player/rampa5.png" id="8_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://2tutmxut5r1e" path="res://assets/player/rampa4.png" id="9_3v2ag"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g2els"]
 friction = 0.2
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3vyb7"]
-load_path = "res://.godot/imported/player.png-be2216fcaabb5c62aa2466cd9a5726a8.ctex"
+[sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qlg0r")
+}],
+"loop": true,
+"name": &"break",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tuyoq")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_fjrip")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_smehm")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qlg0r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ur7pv")
+}],
+"loop": true,
+"name": &"break",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_y4r1p")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_d2wvv")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_3v2ag")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 37.0
@@ -16,9 +91,60 @@ height = 110.0
 physics_material_override = SubResource("PhysicsMaterial_g2els")
 script = ExtResource("1")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=221682578]
+[node name="gostek" type="AnimatedSprite2D" parent="." unique_id=123019711]
+texture_filter = 1
 scale = Vector2(4, 4)
-texture = SubResource("CompressedTexture2D_3vyb7")
+sprite_frames = SubResource("SpriteFrames_fjrip")
+animation = &"jump"
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": true,
+"output_section": true,
+"pending_changes": {},
+"slice_section": true
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source": "res://assets/ludzik.aseprite",
+"source_uid": 1528048325453033903
+}
+metadata/_aseprite_wizard_source_file_hash_ = "46f42c0e48058cfbbf2189bd85a4ba03"
+
+[node name="maska" type="AnimatedSprite2D" parent="." unique_id=1399936172]
+z_index = -1
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_qlg0r")
+animation = &"death"
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": true,
+"output_section": true,
+"pending_changes": {},
+"slice_section": true
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source": "res://assets/ludzik.aseprite",
+"source_uid": 1528048325453033903
+}
+metadata/_aseprite_wizard_source_file_hash_ = "46f42c0e48058cfbbf2189bd85a4ba03"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119381307]
 position = Vector2(-2, 22)

@@ -17,15 +17,21 @@ extends RigidBody2D
 @export var max_fuel = 100.0             # Maksymalne paliwo
 @export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
+var not_slide = false
+
 ## --- ZMIENNE STANU ---
 var current_fuel = 0.0
 var coins: int = 0
 @onready var ray = $RayCast2D
+@onready var gostek = $gostek
+@onready var maska = $maska
 
 func _ready():
 	current_fuel = max_fuel # Startujemy z pełnym bakiem
 	# Ustawiamy tarcie materiału na 0 w kodzie, żeby nic nie blokowało slajdu
 	physics_material_override.friction = 0.0
+	slide()
+	gostek.connect("animation_finished", slide)
 
 func _physics_process(delta):
 	var rot_dir = Input.get_axis("ui_left", "ui_right")
@@ -52,6 +58,7 @@ func _physics_process(delta):
 		
 		# Skok
 		if Input.is_action_just_pressed("ui_up"):
+			jump()
 			apply_central_impulse(n * 500.0) # Stała siła skoku
 
 		# Prostowanie lub obracanie
@@ -84,6 +91,27 @@ func _physics_process(delta):
 func add_fuel(amount):
 	current_fuel = clamp(current_fuel + amount, 0, max_fuel)
 
+func jump():
+	gostek.play("jump")
+	maska.play("jump")
+
+func breakk():
+	gostek.play("break")
+	maska.play("break")
+	not_slide = true
+
+func slide():
+	gostek.play("slide")
+	maska.play("slide")
+
+func death():
+	gostek.play("death")
+	maska.play("death")
+	not_slide =false
+
+func finished():
+	if not_slide:
+		slide()
 
 func add_coins(amount: int) -> void:
 	coins = max(0, coins + amount)
