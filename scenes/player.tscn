@@ -87,6 +87,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ur7pv"]
+size = Vector2(73, 27.5)
+
 [node name="Player" type="RigidBody2D" unique_id=358743943 groups=["player"]]
 physics_material_override = SubResource("PhysicsMaterial_g2els")
 script = ExtResource("1")
@@ -157,6 +160,16 @@ metadata/_aseprite_wizard_source_file_hash_ = "46f42c0e48058cfbbf2189bd85a4ba03"
 position = Vector2(74, 0)
 target_position = Vector2(0, 100)
 
+[node name="death_area" type="Area2D" parent="." unique_id=372118887]
+collision_layer = 0
+collision_mask = 128
+
+[node name="death_collision" type="CollisionShape2D" parent="death_area" unique_id=654939272]
+position = Vector2(-0.5, -18.25)
+shape = SubResource("RectangleShape2D_ur7pv")
+
+[connection signal="area_entered" from="death_area" to="." method="_on_death_area_area_entered"]
+[connection signal="body_shape_entered" from="death_area" to="." method="_on_death_area_body_shape_entered"]
 [node name="RocketFoam" type="CPUParticles2D" parent="rotating" unique_id=2113436107]
 z_index = 2
 emitting = false

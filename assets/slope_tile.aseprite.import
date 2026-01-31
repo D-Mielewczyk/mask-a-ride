@@ -3,12 +3,11 @@
 importer="aseprite_wizard.plugin.static-texture"
 type="PortableCompressedTexture2D"
 uid="uid://chkerbirj51rg"
-path="res://.godot/imported/slope_tile.aseprite-92f54239e539eb267379e9e328c03468.res"
+valid=false
 
 [deps]
 
 source_file="res://assets/slope_tile.aseprite"
-dest_files=["res://.godot/imported/slope_tile.aseprite-92f54239e539eb267379e9e328c03468.res"]
 
 [params]
 

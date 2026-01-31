@@ -10,6 +10,7 @@ friction = 0.01
 [node name="downhill" type="Node2D" unique_id=1582961432]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=715961560]
+collision_layer = 129
 physics_material_override = SubResource("PhysicsMaterial_ck653")
 script = ExtResource("1_5vib2")
 start_height = 1800.0
