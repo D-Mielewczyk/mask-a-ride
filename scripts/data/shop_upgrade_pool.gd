@@ -89,3 +89,4 @@ func _requirements_met(upgrade: ShopUpgrade) -> bool:
 		if not global.is_upgrade_bought(req_id):
 			return false
 	return true
+	

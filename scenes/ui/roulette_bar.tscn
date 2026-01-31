@@ -1,0 +1,158 @@
+[gd_scene load_steps=9 format=3 uid="uid://roulettebar1"]
+
+[ext_resource type="Script" path="res://scripts/ui/roulette_bar.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/shop.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/coin.png" id="3"]
+[ext_resource type="Script" path="res://scripts/ui/coin_anim.gd" id="4"]
+[ext_resource type="Texture2D" path="res://assets/ressurect.png" id="5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.07, 0.07, 0.1, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.2, 0.28, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+content_margin_left = 16
+content_margin_top = 16
+content_margin_right = 16
+content_margin_bottom = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
+bg_color = Color(0.12, 0.12, 0.16, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[node name="RouletteBar" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.45)
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.8
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="Layout" type="VBoxContainer" parent="Panel"]
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Panel/Layout"]
+text = "Lucky Draw"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+
+[node name="WheelArea" type="Control" parent="Panel/Layout"]
+custom_minimum_size = Vector2(0, 260)
+size_flags_horizontal = 3
+
+[node name="Wheel" type="Node2D" parent="Panel/Layout/WheelArea"]
+position = Vector2(0, 0)
+
+[node name="SlotNothing" type="PanelContainer" parent="Panel/Layout/WheelArea/Wheel"]
+custom_minimum_size = Vector2(180, 110)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="SlotNothingContent" type="VBoxContainer" parent="Panel/Layout/WheelArea/Wheel/SlotNothing"]
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="SlotNothingIcon" type="Label" parent="Panel/Layout/WheelArea/Wheel/SlotNothing/SlotNothingContent"]
+text = "–"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 36
+
+[node name="SlotNothingLabel" type="Label" parent="Panel/Layout/WheelArea/Wheel/SlotNothing/SlotNothingContent"]
+text = "Nothing 59%"
+horizontal_alignment = 1
+
+[node name="SlotShop" type="PanelContainer" parent="Panel/Layout/WheelArea/Wheel"]
+custom_minimum_size = Vector2(180, 110)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="SlotShopContent" type="VBoxContainer" parent="Panel/Layout/WheelArea/Wheel/SlotShop"]
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="SlotShopIcon" type="TextureRect" parent="Panel/Layout/WheelArea/Wheel/SlotShop/SlotShopContent"]
+texture = ExtResource("2")
+custom_minimum_size = Vector2(56, 56)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SlotShopLabel" type="Label" parent="Panel/Layout/WheelArea/Wheel/SlotShop/SlotShopContent"]
+text = "Shop 30%"
+horizontal_alignment = 1
+
+[node name="SlotDouble" type="PanelContainer" parent="Panel/Layout/WheelArea/Wheel"]
+custom_minimum_size = Vector2(180, 110)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="SlotDoubleContent" type="VBoxContainer" parent="Panel/Layout/WheelArea/Wheel/SlotDouble"]
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="SlotDoubleIcon" type="TextureRect" parent="Panel/Layout/WheelArea/Wheel/SlotDouble/SlotDoubleContent"]
+texture = ExtResource("3")
+script = ExtResource("4")
+custom_minimum_size = Vector2(56, 56)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SlotDoubleLabel" type="Label" parent="Panel/Layout/WheelArea/Wheel/SlotDouble/SlotDoubleContent"]
+text = "Double 10%"
+horizontal_alignment = 1
+
+[node name="SlotResurrect" type="PanelContainer" parent="Panel/Layout/WheelArea/Wheel"]
+custom_minimum_size = Vector2(180, 110)
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="SlotResurrectContent" type="VBoxContainer" parent="Panel/Layout/WheelArea/Wheel/SlotResurrect"]
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="SlotResurrectIcon" type="TextureRect" parent="Panel/Layout/WheelArea/Wheel/SlotResurrect/SlotResurrectContent"]
+texture = ExtResource("5")
+custom_minimum_size = Vector2(56, 56)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SlotResurrectLabel" type="Label" parent="Panel/Layout/WheelArea/Wheel/SlotResurrect/SlotResurrectContent"]
+text = "Resurrect 1%"
+horizontal_alignment = 1
+
+[node name="Arrow" type="Label" parent="Panel/Layout/WheelArea"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -12
+offset_right = 12
+offset_top = -30
+offset_bottom = -4
+text = "▲"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 26
+
+[node name="ResultLabel" type="Label" parent="Panel/Layout"]
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
