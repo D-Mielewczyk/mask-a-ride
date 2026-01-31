@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dl40whvpkliw0"]
 
-[ext_resource type="PackedScene" uid="uid://dkm3ian7s6x4y" path="res://scenes/player.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://oslmuwc2tsuh" path="res://scenes/player.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://b6jfxqhhlr681" path="res://scenes/downhill.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://diehvdm53lm11" path="res://scenes/camera_2d.gd" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://tcmhrnnnhloe" path="res://scenes/background.tscn" id="3_sugp2"]
-[ext_resource type="PackedScene" uid="uid://ch16615gmuibv" path="res://scenes/world.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" path="res://scenes/world.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cnx6slv3dsdaf" path="res://scenes/ui/hud.tscn" id="5_tbgi4"]
 [ext_resource type="Shader" uid="uid://blsa7qo0mpxtb" path="res://shaders/Fog.gdshader" id="6_tefeu"]
 [ext_resource type="Script" path="res://scripts/creature_spawner.gd" id="7_creature_spawner"]
@@ -39,7 +39,7 @@ bg = NodePath("background")
 z_index = -3
 scale = Vector2(10, 10)
 player = NodePath("../..")
-speed_multiplier = 0.013
+speed_multiplier = 0.013000000000000001
 
 [node name="downhill" parent="." unique_id=1582961432 instance=ExtResource("2_0wfyh")]
 
