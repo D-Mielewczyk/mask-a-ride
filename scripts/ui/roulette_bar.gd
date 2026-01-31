@@ -14,6 +14,11 @@ signal outcome_selected(outcome: String)
 @export var scale_min := 0.7
 @export var scale_max := 1.0
 
+var _spin_sound: AudioStream = preload("res://assets/sound/!ruletka.mp3")
+var _win_sound: AudioStream = preload("res://assets/sound/!win.wav")
+var _spin_player: AudioStreamPlayer
+var _win_player: AudioStreamPlayer
+
 @onready var wheel_area: Control = $Panel/Layout/WheelArea
 @onready var wheel: Node2D = $Panel/Layout/WheelArea/Wheel
 @onready var slot_nothing: Control = $Panel/Layout/WheelArea/Wheel/SlotNothing
@@ -34,6 +39,7 @@ var _slot_angles := {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	_setup_audio()
 	_update_labels()
 	_update_wheel_positions()
 	spin()
@@ -74,6 +80,7 @@ func spin() -> void:
 	var target_angle = PI / 2.0 - slot_angle + TAU * spins
 	_current_angle = 0.0
 	_spinning = true
+	_play_spin_sound()
 	var tween = create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_trans(Tween.TRANS_EXPO)
@@ -98,6 +105,7 @@ func _weighted_pick() -> String:
 
 func _show_result(outcome: String) -> void:
 	_spinning = false
+	_stop_spin_sound()
 	match outcome:
 		"shop":
 			result_label.text = "Shop appears!"
@@ -107,6 +115,8 @@ func _show_result(outcome: String) -> void:
 			result_label.text = "Fireworks! (kidding this does nothing)"
 		_:
 			result_label.text = "Nothing this time."
+	if outcome != "nothing":
+		_play_win_sound()
 	outcome_selected.emit(outcome)
 
 
@@ -131,3 +141,34 @@ func _shuffle_slot_angles() -> void:
 	_slot_angles["shop"] = angles[1]
 	_slot_angles["double"] = angles[2]
 	_slot_angles["fireworks"] = angles[3]
+
+
+func _setup_audio() -> void:
+	_spin_player = AudioStreamPlayer.new()
+	_spin_player.stream = _spin_sound
+	_spin_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_spin_player)
+	_win_player = AudioStreamPlayer.new()
+	_win_player.stream = _win_sound
+	_win_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	add_child(_win_player)
+
+
+func _play_spin_sound() -> void:
+	if _spin_player == null:
+		return
+	_spin_player.stop()
+	_spin_player.play()
+
+
+func _stop_spin_sound() -> void:
+	if _spin_player == null:
+		return
+	_spin_player.stop()
+
+
+func _play_win_sound() -> void:
+	if _win_player == null:
+		return
+	_win_player.stop()
+	_win_player.play()
