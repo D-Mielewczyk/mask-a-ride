@@ -10,13 +10,12 @@
 [ext_resource type="AudioStream" uid="uid://vqpvqd3gyo4s" path="res://assets/sound/!SKOK.mp3" id="5_ya4ey"]
 [ext_resource type="Shader" uid="uid://blsa7qo0mpxtb" path="res://shaders/Fog.gdshader" id="6_tefeu"]
 [ext_resource type="AudioStream" uid="uid://c5qxhcktk0eow" path="res://assets/sound/!CHAMOWANIE 2.mp3" id="6_ya4ey"]
-[ext_resource type="Script" path="res://scripts/creature_spawner.gd" id="7_creature_spawner"]
+[ext_resource type="Script" uid="uid://dlyvfwkd3ne7o" path="res://scripts/creature_spawner.gd" id="7_creature_spawner"]
 [ext_resource type="AudioStream" uid="uid://b2afic4xf8m2b" path="res://assets/sound/!SPADEK 1.wav" id="7_jkv2x"]
 [ext_resource type="Script" uid="uid://btxcoqccc87fd" path="res://scripts/rocket_fuel_boost_spawner.gd" id="8_boost_spawner"]
 [ext_resource type="AudioStream" uid="uid://585rkae2qgcs" path="res://assets/sound/!SPADEK 2.mp3" id="8_jbj1t"]
 [ext_resource type="Script" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
 [ext_resource type="Script" path="res://scripts/game_flow.gd" id="10_game_flow"]
-[ext_resource type="AudioStream" uid="uid://g3tbqevq1j1p" path="res://assets/sound/demo 2.mp3" id="9_85g3d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
 shader = ExtResource("6_tefeu")
@@ -88,7 +87,7 @@ player_path = NodePath("../Player")
 script = ExtResource("9_trap_spawner")
 player_path = NodePath("../Player")
 
-[node name="GameFlow" type="Node" parent="."]
+[node name="GameFlow" type="Node" parent="." unique_id=1259726696]
 script = ExtResource("10_game_flow")
 player_path = NodePath("../Player")
 
