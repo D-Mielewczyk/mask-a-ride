@@ -2,24 +2,31 @@
 extends Node2D
 
 @export var boost_scene: PackedScene = preload("res://scenes/pickups/rocket_fuel_boost.tscn")
-@export var spawn_interval: float = 0.5
+@export var spawn_interval_min: float = 1.5
+@export var spawn_interval_max: float = 3.5
 @export var max_alive: int = 6
-@export var spawn_distance_min: float = 700.0
-@export var spawn_distance_max: float = 1400.0
+@export var spawn_distance_min: float = 1800.0
+@export var spawn_distance_max: float = 3200.0
 @export var min_player_x_to_spawn: float = 0.0
-@export var air_height_min: float = 160.0
-@export var air_height_max: float = 380.0
-@export var avoid_on_screen: bool = false
+@export var air_height_min: float = 180.0
+@export var air_height_max: float = 650.0
+@export var avoid_on_screen: bool = true
 @export var player_path: NodePath
 
 var _time_accum := 0.0
+var _next_spawn_time := 0.0
+
+
+func _ready() -> void:
+	_next_spawn_time = randf_range(spawn_interval_min, spawn_interval_max)
 
 
 func _process(delta: float) -> void:
 	_time_accum += delta
-	if _time_accum < spawn_interval:
+	if _time_accum < _next_spawn_time:
 		return
 	_time_accum = 0.0
+	_next_spawn_time = randf_range(spawn_interval_min, spawn_interval_max)
 
 	if _alive_count() >= max_alive:
 		return
