@@ -95,6 +95,7 @@ func generate_terrain(start_world_pos: Vector2):
 	$Polygon2D.polygon = poly_points
 	$CollisionPolygon2D.polygon = poly_points
 	$Line2D.points = baked_points
+	_register_surface($Line2D)
 
 	var uv_points = PackedVector2Array()
 	for p in poly_points:
@@ -117,3 +118,10 @@ func _ready():
 	if $VisibleOnScreenNotifier2D:
 		if not $VisibleOnScreenNotifier2D.screen_exited.is_connected(_on_screen_exited):
 			$VisibleOnScreenNotifier2D.screen_exited.connect(_on_screen_exited)
+
+
+func _register_surface(line: Line2D) -> void:
+	if line == null:
+		return
+	if not line.is_in_group("terrain_surface"):
+		line.add_to_group("terrain_surface")

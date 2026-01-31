@@ -21,6 +21,7 @@ var not_slide = false
 
 ## --- ZMIENNE STANU ---
 var current_fuel = 0.0
+var coins: int = 0
 @onready var ray = $RayCast2D
 @onready var gostek = $gostek
 @onready var maska = $maska
@@ -111,3 +112,8 @@ func death():
 func finished():
 	if not_slide:
 		slide()
+
+func add_coins(amount: int) -> void:
+	coins = max(0, coins + amount)
+	if GlobalSingleton.global != null:
+		GlobalSingleton.global.money = coins

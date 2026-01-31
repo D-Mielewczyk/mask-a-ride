@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/world.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cnx6slv3dsdaf" path="res://scenes/ui/hud.tscn" id="5_tbgi4"]
 [ext_resource type="Shader" uid="uid://blsa7qo0mpxtb" path="res://shaders/Fog.gdshader" id="6_tefeu"]
+[ext_resource type="Script" path="res://scripts/creature_spawner.gd" id="7_creature_spawner"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
 shader = ExtResource("6_tefeu")
@@ -43,6 +44,10 @@ speed_multiplier = 0.013000000000000001
 [node name="downhill" parent="." unique_id=1582961432 instance=ExtResource("2_0wfyh")]
 
 [node name="World" parent="." unique_id=1185056397 instance=ExtResource("4_jyhfs")]
+
+[node name="CreatureSpawner" type="Node2D" parent="."]
+script = ExtResource("7_creature_spawner")
+player_path = NodePath("../Player")
 
 [node name="HUD" parent="." unique_id=1393149296 instance=ExtResource("5_tbgi4")]
 layer = 11
