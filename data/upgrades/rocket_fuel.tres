@@ -10,4 +10,5 @@ description = "Increases rocket fuel capacity."
 price = 180
 rarity = "rare"
 effect_id = "rocket_fuel"
+requires_ids = ["rocket"]
 requires_ids = PackedStringArray("rocket")

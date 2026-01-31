@@ -71,6 +71,7 @@ func _double_coins() -> void:
 			_player.add_coins(0)
 	elif GlobalSingleton.global != null:
 		GlobalSingleton.global.coins *= 2
+		GlobalSingleton.global.save_coins()
 
 
 func _start_new_run() -> void:

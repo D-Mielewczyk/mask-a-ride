@@ -7,12 +7,14 @@ static var global: GlobalSingleton = null
 
 var coins: int = 2000
 var bought_upgrades: Dictionary = {}
+const COINS_SAVE_PATH := "user://coins.json"
 
 
 func _init() -> void:
 	if global == null:
 		global = self
 		load_upgrades()
+		_load_coins()
 	else:
 		printerr("Trying to create another instance of MySingleton. Deleting it.")
 		queue_free()
@@ -50,3 +52,20 @@ func _save_upgrades() -> void:
 	if file == null:
 		return
 	file.store_string(JSON.stringify(bought_upgrades))
+
+
+func _load_coins() -> void:
+	var file = FileAccess.open(COINS_SAVE_PATH, FileAccess.READ)
+	if file == null:
+		return
+	var data = JSON.parse_string(file.get_as_text())
+	if typeof(data) == TYPE_DICTIONARY and data.has("coins"):
+		coins = int(data["coins"])
+
+
+func save_coins() -> void:
+	var file = FileAccess.open(COINS_SAVE_PATH, FileAccess.WRITE)
+	if file == null:
+		return
+	var payload = {"coins": coins}
+	file.store_string(JSON.stringify(payload))

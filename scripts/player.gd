@@ -28,6 +28,7 @@ var last_animation_was_not_slide = false
 ## --- ZMIENNE STANU ---
 var current_fuel = 0.0
 var coins: int = 2000
+var has_fire_extinguisher := false
 @onready var ray = $"rotating/RayCast2D"
 @onready var gostek = $"rotating/gostek"
 @onready var maska = $"rotating/maska"
@@ -51,13 +52,21 @@ func _ready():
 	_setup_rocket_foam()
 	if GlobalSingleton.global != null:
 		coins = GlobalSingleton.global.coins
+		has_fire_extinguisher = GlobalSingleton.global.is_upgrade_bought("rocket")
+		set_meta("rocket_enabled", has_fire_extinguisher)
+		if coins > 0:
+			GlobalSingleton.global.save_coins()
 
 func _physics_process(delta):
 	if _is_dead:
 		return
 	
 	var rot_dir = Input.get_axis("ui_left", "ui_right")
-	var is_boosting = Input.is_action_pressed("ui_accept") and current_fuel > 0 # np. Spacja
+	var is_boosting = (
+		has_fire_extinguisher
+		and Input.is_action_pressed("ui_accept")
+		and current_fuel > 0
+	) # np. Spacja
 
 	# Reset sił stałych
 	constant_force = Vector2.ZERO
@@ -214,6 +223,7 @@ func add_coins(amount: int) -> void:
 	coins = max(0, coins + amount)
 	if GlobalSingleton.global != null:
 		GlobalSingleton.global.coins = coins
+		GlobalSingleton.global.save_coins()
 
 
 func revive() -> void:
