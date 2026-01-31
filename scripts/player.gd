@@ -45,6 +45,12 @@ const MAX_DANGER_TIME: float = 1.0 # czas po którym się umiera
 @onready var death_sound1 = $Death1
 @onready var detah_sound2 = $Death2
 
+var _jump_sounds: Array[AudioStream] = [
+	preload("res://assets/sound/!SKOK.mp3"),
+	preload("res://assets/sound/!SKOK 2.mp3"),
+	preload("res://assets/sound/!SKOK 3.mp3")
+]
+
 var current_animation = "idle"
 
 func _ready():
@@ -130,7 +136,7 @@ func _physics_process(delta):
 			apply_torque(rot_dir * rotation_power)
 		if was_on_ground:
 			jump()
-			jump_sound.play( )
+			_play_jump_sound()
 			was_on_ground = false
 			
 		if global_position.y > 2500:
@@ -158,6 +164,14 @@ func add_fuel(amount):
 func jump():
 	gostek.play("jump")
 	current_animation = "jump"
+
+
+func _play_jump_sound() -> void:
+	if jump_sound == null:
+		return
+	if _jump_sounds.size() > 0:
+		jump_sound.stream = _jump_sounds[randi() % _jump_sounds.size()]
+	jump_sound.play()
 
 func breakk():
 	gostek.play("break")
