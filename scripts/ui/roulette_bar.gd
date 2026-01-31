@@ -27,9 +27,9 @@ signal outcome_selected(outcome: String)
 @onready var result_label: Label = $Panel/Layout/ResultLabel
 
 var _outcomes := ["nothing", "shop", "double", "resurrect"]
-var _base_angles := [0.0, TAU / 4.0, 2.0 * TAU / 4.0, 3.0 * TAU / 4.0]
 var _current_angle := 0.0
 var _spinning := false
+var _slot_angles := {}
 
 
 func _ready() -> void:
@@ -46,10 +46,10 @@ func _process(_delta: float) -> void:
 func _update_wheel_positions() -> void:
 	var center = wheel_area.size * 0.5
 	wheel.position = center
-	_place_slot(slot_nothing, _base_angles[0] + _current_angle)
-	_place_slot(slot_shop, _base_angles[1] + _current_angle)
-	_place_slot(slot_double, _base_angles[2] + _current_angle)
-	_place_slot(slot_resurrect, _base_angles[3] + _current_angle)
+	_place_slot(slot_nothing, _slot_angles.get("nothing", 0.0) + _current_angle)
+	_place_slot(slot_shop, _slot_angles.get("shop", TAU / 4.0) + _current_angle)
+	_place_slot(slot_double, _slot_angles.get("double", 2.0 * TAU / 4.0) + _current_angle)
+	_place_slot(slot_resurrect, _slot_angles.get("resurrect", 3.0 * TAU / 4.0) + _current_angle)
 
 
 func _place_slot(slot: Control, angle: float) -> void:
@@ -63,16 +63,14 @@ func _place_slot(slot: Control, angle: float) -> void:
 
 func spin() -> void:
 	var outcome = _weighted_pick()
-	var target_index = _outcomes.find(outcome)
-	if target_index < 0:
-		target_index = 0
+	_shuffle_slot_angles()
 
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_update_wheel_positions()
 
-	var slot_angle = float(target_index) * (TAU / 4.0)
-	var target_angle = -PI / 2.0 - slot_angle + TAU * spins
+	var slot_angle = _slot_angles.get(outcome, 0.0)
+	var target_angle = PI / 2.0 - slot_angle + TAU * spins
 	_current_angle = 0.0
 	_spinning = true
 	var tween = create_tween()
@@ -122,3 +120,12 @@ func _update_labels() -> void:
 	label_shop.modulate = Color(0.6, 0.2, 1.0, 1.0)
 	label_double.modulate = Color(1.0, 0.55, 0.1, 1.0)
 	label_resurrect.modulate = Color(0.2, 1.0, 0.6, 1.0)
+
+
+func _shuffle_slot_angles() -> void:
+	var angles := [0.0, TAU / 4.0, 2.0 * TAU / 4.0, 3.0 * TAU / 4.0]
+	angles.shuffle()
+	_slot_angles["nothing"] = angles[0]
+	_slot_angles["shop"] = angles[1]
+	_slot_angles["double"] = angles[2]
+	_slot_angles["resurrect"] = angles[3]
