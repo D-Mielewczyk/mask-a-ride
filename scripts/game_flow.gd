@@ -123,13 +123,13 @@ func _show_shop() -> void:
 		_start_new_run()
 
 
-func _double_money() -> void:
+func _double_coins() -> void:
 	if _player != null and "coins" in _player:
 		_player.coins *= 2
 		if _player.has_method("add_coins"):
 			_player.add_coins(0)
 	elif GlobalSingleton.global != null:
-		GlobalSingleton.global.money *= 2
+		GlobalSingleton.global.coins *= 2
 
 
 func _start_new_run() -> void:

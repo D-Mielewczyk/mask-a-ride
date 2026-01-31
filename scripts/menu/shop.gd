@@ -10,7 +10,7 @@ var _pulse_time := 0.0
 var _options: Array[ShopUpgrade] = []
 var _pool := ShopUpgradePool.new()
 
-@onready var money_label: Label = $Frame/Layout/Header/MoneyPanel/MoneyRow/MoneyLabel
+@onready var coins_label: Label = $Frame/Layout/Header/MoneyPanel/MoneyRow/MoneyLabel
 @onready var decision_bar: ProgressBar = $Frame/Layout/DecisionProgress
 @onready var decision_label: Label = $Frame/Layout/DecisionProgress/DecisionTimeLabel
 @onready var skip_button: Button = $Frame/Layout/Footer/SkipButton
@@ -26,7 +26,7 @@ func _ready() -> void:
 	_pool.load_upgrades()
 	_sync_bought_flags()
 	_pick_options()
-	_update_money()
+	_update_coins()
 	_update_timer()
 	_update_progress()
 	_connect_buttons()
@@ -100,7 +100,7 @@ func _update_button_state(upgrade: ShopUpgrade, button: Button) -> void:
 		button.disabled = true
 		return
 
-	var can_afford = _get_money() >= upgrade.price
+	var can_afford = _get_coins() >= upgrade.price
 	button.text = "Buy"
 	button.disabled = not can_afford or _time_left <= 0.0
 
@@ -114,27 +114,37 @@ func _on_buy_pressed(index: int) -> void:
 	var global = GlobalSingleton.global
 	if global == null:
 		return
-	if global.money < upgrade.price:
+	if global.coins < upgrade.price:
 		return
-	global.money -= upgrade.price
+	global.coins -= upgrade.price
 	upgrade.bought = true
 	global.set_upgrade_bought(upgrade.id, true)
-	_update_money()
+	_update_coins()
 	_render_option(index, upgrade)
 	_close_shop()
 
 
-func _update_money() -> void:
-	money_label.text = str(_get_money())
+func _update_coins() -> void:
+	coins_label.text = str(_get_coins())
+	_sync_player_coins()
 	for index in range(_options.size()):
 		var button = option_roots[index].get_node("Option%dContent/Option%dBuy" % [index + 1, index + 1]) as Button
 		_update_button_state(_options[index], button)
 
 
-func _get_money() -> int:
+func _get_coins() -> int:
 	if GlobalSingleton.global != null:
-		return GlobalSingleton.global.money
+		return GlobalSingleton.global.coins
 	return 0
+
+
+func _sync_player_coins() -> void:
+	var global = GlobalSingleton.global
+	if global == null:
+		return
+	var player = get_tree().get_first_node_in_group("player")
+	if player != null and "coins" in player:
+		player.coins = global.coins
 
 
 func _update_timer() -> void:
