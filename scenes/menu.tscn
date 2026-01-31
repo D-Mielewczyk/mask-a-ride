@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://btx673oq13bha" path="res://assets/tart/start2.png" id="3_4ytvr"]
 [ext_resource type="BitMap" uid="uid://dwosuvxhc6p7f" path="res://assets/tart/start4.png" id="4_mhnvy"]
 [ext_resource type="AudioStream" uid="uid://buqf16ej2r8fc" path="res://assets/sound/intro muzyka loop.mp3" id="6_g3eks"]
+[ext_resource type="AudioStream" uid="uid://cv0fdtrmqily1" path="res://assets/sound/!KILK MENU.mp3" id="6_v86rl"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_4h3mk"]
 _data = PackedByteArray("AAADAAUAAAABAAAAAAEAAJAAAAAgBQAAUklGRhgFAABXRUJQVlA4TAsFAAAv/8AjAGegqJEUhmIIp9jDRed1RpRGkiK1Iv+8yAWFgnuURpKkHOcf1CXypBjkv5j/iPLzC21zMWAe+FIwlnG96gCDPAdQlv9PkaQUfu2MwpnTBg+wFYkf1+3YhTsztchpNVdOnLaCeQXcqcBtOsgTOkRHPlVV5v/3//8zC5eI/kOQJClsM3uXBUmRTgjwH7quO0BpD9YBVe0RaB9R22bH0SEJ+3SRtGQJ7M4cDouWjlwn5gDDc1tUGHJmtxyJP1nHp0iJ8b6f9PxLcyEaXrq/3cdaTSdKRP6QbwEzzM73qV6aBYy2jzw+PZ2YmTu30/eAbi7+bcR5RH/enSzeoEOcc0U1NrvNQ9p4P1ZS0EneLMLp/DaZfX95pBjrJg5JrnSRyFxNB0ZKsY7FJmpFfajxRCHWSTmf4L2HxCrgDgRcnU18u1+huJzEYSHucHZcTDTdPAI2l217kFMzGWSBLWuFybjSM8J7ZG0k1ieLSjpI0qI6OkHzrEtFPJLUyvuXIpLE4RI9FBcEkj7QpSbIHU+AtePj7pJ4G2rQuLFMaQ9CDrHxfrsXaBU9btlSb5MmJUBLCTOtY+bdZVrF74bfxjE4CDyphd7hzkPoszKDcRD5bggBgALv74cpTx+kTgv8g2HU+nE+W7THAvS9Hg8R0PdwQ0SYgpNb8Mc1bqYYc+qKBhecgzYm6bEmGLnZ0W2SG02iPgsOeMKj7cHleBfUBkmKSPOySkLOYU8OhRPQu46LMUYRR+ohBgNQQGx1jItOOsMTEz/KORkD1PrEAaHfYqBsbWIlG+/KjyKvkCqE8DEKmi2VtCbhCx9rukyN3TB96TBAUW3MDY0dRdKQRbidGMVIrlh/jIPp8WtGqilqklE7fa/HLnEfBo+2S2OQGyJr0DcUp3g/ABckDALdbmKl3Jy0cDZ2hG6M/BoiffwK9mlk6PxYg2fS60nA/4zA2H11SDTGirxzPF4pt5jvBxkCNTXw2iDtkouo7/3lmHTBUgeNNo2lL6cdMq1hylK/lx6fU7ckFYrE2F1ojEhgMqV+L/w+KZoNW2eF1Rr74WMhtwuoBeDJdCltg50iySHoQo+AJjxvbHqsSALgu8u8vh3148dyBgS5AIVnEN5HWIPsnUFFqFZi25F6QOb9HeNKYTDQ0t7+rLSFYh1C/KHrXAwbDGTO+hEPG6yw72RE5Y7ompBOdRpKUoIyISkWsGaV3qhF0PaPkzfV+HQx8QgIswjCpA3Wn3QEYh6oqRcIkcbURnH+RgnnIG87LYnAgLMGMvPWINQa9MEYl4LO/sHYuuFgZEezb3jSosnU31DZuhslLLuvJemQKsEcq7cUf0ezq4GYmdPU+h1VrqpoLZhY3RWwDhs5qdLJmYd1iGQ0VNPwtBdtFSwyzzNLUTFZKGxVIdbH0TzLAOlcKW6VU6tWAU6kSi7drdqqb2/2moqW8ORYQaMAqzAro1LS4qpkEdhMSFVpapGHWsxVqtEIo2JTlJlaWD6LRgNd8ffgZGKysCo7fhbttZHg4FkGY2kakY/aEPBtKk5BeQy9EFUNplBb4AlVEVHDltVpKp9LN3TuwPGGuSB0PlzRLJQKz0L+NHRxBaO0cPLkVdm5ivSyzwjGjEupO361EJYuAG+AtipX3JZFYa+pytYCZxSgkGpWGsHNWQV7IpqrSkVzJc7k+nmz0Nl95p7GzD5N2RfNvKPWmj8zP1z9GdY1s6f633/+KqMCAA==")
@@ -605,8 +606,9 @@ _data = {
 &"fade": SubResource("Animation_v86rl")
 }
 
-[node name="Menu" type="Node2D" unique_id=1298269851]
+[node name="Menu" type="Node2D" unique_id=1298269851 node_paths=PackedStringArray("klik")]
 script = ExtResource("1_4ytvr")
+klik = NodePath("Control/AudioStreamPlayer2D")
 
 [node name="bg" type="Node2D" parent="." unique_id=498106772]
 position = Vector2(279, -6)
@@ -790,8 +792,6 @@ offset_left = 1091.0
 offset_top = 400.0
 offset_right = 1131.0
 offset_bottom = 440.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control" unique_id=745637076]
 
 [node name="Button" type="Button" parent="Control" unique_id=1654111655]
 layout_mode = 0
@@ -1047,6 +1047,11 @@ texture_hover = ExtResource("3_4ytvr")
 texture_focused = ExtResource("3_4ytvr")
 texture_click_mask = ExtResource("4_mhnvy")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Control" unique_id=389810140]
+stream = ExtResource("6_v86rl")
+volume_db = 0.486
+pitch_scale = 0.7
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=50866266]
 stream = ExtResource("6_g3eks")
 autoplay = true
@@ -1055,5 +1060,7 @@ parameters/looping = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer2D" unique_id=336367153]
 libraries/ = SubResource("AnimationLibrary_13sgg")
 
+[connection signal="focus_entered" from="Control/TextureButton" to="." method="focus"]
+[connection signal="mouse_entered" from="Control/TextureButton" to="." method="focus"]
 [connection signal="pressed" from="Control/TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
