@@ -5,9 +5,6 @@
 
 [node name="ChasmChunk" type="Node2D" unique_id=1297083911]
 script = ExtResource("1_q61qq")
-ramp_width = null
-gap_width = null
-drop_height = null
 landing_width = 300.0
 
 [node name="RampBody" type="StaticBody2D" parent="." unique_id=1948681960]
