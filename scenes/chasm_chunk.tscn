@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dofttpydh7hri"]
 
 [ext_resource type="Script" uid="uid://7sy2j2dkmghv" path="res://scripts/chasm_chunk.gd" id="1_q61qq"]
-[ext_resource type="Texture2D" path="res://assets/slope_tile.png" id="2_slope"]
+[ext_resource type="Texture2D" path="res://assets/slope_tile.aseprite" id="2_slope"]
 
 [node name="ChasmChunk" type="Node2D" unique_id=1297083911]
 script = ExtResource("1_q61qq")
