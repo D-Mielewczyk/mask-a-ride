@@ -4,7 +4,6 @@ extends Node
 @export var ramp_scene: PackedScene = preload("res://scenes/downhill.tscn")
 @export var roulette_scene: PackedScene = preload("res://scenes/ui/roulette_bar.tscn")
 @export var shop_scene: PackedScene = preload("res://scenes/menu/shop.tscn")
-@export var fireworks_scene: PackedScene = preload("res://scenes/ui/fireworks_effect.tscn")
 @export var player_path: NodePath
 
 var _player: Node = null
@@ -111,7 +110,8 @@ func _on_roulette_outcome(outcome: String, roulette: Node) -> void:
 			_double_coins()
 			_start_new_run()
 		"fireworks":
-			await _play_fireworks(roulette)
+			if roulette != null:
+				roulette.queue_free()
 			_start_new_run()
 		_:
 			if roulette != null:
@@ -146,20 +146,6 @@ func _start_new_run() -> void:
 	get_tree().reload_current_scene()
 
 
-func _play_fireworks(roulette: Node) -> void:
-	if fireworks_scene == null:
-		if roulette != null:
-			roulette.queue_free()
-		return
-	var effect = fireworks_scene.instantiate()
-	effect.process_mode = Node.PROCESS_MODE_ALWAYS
-	_overlay.add_child(effect)
-	if effect.has_signal("finished"):
-		await effect.finished
-	else:
-		await get_tree().create_timer(1.2, false, true).timeout
-	if roulette != null:
-		roulette.queue_free()
 
 func _resume_from_death() -> void:
 	_handled_death = false

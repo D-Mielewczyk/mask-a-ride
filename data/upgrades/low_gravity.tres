@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1")
 id = "low_gravity"
-display_name = "Light Chassis"
+display_name = "Anti-Gravity Rune"
 description = "Reduces gravity for longer air time."
 price = 200
 icon = ExtResource("2")

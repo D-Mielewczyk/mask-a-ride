@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ShopUpgrade" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ShopUpgrade" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/data/shop_upgrade.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/rocket.aseprite" id="2"]
 
 [resource]
 script = ExtResource("1")
@@ -8,7 +9,7 @@ id = "rocket_fuel_t1"
 display_name = "Rocket Fuel Expansion I"
 description = "Increases rocket fuel capacity."
 price = 180
+icon = ExtResource("2")
 rarity = "rare"
 effect_id = "rocket_fuel"
-requires_ids = ["rocket"]
 requires_ids = PackedStringArray("rocket")
