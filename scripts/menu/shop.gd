@@ -166,18 +166,18 @@ func _apply_card_style(card: PanelContainer, rarity: String) -> void:
 	var base = _rarity_color(rarity)
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.12, 0.12, 0.16, 1)
-	style.border_width_left = 2
-	style.border_width_top = 2
-	style.border_width_right = 2
-	style.border_width_bottom = 2
-	style.border_color = Color(0.3, 0.3, 0.4, 1)
-	style.shadow_size = 24 if base.a > 0.0 else 0
+	style.border_width_left = 4
+	style.border_width_top = 4
+	style.border_width_right = 4
+	style.border_width_bottom = 4
+	style.border_color = Color(0.2, 0.2, 0.3, 1)
+	style.shadow_size = 8 if base.a > 0.0 else 0
 	style.shadow_offset = Vector2(0, 0)
 	style.shadow_color = Color(base.r, base.g, base.b, 1.0)
-	style.corner_radius_top_left = 12
-	style.corner_radius_top_right = 12
-	style.corner_radius_bottom_left = 12
-	style.corner_radius_bottom_right = 12
+	style.corner_radius_top_left = 6
+	style.corner_radius_top_right = 6
+	style.corner_radius_bottom_left = 6
+	style.corner_radius_bottom_right = 6
 	card.add_theme_stylebox_override("panel", style)
 
 
