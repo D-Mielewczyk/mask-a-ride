@@ -11,8 +11,9 @@ var _overlay: CanvasLayer
 var _handled_death := false
 var _next_lvl_processing := false
 
-var current_goal_x: float = 25000.0
+var current_goal_x: float = 20000.0
 var level_count: int = 1
+var difficulty_scale: float = 1.3
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -31,14 +32,14 @@ func _process(delta: float) -> void:
 			if (_player.global_position.x > current_goal_x) and not (_next_lvl_processing):
 				print("KONIEC LV", _player.global_position.x, " ", current_goal_x)
 				_reach_level_end()
-				_next_lvl_processing = false
+				
 				
 func _reach_level_end() -> void:
 	_next_lvl_processing = true
 	_pause_game()
 	#_show_roulette()
 	# Zwiększamy cel dla następnego poziomu
-	current_goal_x += (level_count * 25000.0) 
+	current_goal_x += current_goal_x*                    difficulty_scale
 	level_count += 1
 	_spawn_next_ramp_and_launch()
 	get_tree().paused = false
@@ -48,28 +49,27 @@ func _spawn_next_ramp_and_launch() -> void:
 	# zeby gasnicy nie mozna bylo uzwać na granicy poziomu
 	_player.set_physics_process(false)
 
-	var spawn_x = _player.global_position.x - 120
-	var spawn_y = _player.global_position.y + 1800
+	var spawn_x0 = _player.global_position.x - 120
+	var spawn_y0 = _player.global_position.y + 1800
+	
 	_player.linear_velocity = Vector2.ZERO
 	_player.angular_velocity = 0
 		# 3. IMPULS zamiast Tweena
 	# Wektor: (X: lekko w przód, Y: bardzo mocno w górę)
-	var launch_force = Vector2(0, -1500) 
+	var launch_force = Vector2(0, -800 * 4) #TODO change to dynamic ramp height, if we will change that bc of ipgrades
 	_player.apply_central_impulse(launch_force)
 	_player.angular_velocity = 5.0
 	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.0).timeout
 
-	# 3. Logika skoku (Tween)
-	var jump_height = _player.global_position.y - 4000
-	
 	# 2. Instancjonowanie nowej rampy
 	var new_ramp = ramp_scene.instantiate()
 	get_tree().current_scene.add_child(new_ramp)
 	
+	var ramp_x = spawn_x0 - 120
+	var ramp_y = spawn_y0 - 1000 - 800 #TODO change to dynamic ramp height, if we will change that bc of ipgrades
 	# Parametry rampy
-	
-	var spawn_pos = Vector2(spawn_x, spawn_y)
+	var spawn_pos = Vector2(ramp_x, ramp_y)
 	#var new_h = 1000.0 # Przykładowa wysokość
 	
 	new_ramp.add_to_group("starting_ramp")
@@ -121,10 +121,6 @@ func _show_shop() -> void:
 	var shop = shop_scene.instantiate()
 	shop.process_mode = Node.PROCESS_MODE_ALWAYS
 	_overlay.add_child(shop)
-	if shop.has_signal("closed"):
-		shop.closed.connect(func(): _start_new_run())
-	else:
-		_start_new_run()
 
 
 func _double_coins() -> void:
