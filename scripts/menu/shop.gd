@@ -4,6 +4,7 @@ extends Control
 @export var decision_time := 10.0
 
 var _time_left := 0.0
+var _pulse_time := 0.0
 var _options: Array[ShopUpgrade] = []
 var _pool := ShopUpgradePool.new()
 
@@ -34,6 +35,7 @@ func _process(delta: float) -> void:
 	_time_left = maxf(_time_left - delta, 0.0)
 	_update_timer()
 	_update_progress()
+	_update_glow_pulse(delta)
 	if _time_left <= 0.0:
 		_lock_shop()
 
@@ -73,7 +75,7 @@ func _render_option(index: int, upgrade: ShopUpgrade) -> void:
 		desc_label.text = upgrade.description
 	if price_label != null:
 		price_label.text = str(upgrade.price)
-	_apply_card_style(root, upgrade.rarity)
+	_apply_card_style(root, upgrade.rarity, 0.0)
 	if rarity_label != null:
 		rarity_label.text = _rarity_label_text(upgrade.rarity)
 		rarity_label.modulate = _rarity_label_color(upgrade.rarity)
@@ -162,7 +164,7 @@ func _rarity_color(rarity: String) -> Color:
 			return Color(0, 0, 0, 0)
 
 
-func _apply_card_style(card: PanelContainer, rarity: String) -> void:
+func _apply_card_style(card: PanelContainer, rarity: String, pulse: float) -> void:
 	var base = _rarity_color(rarity)
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.12, 0.12, 0.16, 1)
@@ -171,9 +173,9 @@ func _apply_card_style(card: PanelContainer, rarity: String) -> void:
 	style.border_width_right = 4
 	style.border_width_bottom = 4
 	style.border_color = Color(0.2, 0.2, 0.3, 1)
-	style.shadow_size = 8 if base.a > 0.0 else 0
+	style.shadow_size = int(12 + pulse) if base.a > 0.0 else 0
 	style.shadow_offset = Vector2(0, 0)
-	style.shadow_color = Color(base.r, base.g, base.b, 1.0)
+	style.shadow_color = Color(base.r, base.g, base.b, 0.65 + (pulse * 0.05))
 	style.corner_radius_top_left = 6
 	style.corner_radius_top_right = 6
 	style.corner_radius_bottom_left = 6
@@ -195,3 +197,15 @@ func _rarity_label_text(rarity: String) -> String:
 
 func _rarity_label_color(rarity: String) -> Color:
 	return _rarity_color(rarity)
+
+
+func _update_glow_pulse(delta: float) -> void:
+	_pulse_time += delta
+	for index in range(_options.size()):
+		var upgrade = _options[index]
+		if upgrade == null:
+			continue
+		var pulse = 0.0
+		if upgrade.rarity != "common":
+			pulse = 6.0 + 6.0 * sin(_pulse_time * 3.2)
+		_apply_card_style(option_roots[index], upgrade.rarity, pulse)
