@@ -2,7 +2,7 @@ extends Node2D
 
 # Gracz (referencja, żeby wiedzieć, gdzie generować teren)
 @export var player_node: Node2D
-@export var chunks_ahead: int = 3
+@export var chunks_ahead: int = 10
 
 # Załaduj scenę chunka (przeciągnij plik .tscn w inspektorze lub wpisz ścieżkę)
 var terrain_scene = preload("res://scenes/terrain_chunk.tscn")
@@ -29,9 +29,9 @@ func _process(_delta):
 	# next_spawn_pos.x to koniec obecnego świata.
 	# player_node.position.x to pozycja gracza.
 	
-	var view_distance = chunk_width * 2 # Bufor bezpieczeństwa
+	var view_distance = chunk_width * 10 # Bufor bezpieczeństwa
 	
-	if player_node.position.x + view_distance > next_spawn_pos.x:
+	while player_node.position.x + view_distance > next_spawn_pos.x:
 		spawn_chunk()
 
 
@@ -41,7 +41,7 @@ func spawn_chunk():
 	# --- BEZPIECZNY START ---
 	# Jeśli stworzyliśmy mniej niż 2 chunki, wymuszamy zwykły teren.
 	# Dzięki temu start jest zawsze bezpieczny.
-	if total_chunks_spawned < 2:
+	if total_chunks_spawned < 3:
 		new_chunk = terrain_scene.instantiate()
 		print("Start: Bezpieczny teren")
 		
