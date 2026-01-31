@@ -19,5 +19,5 @@ func _process(delta) -> void:
 	var i = 0
 	for child in children:
 		(child as Parallax2D).autoscroll = Vector2((proportions[i] * v_x * speed_multiplier) as float, 0)
-		print("autoscroll.x: %f", (child as Parallax2D).autoscroll.x)
+		#print("autoscroll.x: %f", (child as Parallax2D).autoscroll.x)
 		i += 1
