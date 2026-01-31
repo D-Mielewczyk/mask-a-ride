@@ -36,6 +36,7 @@ extends StaticBody2D
 		generate_ramp()
 
 var smoothness: float = 0.4
+@export var tile_uv_scale: float = 0.2
 
 @onready var visual_poly = $Polygon2D
 @onready var collision_poly = $CollisionPolygon2D
@@ -78,6 +79,10 @@ func generate_ramp():
 
 	if visual_poly:
 		visual_poly.polygon = polygon_points
+		var uv = PackedVector2Array()
+		for p in polygon_points:
+			uv.append(p * tile_uv_scale)
+		visual_poly.uv = uv
 
 	if collision_poly:
 		collision_poly.polygon = polygon_points

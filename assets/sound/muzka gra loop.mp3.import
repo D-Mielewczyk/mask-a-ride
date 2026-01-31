@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://6hysxv5ho63i"
+path="res://.godot/imported/muzka gra loop.mp3-f3e6c96be0564da27228d8d8bb1e2682.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/muzka gra loop.mp3"
+dest_files=["res://.godot/imported/muzka gra loop.mp3-f3e6c96be0564da27228d8d8bb1e2682.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

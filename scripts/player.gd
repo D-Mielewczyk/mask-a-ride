@@ -35,6 +35,9 @@ var death_timer: float = 0.0
 const MAX_DANGER_TIME: float = 1.0 # czas po którym się umiera
 @onready var rocket_foam: CPUParticles2D = $"rotating/RocketFoam"
 
+@onready var death_sound1 = $Death1
+@onready var detah_sound2 = $Death2
+
 func _ready():
 	current_fuel = max_fuel # Startujemy z pełnym bakiem
 	# Ustawiamy tarcie materiału na 0 w kodzie, żeby nic nie blokowało slajdu
@@ -144,6 +147,10 @@ func death():
 	gostek.play("death")
 	maska.play("death")
 	last_animation_was_not_slide = false
+	if randf() < 0.5:
+		death_sound1.play()
+	else:
+		detah_sound2.play()
 
 func finished():
 	if last_animation_was_not_slide:

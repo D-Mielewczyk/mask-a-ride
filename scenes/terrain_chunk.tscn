@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://v8uxsci4jjgh"]
 
 [ext_resource type="Script" uid="uid://d2lhq20ud4day" path="res://scripts/world_gen.gd" id="1_6g70i"]
+[ext_resource type="Texture2D" path="res://assets/slope_tile.aseprite" id="2_slope"]
 
 [node name="Terrain" type="StaticBody2D" unique_id=1901744907]
 collision_layer = 129
@@ -8,9 +9,11 @@ script = ExtResource("1_6g70i")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=394490234]
 texture_repeat = 2
+texture = ExtResource("2_slope")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=2033786195]
 texture_repeat = 2
+texture = ExtResource("2_slope")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=268486641]
 build_mode = 1
