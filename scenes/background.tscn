@@ -21,6 +21,8 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cbsqf"]
+
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_y0upk"]
 _data = PackedByteArray("AAADAAUAAAABAAAAAAEAAJAAAAAEAQAAUklGRvwAAABXRUJQVlA4TPAAAAAv/8AjEBcgkE2+/H1SFQsmu/PXyU0gkORPtsI28x/wrQFyI0mOnKYoD2b86aX4r+iiPfR99I7YF4mI/k+A/OVqZGd8IkoslBLWlxUxjvtwdo4ku7Iy7C82G1iWrt7O5K3IkbA7r9hfTG4Ge3pkDtMr8PvDqG8Hq8XetL9tFGxHtuK8tt4YwXiIJl6xDwdFKHB7i+iAeDfejOl5GNvxXl6xV4hCRJThYNzeBLHvw30f78Hhvo+54H5MjyWKgGGBcWjM8in0QhFlDbe3yX+RPcJuIOxjS2UuhnFI4nUhaq4QycUTrxBFf3huJCHK/qr/Twk=")
 size_override = Vector2(256, 144)
@@ -128,6 +130,14 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "04ec3920dfb5bc5660e89621403dc877"
 
+[node name="ColorRect" type="ColorRect" parent="0" unique_id=129160012]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="1" type="Parallax2D" parent="." unique_id=510243830]
 repeat_size = Vector2(256, 0)
 autoscroll = Vector2(-10, 0)
@@ -136,6 +146,7 @@ ignore_camera_scroll = true
 
 [node name="1" type="AnimatedSprite2D" parent="1" unique_id=527112872]
 texture_filter = 1
+material = SubResource("ShaderMaterial_cbsqf")
 sprite_frames = SubResource("SpriteFrames_cbsqf")
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true,
