@@ -3,9 +3,9 @@ class_name GlobalSingleton extends Node
 static var global: GlobalSingleton = null
 
 # Use this singleton in any scene with:
-# Global.(fuction or field defined in this file)s
+# Global.(function or field defined in this file)
 
-var money: int = 0
+var coins: int = 2000
 var bought_upgrades: Dictionary = {}
 
 

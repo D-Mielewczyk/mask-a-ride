@@ -15,7 +15,7 @@ extends CharacterBody2D
 @export var death_start_col: int = 0
 @export var death_frame_count: int = 4
 @export var death_fps: float = 10.0
-@export var money_reward: int = 1
+@export var coin_reward: int = 1
 @export var sprite_scale: float = 8.0
 @export var feet_offset: float = 40.0
 
@@ -125,7 +125,7 @@ func _on_body_entered(body: Node) -> void:
 func _die() -> void:
 	_dying = true
 	anim.play("death")
-	_award_money()
+	_award_coins()
 	anim.animation_finished.connect(_on_death_finished, CONNECT_ONE_SHOT)
 	if randf() < 0.25:
 		if randf() < 0.5:
@@ -138,6 +138,6 @@ func _on_death_finished() -> void:
 	queue_free()
 
 
-func _award_money() -> void:
+func _award_coins() -> void:
 	if _player != null:
-		_player.add_coins(money_reward)
+		_player.add_coins(coin_reward)
