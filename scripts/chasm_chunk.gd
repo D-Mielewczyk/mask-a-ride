@@ -102,7 +102,8 @@ func build_island(body_node, curve: Curve2D):
 	body_node.get_node("Line2D").points = baked
 	
 	var uv = PackedVector2Array()
-	for p in poly: uv.append(p / 100.0)
+	for p in poly:
+		uv.append(p * tile_uv_scale)
 	body_node.get_node("Polygon2D").uv = uv
 
 func get_end_point():
