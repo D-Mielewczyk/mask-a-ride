@@ -87,7 +87,6 @@ func _on_player_died() -> void:
 		return
 	_handled_death = true
 	_pause_game()
-	_reset_level_state()
 	_start_new_run()
 
 
@@ -158,13 +157,6 @@ func _resume_from_death() -> void:
 	_resume_game()
 	if _player != null and _player.has_method("revive"):
 		_player.revive()
-
-
-func _reset_level_state() -> void:
-	current_goal_x = initial_goal_x
-	level_count = 1
-	_next_lvl_processing = false
-
 
 func _pause_game() -> void:
 	get_tree().paused = true
