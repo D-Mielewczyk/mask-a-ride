@@ -9,7 +9,7 @@ extends StaticBody2D
 @export var max_drop: float = 1200.0   # Maksymalny spadek (duża liczba = szybki zjazd)
 
 @export var hill_roughness: float = 0.4
-@export var tile_uv_scale: float = 0.08
+@export var tile_uv_scale: float = 0.2
 
 # Zmienne wewnętrzne
 var end_point_world: Vector2
