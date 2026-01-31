@@ -17,20 +17,21 @@ extends RigidBody2D
 @export var max_fuel = 100.0             # Maksymalne paliwo
 @export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
-var not_slide = false
+var last_animation_was_not_slide = false
 
 ## --- ZMIENNE STANU ---
 var current_fuel = 0.0
 var coins: int = 0
-@onready var ray = $RayCast2D
-@onready var gostek = $gostek
-@onready var maska = $maska
+@onready var ray = $"rotating/RayCast2D"
+@onready var gostek = $"rotating/gostek"
+@onready var maska = $"rotating/maska"
 
 func _ready():
 	current_fuel = max_fuel # Startujemy z pełnym bakiem
 	# Ustawiamy tarcie materiału na 0 w kodzie, żeby nic nie blokowało slajdu
 	physics_material_override.friction = 0.0
 	slide()
+	last_animation_was_not_slide = false
 	gostek.connect("animation_finished", slide)
 
 func _physics_process(delta):
@@ -94,23 +95,25 @@ func add_fuel(amount):
 func jump():
 	gostek.play("jump")
 	maska.play("jump")
+	last_animation_was_not_slide = true
 
 func breakk():
 	gostek.play("break")
 	maska.play("break")
-	not_slide = true
+	last_animation_was_not_slide = true
 
 func slide():
 	gostek.play("slide")
 	maska.play("slide")
+	last_animation_was_not_slide = false
 
 func death():
 	gostek.play("death")
 	maska.play("death")
-	not_slide =false
+	last_animation_was_not_slide = false
 
 func finished():
-	if not_slide:
+	if last_animation_was_not_slide:
 		slide()
 
 func add_coins(amount: int) -> void:
