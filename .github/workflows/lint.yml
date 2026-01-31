@@ -3,6 +3,8 @@ name: Lint GDScript with gdtoolkit
 on:
     pull_request:
         types: [opened, synchronize, closed]
+    push:
+        branches: [main]
 
 jobs:
     lint:

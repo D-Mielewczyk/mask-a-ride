@@ -3,6 +3,8 @@ name: Validate Assets
 on:
     pull_request:
         types: [opened, synchronize, closed]
+    push:
+        branches: [main]
 
 jobs:
     validate-images:

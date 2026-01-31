@@ -3,6 +3,8 @@ name: Validate Godot Project
 on:
     pull_request:
         types: [opened, synchronize, closed]
+    push:
+        branches: [main]
 
 jobs:
     godot-export:
