@@ -85,7 +85,7 @@ func generate_terrain(start_world_pos: Vector2):
 	end_point_world = position + Vector2(final_x, final_y)
 
 	# --- RYSOWANIE GRAFIKI ---
-	curve.bake_interval = 20.0
+	curve.bake_interval = 100.0
 	var baked_points = curve.get_baked_points()
 	var poly_points = PackedVector2Array(baked_points)
 	

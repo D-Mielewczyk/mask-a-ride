@@ -2,7 +2,7 @@ extends Camera2D
 
 # Eksportujemy zmienne, żeby widzieć je w Inspektorze po prawej
 @export var target_node: RigidBody2D # Tu możesz przeciągnąć gracza w edytorze
-@export var min_zoom = 0.5
+@export var min_zoom = 0.25
 @export var max_zoom = 0.25
 @export var speed_threshold = 2000.0
 @export var bg: Node2D
