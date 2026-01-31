@@ -10,7 +10,11 @@ extends StaticBody2D
 	set(value):
 		slope_length = value
 		generate_ramp()
-
+@export_range(0.1, 1.5) var curve_power_0: float = 0.5:
+	set(value):
+		curve_power_0 = value
+		generate_ramp()
+		
 @export_category("Przejście")
 @export_range(0.1, 1.5) var curve_power: float = 0.5:
 	set(value):
@@ -46,7 +50,7 @@ func generate_ramp():
 	var curve = Curve2D.new()
 
 	var p1_pos = Vector2(0, -start_height)
-	var p1_out = Vector2(slope_length * smoothness, 0)
+	var p1_out = Vector2(slope_length * curve_power_0, 0)
 
 	curve.add_point(p1_pos, Vector2.ZERO, p1_out)
 
