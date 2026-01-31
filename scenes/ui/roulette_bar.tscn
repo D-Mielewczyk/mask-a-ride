@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://roulettebar1"]
 
 [ext_resource type="Script" path="res://scripts/ui/roulette_bar.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/shop.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/shop.aseprite" id="2"]
 [ext_resource type="Texture2D" path="res://assets/coin.png" id="3"]
 [ext_resource type="Script" path="res://scripts/ui/coin_anim.gd" id="4"]
-[ext_resource type="Texture2D" path="res://assets/firework.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/firework.aseprite" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.07, 0.07, 0.1, 0.95)
