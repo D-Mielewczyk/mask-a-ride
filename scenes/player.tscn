@@ -1,10 +1,6 @@
-[gd_scene format=3 uid="uid://dvjb3m1wtxnku"]
+[gd_scene format=4 uid="uid://dvjb3m1wtxnku"]
 
 [ext_resource type="Script" uid="uid://cn8520kfh0r18" path="res://scripts/player.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://dk8waetq24ifw" path="res://assets/player/ludzik4.png" id="2_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://c5gh6l2e8ira7" path="res://assets/player/ludzik2.png" id="3_tuyoq"]
-[ext_resource type="Texture2D" uid="uid://b6b6it1xhhe5u" path="res://assets/player/ludzik5.png" id="4_fjrip"]
-[ext_resource type="Texture2D" uid="uid://cvcevkmukub05" path="res://assets/player/ludzik1.png" id="5_smehm"]
 [ext_resource type="Texture2D" uid="uid://ncjrl1q1305e" path="res://assets/player/rampa1.png" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://bvf6gcl4gvhtk" path="res://assets/player/rampa3.png" id="7_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://dwp301p0wkkc0" path="res://assets/player/rampa5.png" id="8_d2wvv"]
@@ -17,39 +13,155 @@ friction = 0.2
 radius = 37.0
 height = 110.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_qlg0r"]
+_data = PackedByteArray("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")
+size_override = Vector2(160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
+atlas = SubResource("PortableCompressedTexture2D_qlg0r")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ni07"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_qlg0r")
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
 }],
 "loop": false,
 "name": &"break",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_tuyoq")
+"texture": SubResource("AtlasTexture_ur7pv")
 }],
-"loop": false,
-"name": &"death",
-"speed": 5.0
+"loop": true,
+"name": &"dead",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_fjrip")
+"texture": SubResource("AtlasTexture_y4r1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}],
+"loop": true,
+"name": &"flight",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4ail")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a38lo")
 }],
 "loop": false,
 "name": &"jump",
-"speed": 2.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_smehm")
-}],
-"loop": false,
-"name": &"slide",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qlg0r"]
@@ -90,6 +202,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur7pv"]
 size = Vector2(73, 27.5)
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ur7pv"]
+size = Vector2(10, 10)
+
 [node name="Player" type="RigidBody2D" unique_id=358743943 groups=["player"]]
 physics_material_override = SubResource("PhysicsMaterial_g2els")
 script = ExtResource("1")
@@ -104,8 +219,10 @@ shape = SubResource("CapsuleShape2D_g2els")
 [node name="gostek" type="AnimatedSprite2D" parent="rotating" unique_id=123019711]
 texture_filter = 1
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_fjrip")
-animation = &"slide"
+sprite_frames = SubResource("SpriteFrames_4ni07")
+animation = &"idle"
+frame = 1
+frame_progress = 0.7289369
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -123,12 +240,13 @@ metadata/_aseprite_wizard_config_ = {
 "scale": "1.0",
 "should_round_fps": true,
 "slice": "",
-"source": "res://assets/ludzik.aseprite",
-"source_uid": 1528048325453033903
+"source": "res://assets/ludzik-revisited.aseprite",
+"source_uid": 739489088240073452
 }
-metadata/_aseprite_wizard_source_file_hash_ = "46f42c0e48058cfbbf2189bd85a4ba03"
+metadata/_aseprite_wizard_source_file_hash_ = "e09c02d0ceb168f5e7db11ba3bd93c45"
 
 [node name="maska" type="AnimatedSprite2D" parent="rotating" unique_id=1399936172]
+visible = false
 z_index = -1
 texture_filter = 1
 scale = Vector2(4, 4)
@@ -180,6 +298,10 @@ collision_mask = 128
 [node name="death_collision" type="CollisionShape2D" parent="death_area" unique_id=654939272]
 position = Vector2(-0.5, -18.25)
 shape = SubResource("RectangleShape2D_ur7pv")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=62562834]
+amount = 50
+texture = SubResource("PlaceholderTexture2D_ur7pv")
 
 [connection signal="area_entered" from="death_area" to="." method="_on_death_area_area_entered"]
 [connection signal="body_shape_entered" from="death_area" to="." method="_on_death_area_body_shape_entered"]

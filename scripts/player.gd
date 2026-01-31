@@ -3,6 +3,10 @@ extends RigidBody2D
 signal died
 var _is_dead := false
 ## --- PARAMETRY DO ULEPSZEŃ (Eksportowane do Inspektora) ---
+@export_group("Animacja")
+@export var max_animation_velocity = 300
+@export var max_animation_speed = 2
+
 @export_group("Ruch i Slidowanie")
 @export var acceleration_scale = 4000.0  # Jak mocno pcha w dół (Alto style)
 @export var ground_damp = 0.05           # Im mniejszy, tym lepszy poślizg na ziemi
@@ -16,7 +20,7 @@ var _is_dead := false
 
 @export_group("Rakieta (Boost)")
 @export var rocket_power = 2000.0       # Siła kopa rakiety
-@export var max_fuel = 100.0             # Maksymalne paliwo
+@export var max_fuel = 1000000000000000.0             # Maksymalne paliwo
 @export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
 var was_on_ground: bool = true 
@@ -41,13 +45,15 @@ const MAX_DANGER_TIME: float = 1.0 # czas po którym się umiera
 @onready var death_sound1 = $Death1
 @onready var detah_sound2 = $Death2
 
+var current_animation = "idle"
+
 func _ready():
 	current_fuel = max_fuel # Startujemy z pełnym bakiem
 	# Ustawiamy tarcie materiału na 0 w kodzie, żeby nic nie blokowało slajdu
 	physics_material_override.friction = 0.0
 	slide()
 	last_animation_was_not_slide = false
-	gostek.connect("animation_finished", slide)
+	gostek.connect("animation_finished", animation_fin)
 	spawn_time = Time.get_ticks_msec()
 	_setup_rocket_foam()
 	if GlobalSingleton.global != null:
@@ -60,6 +66,8 @@ func _ready():
 func _physics_process(delta):
 	if _is_dead:
 		return
+	if gostek != null:
+		gostek.speed_scale = min(1, linear_velocity.x / max_animation_velocity) * max_animation_speed
 	
 	var rot_dir = Input.get_axis("ui_left", "ui_right")
 	var is_boosting = (
@@ -87,6 +95,8 @@ func _physics_process(delta):
 		if n.x > 0.05: # Zjazd
 			apply_central_force(slope_dir * acceleration_scale * n.x)
 		
+		slide()
+		
 		# Skok
 		if Input.is_action_just_pressed("ui_up"):
 			jump()
@@ -104,6 +114,11 @@ func _physics_process(delta):
 			land_sound.play()
 			was_on_ground = true
 
+		if (linear_velocity.x < 30) and (Time.get_ticks_msec() - spawn_time > SPAWN_PROTECTION_TIME):
+			death_timer += delta
+		else:
+			death_timer = 0
+
 	else:
 		# --- LOGIKA W POWIETRZU ---
 		linear_damp = air_damp
@@ -114,6 +129,7 @@ func _physics_process(delta):
 		if rot_dir != 0:
 			apply_torque(rot_dir * rotation_power)
 		if was_on_ground:
+			jump()
 			jump_sound.play( )
 			was_on_ground = false
 			
@@ -130,10 +146,6 @@ func _physics_process(delta):
 	if rocket_foam != null:
 		rocket_foam.emitting = is_boosting
 		
-	if (linear_velocity.x < 30) and (Time.get_ticks_msec() - spawn_time > SPAWN_PROTECTION_TIME):
-		death_timer += delta
-	else:
-		death_timer = 0
 		
 	if death_timer > MAX_DANGER_TIME:
 		death()
@@ -145,24 +157,24 @@ func add_fuel(amount):
 
 func jump():
 	gostek.play("jump")
-	maska.play("jump")
-	last_animation_was_not_slide = true
+	current_animation = "jump"
 
 func breakk():
 	gostek.play("break")
-	maska.play("break")
-	last_animation_was_not_slide = true
+	current_animation = "break"
 
 func slide():
-	gostek.play("slide")
-	maska.play("slide")
-	last_animation_was_not_slide = false
+	if current_animation == "idle":
+		return
+	gostek.play("idle")
+	current_animation = "idle"
 
 func death():
 	if _is_dead:
 		return
 	_is_dead = true
 	
+	gostek.speed_scale = 1
 	# --- POPRAWKA DŹWIĘKU ---
 	# Ustawiamy dźwięki tak, by grały mimo pauzy gry
 	death_sound1.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -207,17 +219,23 @@ func death():
 	jump_tween.finished.connect(func():
 		get_tree().call_group("game_flow", "handle_player_death")
 		
-		var current = get_tree().current_scene
-		if current != null and current.has_node("GameFlow"):
-			var flow = current.get_node("GameFlow")
-			if flow != null and flow.has_method("handle_player_death"):
-				flow.handle_player_death()
+		#var current = get_tree().current_scene
+		#if current != null and current.has_node("GameFlow"):
+			#var flow = current.get_node("GameFlow")
+			#if flow != null and flow.has_method("handle_player_death"):
+				#flow.handle_player_death()
 	)
 	
 
-func finished():
-	if last_animation_was_not_slide:
-		slide()
+func animation_fin():
+	if current_animation == "idle":
+		return
+	if current_animation == "break":
+		return
+	if current_animation == "flight":
+		return
+	if current_animation == "jump":
+		gostek.play("flight")
 
 func add_coins(amount: int) -> void:
 	coins = max(0, coins + amount)

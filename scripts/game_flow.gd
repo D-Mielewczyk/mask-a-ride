@@ -1,6 +1,7 @@
 # gdlint:ignore = class-definitions-order
 extends Node
 
+@export var ramp_scene: PackedScene = preload("res://scenes/downhill.tscn")
 @export var roulette_scene: PackedScene = preload("res://scenes/ui/roulette_bar.tscn")
 @export var shop_scene: PackedScene = preload("res://scenes/menu/shop.tscn")
 @export var fireworks_scene: PackedScene = preload("res://scenes/ui/fireworks_effect.tscn")
@@ -9,7 +10,10 @@ extends Node
 var _player: Node = null
 var _overlay: CanvasLayer
 var _handled_death := false
+var _next_lvl_processing := false
 
+var current_goal_x: float = 5000.0
+var level_count: int = 1
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -23,16 +27,71 @@ func _ready() -> void:
 	_overlay.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(_overlay)
 
+func _process(delta: float) -> void:
+	if _player:
+			if (_player.global_position.x > current_goal_x) and not (_next_lvl_processing):
+				print("KONIEC LV", _player.global_position.x, " ", current_goal_x)
+				_reach_level_end()
+				_next_lvl_processing = false
+				
+func _reach_level_end() -> void:
+	_next_lvl_processing = true
+	_pause_game()
+	#_show_roulette()
+	# Zwiększamy cel dla następnego poziomu
+	current_goal_x += (level_count * 25000.0) 
+	level_count += 1
+	_spawn_next_ramp_and_launch()
+	get_tree().paused = false
+	_next_lvl_processing = false
+	
+func _spawn_next_ramp_and_launch() -> void:
+	# zeby gasnicy nie mozna bylo uzwać na granicy poziomu
+	_player.set_physics_process(false)
+
+	var spawn_x = _player.global_position.x - 120
+	var spawn_y = _player.global_position.y + 1800
+	_player.linear_velocity = Vector2.ZERO
+	_player.angular_velocity = 0
+		# 3. IMPULS zamiast Tweena
+	# Wektor: (X: lekko w przód, Y: bardzo mocno w górę)
+	var launch_force = Vector2(0, -1500) 
+	_player.apply_central_impulse(launch_force)
+	_player.angular_velocity = 5.0
+	
+	await get_tree().create_timer(0.5).timeout
+
+	# 3. Logika skoku (Tween)
+	var jump_height = _player.global_position.y - 4000
+	
+	# 2. Instancjonowanie nowej rampy
+	var new_ramp = ramp_scene.instantiate()
+	get_tree().current_scene.add_child(new_ramp)
+	
+	# Parametry rampy
+	
+	var spawn_pos = Vector2(spawn_x, spawn_y)
+	#var new_h = 1000.0 # Przykładowa wysokość
+	
+	new_ramp.add_to_group("starting_ramp")
+	new_ramp.global_position = spawn_pos
+	#new_ramp.set("start_height", new_h)
+
+	_show_roulette() 
+
+	# zeby gasnicy nie mozna bylo uzwać na granicy poziomu
+	_player.set_physics_process(true)
 
 func _on_player_died() -> void:
 	if _handled_death:
 		return
 	_handled_death = true
 	_pause_game()
-	_show_roulette()
+	_start_new_run()
 
 
 func _show_roulette() -> void:
+	_pause_game()
 	var roulette = roulette_scene.instantiate()
 	roulette.process_mode = Node.PROCESS_MODE_ALWAYS
 	_overlay.add_child(roulette)
@@ -58,6 +117,7 @@ func _on_roulette_outcome(outcome: String, roulette: Node) -> void:
 			if roulette != null:
 				roulette.queue_free()
 			_start_new_run()
+	_resume_game()
 
 
 func _show_shop() -> void:
@@ -101,10 +161,18 @@ func _play_fireworks(roulette: Node) -> void:
 	if roulette != null:
 		roulette.queue_free()
 
+func _resume_from_death() -> void:
+	_handled_death = false
+	_resume_game()
+	if _player != null and _player.has_method("revive"):
+		_player.revive()
+
 
 func _pause_game() -> void:
 	get_tree().paused = true
 
+func _resume_game() -> void:
+	get_tree().paused = false
 
 func _resolve_player() -> Node:
 	if player_path != NodePath():
