@@ -6,6 +6,22 @@
 [ext_resource type="PackedScene" uid="uid://tcmhrnnnhloe" path="res://scenes/background.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" path="res://scenes/world.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cnx6slv3dsdaf" path="res://scenes/ui/hud.tscn" id="5_tbgi4"]
+[ext_resource type="Shader" uid="uid://blsa7qo0mpxtb" path="res://shaders/Fog.gdshader" id="6_tefeu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
+shader = ExtResource("6_tefeu")
+shader_parameter/pixel_size = 4.0
+shader_parameter/fog_color = Color(0.6, 0.7, 0.8, 1)
+shader_parameter/fog_height = 0.25
+shader_parameter/fog_density = 0.8
+shader_parameter/fog_edge_softness = 0.1
+shader_parameter/edge_noise_scale = 5.0
+shader_parameter/edge_noise_speed = 0.5
+shader_parameter/edge_noise_strength = 0.1
+shader_parameter/noise_strength = 0.15
+shader_parameter/scanline_strength = 0.1
+shader_parameter/distortion_strength = 0.005
+shader_parameter/time_scale = 2.0
 
 [node name="main" type="Node2D" unique_id=1679531480]
 
@@ -29,3 +45,15 @@ speed_multiplier = 0.013000000000000001
 [node name="World" parent="." unique_id=1185056397 instance=ExtResource("4_jyhfs")]
 
 [node name="HUD" parent="." unique_id=1393149296 instance=ExtResource("5_tbgi4")]
+layer = 11
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=666584438]
+layer = 10
+
+[node name="FogOverlay" type="ColorRect" parent="CanvasLayer" unique_id=1110961236]
+material = SubResource("ShaderMaterial_o6xl0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

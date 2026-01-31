@@ -17,6 +17,7 @@ var end_point_world: Vector2
 func generate_terrain(start_world_pos: Vector2):
 	position = Vector2(start_world_pos.x, 0)
 	var local_start_y = start_world_pos.y
+	var local_start_x = start_world_pos.x
 	
 	var curve = Curve2D.new()
 
