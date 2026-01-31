@@ -9,6 +9,7 @@
 [ext_resource type="Shader" uid="uid://blsa7qo0mpxtb" path="res://shaders/Fog.gdshader" id="6_tefeu"]
 [ext_resource type="Script" path="res://scripts/creature_spawner.gd" id="7_creature_spawner"]
 [ext_resource type="Script" path="res://scripts/rocket_fuel_boost_spawner.gd" id="8_boost_spawner"]
+[ext_resource type="Script" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
 shader = ExtResource("6_tefeu")
@@ -52,6 +53,10 @@ player_path = NodePath("../Player")
 
 [node name="RocketFuelBoostSpawner" type="Node2D" parent="."]
 script = ExtResource("8_boost_spawner")
+player_path = NodePath("../Player")
+
+[node name="TrapSpawner" type="Node2D" parent="."]
+script = ExtResource("9_trap_spawner")
 player_path = NodePath("../Player")
 
 [node name="HUD" parent="." unique_id=1393149296 instance=ExtResource("5_tbgi4")]
