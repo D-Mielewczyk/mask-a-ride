@@ -11,6 +11,7 @@ var _overlay: CanvasLayer
 var _handled_death := false
 var _next_lvl_processing := false
 
+var current_goal_x: float = 20000.0
 var level_count: int = 1
 var difficulty_scale: float = 1.3
 
@@ -38,7 +39,7 @@ func _reach_level_end() -> void:
 	_pause_game()
 	#_show_roulette()
 	# Zwiększamy cel dla następnego poziomu
-	current_goal_x += current_goal_x*                    difficulty_scale
+	current_goal_x += current_goal_x * difficulty_scale
 	level_count += 1
 	_spawn_next_ramp_and_launch()
 	get_tree().paused = false
@@ -55,7 +56,7 @@ func _spawn_next_ramp_and_launch() -> void:
 	_player.angular_velocity = 0
 		# 3. IMPULS zamiast Tweena
 	# Wektor: (X: lekko w przód, Y: bardzo mocno w górę)
-	var launch_force = Vector2(0, -800 * 4) #TODO change to dynamic ramp height, if we will change that bc of ipgrades
+	var launch_force = Vector2(0, -800 * 4) # TODO change to dynamic ramp height, if we will change that bc of ipgrades
 	_player.apply_central_impulse(launch_force)
 	_player.angular_velocity = 5.0
 	
@@ -66,7 +67,7 @@ func _spawn_next_ramp_and_launch() -> void:
 	get_tree().current_scene.add_child(new_ramp)
 	
 	var ramp_x = spawn_x0 - 120
-	var ramp_y = spawn_y0 - 1000 - 800 #TODO change to dynamic ramp height, if we will change that bc of ipgrades
+	var ramp_y = spawn_y0 - 1000 - 800 # TODO change to dynamic ramp height, if we will change that bc of ipgrades
 	# Parametry rampy
 	var spawn_pos = Vector2(ramp_x, ramp_y)
 	#var new_h = 1000.0 # Przykładowa wysokość
@@ -75,7 +76,7 @@ func _spawn_next_ramp_and_launch() -> void:
 	new_ramp.global_position = spawn_pos
 	#new_ramp.set("start_height", new_h)
 
-	_show_roulette() 
+	_show_roulette()
 
 	# zeby gasnicy nie mozna bylo uzwać na granicy poziomu
 	_player.set_physics_process(true)
@@ -85,6 +86,7 @@ func _on_player_died() -> void:
 		return
 	_handled_death = true
 	_pause_game()
+	_reset_level_state()
 	_start_new_run()
 
 
@@ -144,6 +146,11 @@ func _start_new_run() -> void:
 	tree.paused = false
 	tree.reload_current_scene()
 
+
+func _reset_level_state() -> void:
+	current_goal_x = 25000.0
+	level_count = 1
+	_next_lvl_processing = false
 
 
 func _resume_from_death() -> void:
