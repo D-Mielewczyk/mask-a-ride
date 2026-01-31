@@ -31,6 +31,8 @@ var coins: int = 0
 @onready var maska = $"rotating/maska"
 var spawn_time
 var SPAWN_PROTECTION_TIME: int = 2000
+var death_timer: float = 0.0
+const MAX_DANGER_TIME: float = 1.0 # czas po którym się umiera
 @onready var rocket_foam: CPUParticles2D = $"rotating/RocketFoam"
 
 func _ready():
@@ -95,6 +97,9 @@ func _physics_process(delta):
 		if was_on_ground:
 			jump_sound.play( )
 			was_on_ground = false
+			
+		if global_position.y > 2500:
+			death()
 
 	# --- SYSTEM RAKIETOWY (Działa zawsze po wciśnięciu Boosta) ---
 	if is_boosting:
@@ -103,13 +108,17 @@ func _physics_process(delta):
 		apply_central_force(boost_dir * rocket_power)
 		current_fuel -= fuel_consumption * delta
 		
-	if (linear_velocity.x < 30) and (Time.get_ticks_msec() - spawn_time > SPAWN_PROTECTION_TIME):
-		death()
-		
-	
-		print("Paliwo: ", int(current_fuel)) # Debug w konsoli
 	if rocket_foam != null:
 		rocket_foam.emitting = is_boosting
+		
+	if (linear_velocity.x < 30) and (Time.get_ticks_msec() - spawn_time > SPAWN_PROTECTION_TIME):
+		death_timer += delta
+	else:
+		death_timer = 0
+		
+	if death_timer > MAX_DANGER_TIME:
+		death()
+		
 
 # Funkcja do ulepszeń: tankowanie paliwa (np. po zebraniu znajdźki)
 func add_fuel(amount):
