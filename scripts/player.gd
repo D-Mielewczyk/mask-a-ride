@@ -36,7 +36,7 @@ var coins: int = 2000
 @onready var gostek = $"rotating/gostek"
 @onready var maska = $"rotating/maska"
 var spawn_time
-var SPAWN_PROTECTION_TIME: int = 100 #TODO CHANGE THAT and fix lxl invic
+var SPAWN_PROTECTION_TIME: int = 2000
 var death_timer: float = 0.0
 const MAX_DANGER_TIME: float = 1.0 # czas po którym się umiera
 @onready var rocket_foam: CPUParticles2D = $"rotating/RocketFoam"
@@ -210,11 +210,11 @@ func death():
 	jump_tween.finished.connect(func():
 		get_tree().call_group("game_flow", "handle_player_death")
 		
-		var current = get_tree().current_scene
-		if current != null and current.has_node("GameFlow"):
-			var flow = current.get_node("GameFlow")
-			if flow != null and flow.has_method("handle_player_death"):
-				flow.handle_player_death()
+		#var current = get_tree().current_scene
+		#if current != null and current.has_node("GameFlow"):
+			#var flow = current.get_node("GameFlow")
+			#if flow != null and flow.has_method("handle_player_death"):
+				#flow.handle_player_death()
 	)
 	
 

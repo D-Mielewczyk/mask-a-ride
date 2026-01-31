@@ -105,7 +105,7 @@ func _on_roulette_outcome(outcome: String, roulette: Node) -> void:
 		"shop":
 			_show_shop()
 		"double":
-			_double_money()
+			_double_coins()
 		"resurrect":
 			_resume_from_death()
 		_:
