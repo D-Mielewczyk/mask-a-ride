@@ -20,7 +20,7 @@ var _is_dead := false
 
 @export_group("Rakieta (Boost)")
 @export var rocket_power = 2000.0       # Siła kopa rakiety
-@export var max_fuel = 1000000000000000.0             # Maksymalne paliwo
+@export var max_fuel = 100.0             # Maksymalne paliwo
 @export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
 var was_on_ground: bool = true 

@@ -11,7 +11,7 @@ var _overlay: CanvasLayer
 var _handled_death := false
 var _next_lvl_processing := false
 
-var current_goal_x: float = 5000.0
+var current_goal_x: float = 25000.0
 var level_count: int = 1
 
 func _ready() -> void:
