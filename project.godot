@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://be74nt2fkah6i"
+GameFlow="*uid://c2p6mgi8vnp6l"
 
 [display]
 

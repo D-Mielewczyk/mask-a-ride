@@ -108,15 +108,12 @@ func _on_roulette_outcome(outcome: String, roulette: Node) -> void:
 			if roulette != null:
 				roulette.queue_free()
 			_double_coins()
-			_start_new_run()
 		"fireworks":
 			if roulette != null:
 				roulette.queue_free()
-			_start_new_run()
 		_:
 			if roulette != null:
 				roulette.queue_free()
-			_start_new_run()
 	_resume_game()
 
 
