@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopUpgrade" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/shop_upgrade.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "rocket_fuel_t2"
+display_name = "Rocket Fuel Expansion II"
+description = "Even more rocket fuel capacity."
+price = 280
+rarity = "rare"
+effect_id = "rocket_fuel"
+requires_ids = PackedStringArray("rocket_fuel_t1")

@@ -32,27 +32,60 @@ func get_all() -> Array[ShopUpgrade]:
 
 
 func get_options(count: int, include_owned: bool) -> Array[ShopUpgrade]:
-	var unowned: Array[ShopUpgrade] = []
-	var owned: Array[ShopUpgrade] = []
+	var pool: Array[ShopUpgrade] = []
 	for upgrade in _upgrades:
-		if upgrade.bought:
-			owned.append(upgrade)
-		else:
-			unowned.append(upgrade)
-
-	unowned.shuffle()
-	owned.shuffle()
+		if not _requirements_met(upgrade):
+			continue
+		if not include_owned and upgrade.bought:
+			continue
+		pool.append(upgrade)
 
 	var options: Array[ShopUpgrade] = []
-	for upgrade in unowned:
-		if options.size() >= count:
+	while options.size() < count and pool.size() > 0:
+		var pick = _weighted_pick(pool)
+		if pick == null:
 			break
-		options.append(upgrade)
-
-	if include_owned and options.size() < count:
-		for upgrade in owned:
-			if options.size() >= count:
-				break
-			options.append(upgrade)
+		options.append(pick)
+		pool.erase(pick)
 
 	return options
+
+
+func _weighted_pick(pool: Array[ShopUpgrade]) -> ShopUpgrade:
+	var total := 0.0
+	for upgrade in pool:
+		total += _rarity_weight(upgrade.rarity)
+	if total <= 0.0:
+		return pool[0]
+
+	var roll := randf() * total
+	var accum := 0.0
+	for upgrade in pool:
+		accum += _rarity_weight(upgrade.rarity)
+		if roll <= accum:
+			return upgrade
+	return pool[pool.size() - 1]
+
+
+func _rarity_weight(rarity: String) -> float:
+	match rarity:
+		"rare":
+			return 0.4
+		"epic":
+			return 0.2
+		"legendary":
+			return 0.1
+		_:
+			return 1.0
+
+
+func _requirements_met(upgrade: ShopUpgrade) -> bool:
+	if upgrade.requires_ids.is_empty():
+		return true
+	var global = GlobalSingleton.global
+	if global == null:
+		return false
+	for req_id in upgrade.requires_ids:
+		if not global.is_upgrade_bought(req_id):
+			return false
+	return true

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwbnnp7fbnhx8"
-path="res://.godot/imported/light_chasis.png-316e4bb395c3ccbe92217959b5a9b7ca.ctex"
+uid="uid://caayu0nwrvjyi"
+path="res://.godot/imported/rocket.png-ee7caa6d60b8c73f0b17d79a887f39b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/light_chasis.png"
-dest_files=["res://.godot/imported/light_chasis.png-316e4bb395c3ccbe92217959b5a9b7ca.ctex"]
+source_file="res://assets/rocket.png"
+dest_files=["res://.godot/imported/rocket.png-ee7caa6d60b8c73f0b17d79a887f39b7.ctex"]
 
 [params]
 
