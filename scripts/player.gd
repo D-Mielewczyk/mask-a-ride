@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 signal died
-
+var _is_dead := false
 ## --- PARAMETRY DO ULEPSZEŃ (Eksportowane do Inspektora) ---
 @export_group("Ruch i Slidowanie")
 @export var acceleration_scale = 4000.0  # Jak mocno pcha w dół (Alto style)
@@ -51,6 +51,9 @@ func _ready():
 	_setup_rocket_foam()
 
 func _physics_process(delta):
+	if _is_dead:
+		return
+	
 	var rot_dir = Input.get_axis("ui_left", "ui_right")
 	var is_boosting = Input.is_action_pressed("ui_accept") and current_fuel > 0 # np. Spacja
 
@@ -148,21 +151,58 @@ func death():
 	if _is_dead:
 		return
 	_is_dead = true
+	
+	# --- POPRAWKA DŹWIĘKU ---
+	# Ustawiamy dźwięki tak, by grały mimo pauzy gry
+	death_sound1.process_mode = Node.PROCESS_MODE_ALWAYS
+	detah_sound2.process_mode = Node.PROCESS_MODE_ALWAYS 
+	
 	print("ŚMIERĆ")
 	gostek.play("death")
 	maska.play("death")
 	last_animation_was_not_slide = false
-	died.emit()
-	get_tree().call_group("game_flow", "handle_player_death")
-	var current = get_tree().current_scene
-	if current != null and current.has_node("GameFlow"):
-		var flow = current.get_node("GameFlow")
-		if flow != null and flow.has_method("handle_player_death"):
-			flow.handle_player_death()
+	
+	collision_layer = 0
+	collision_mask = 0
+	freeze = true 
+	
+	get_tree().paused = true
+	
+	var death_height = global_position.y - 750 
+	var fall_height = global_position.y + 5000 
+	
+	var jump_tween = create_tween()
+	jump_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	
+	var rot_tween = create_tween()
+	rot_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	
+	# --- POPRAWKA OBROTU ---
+	# Obracamy tylko grafikę (gostka), a nie cały węzeł 'self'. 
+	# Dzięki temu tło podpięte pod pozycję gracza zostanie prosto.
+	rot_tween.tween_property(gostek, "rotation_degrees", 360.0, 1.0)
+	# Jeśli maska też ma się obracać:
+	var maska_tween = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	maska_tween.tween_property(maska, "rotation_degrees", 360.0, 1.0)
+	
+	jump_tween.tween_property(self, "global_position:y", death_height, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	jump_tween.tween_property(self, "global_position:y", fall_height, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	
 	if randf() < 0.5:
 		death_sound1.play()
 	else:
 		detah_sound2.play()
+		
+	jump_tween.finished.connect(func():
+		get_tree().call_group("game_flow", "handle_player_death")
+		
+		var current = get_tree().current_scene
+		if current != null and current.has_node("GameFlow"):
+			var flow = current.get_node("GameFlow")
+			if flow != null and flow.has_method("handle_player_death"):
+				flow.handle_player_death()
+	)
+	
 
 func finished():
 	if last_animation_was_not_slide:
@@ -190,4 +230,3 @@ func _setup_rocket_foam() -> void:
 	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
 	img.fill(Color(1, 1, 1, 1))
 	rocket_foam.texture = ImageTexture.create_from_image(img)
-var _is_dead := false
