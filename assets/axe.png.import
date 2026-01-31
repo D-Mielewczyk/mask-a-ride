@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwbnnp7fbnhx8"
-path="res://.godot/imported/light_chasis.png-316e4bb395c3ccbe92217959b5a9b7ca.ctex"
+uid="uid://b7t1oyfi37t6f"
+path="res://.godot/imported/axe.png-b3dc51e92f6a2c7984f6fe10f6ccaa2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/light_chasis.png"
-dest_files=["res://.godot/imported/light_chasis.png-316e4bb395c3ccbe92217959b5a9b7ca.ctex"]
+source_file="res://assets/axe.png"
+dest_files=["res://.godot/imported/axe.png-b3dc51e92f6a2c7984f6fe10f6ccaa2d.ctex"]
 
 [params]
 

@@ -5,12 +5,13 @@
 
 [resource]
 script = ExtResource("1")
-id = "speed_boost_t1"
-display_name = "Speed Boost I"
-description = "Permanently increases base speed."
-price = 150
+id = "speed_boost_t3"
+display_name = "Speed Boost III"
+description = "Maxed speed upgrade."
+price = 450
 icon = ExtResource("2")
 rarity = "legendary"
+requires_ids = PackedStringArray("speed_boost_t2")
 stat_name = "move_speed"
 apply_mode = "add"
-stat_value = 40.0
+stat_value = 80.0

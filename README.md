@@ -8,7 +8,7 @@ Game about car masks
 
 - Spinning Pixel Coin animation by irmirx: https://opengameart.org/content/spinning-pixel-coin-0
 - Runes: https://kenney.nl/assets/rune-pack
-
+- Fantasy icons by Raven: https://clockworkraven.itch.io/raven-fantasy-icons
 
 ## Linting
 

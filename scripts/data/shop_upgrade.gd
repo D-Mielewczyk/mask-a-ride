@@ -8,6 +8,8 @@ class_name ShopUpgrade
 @export var price := 100
 @export var icon: Texture2D
 @export_enum("common", "rare", "epic", "legendary") var rarity := "common"
+@export var effect_id := ""
+@export var requires_ids: PackedStringArray = []
 @export var stat_name := ""
 @export_enum("add", "mul") var apply_mode := "add"
 @export var stat_value := 0.0
