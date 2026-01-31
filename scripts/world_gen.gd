@@ -2,8 +2,8 @@ extends StaticBody2D
 
 # Konfiguracja "Krzywizny" i "Hopek"
 @export var chunk_width: float = 1920.0  # Szerokość jednego kawałka terenu
-@export var num_hills: int = 4  # Ile górek na jeden kawałek (zagęszczenie)
-@export var height_variation: float = 200.0  # Jak bardzo góra/dół skacze Y
+@export var num_hills: int = 3  # Ile górek na jeden kawałek (zagęszczenie)
+@export var height_variation: float = 400.0  # Jak bardzo góra/dół skacze Y
 @export var hill_roughness: float = 0.4  # Siła "wygięcia" (0 = płasko, 1 = pętle)
 
 # Zmienne wewnętrzne

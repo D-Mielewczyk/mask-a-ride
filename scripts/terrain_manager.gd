@@ -7,7 +7,7 @@ extends Node2D
 var terrain_scene = preload("res://scenes/terrain_chunk.tscn")
 var chasm_scene = preload("res://scenes/chasm_chunk.tscn")
 
-var next_spawn_pos = Vector2(0, 300)  # Startujemy na wysokości Y=300
+var next_spawn_pos = Vector2(1000, 2500)  # Startujemy na wysokości Y=300
 var active_chunks = []
 
 

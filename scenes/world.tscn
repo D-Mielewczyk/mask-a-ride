@@ -13,4 +13,5 @@ player_node = NodePath("../CameraDrone")
 script = ExtResource("2_rwgxs")
 
 [node name="Camera2D" type="Camera2D" parent="CameraDrone" unique_id=1081654180]
+enabled = false
 zoom = Vector2(0.5, 0.5)
