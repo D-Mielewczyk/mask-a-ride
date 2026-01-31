@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ShopUpgrade" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/data/shop_upgrade.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/bounce_plate.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/bounce_plate.aseprite" id="2"]
 
 [resource]
 script = ExtResource("1")
@@ -10,7 +10,7 @@ display_name = "Spring Plate"
 description = "Adds a stronger bounce on collisions."
 price = 180
 icon = ExtResource("2")
-rarity = "common"
+rarity = "rare"
 stat_name = "bounce_force"
 apply_mode = "add"
 stat_value = 80.0

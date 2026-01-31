@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://roulettebar1"]
 
 [ext_resource type="Script" path="res://scripts/ui/roulette_bar.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/shop.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/shop.aseprite" id="2"]
 [ext_resource type="Texture2D" path="res://assets/coin.png" id="3"]
 [ext_resource type="Script" path="res://scripts/ui/coin_anim.gd" id="4"]
-[ext_resource type="Texture2D" path="res://assets/ressurect.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/firework.aseprite" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.07, 0.07, 0.1, 0.95)
@@ -121,22 +121,22 @@ stretch_mode = 5
 text = "Double 10%"
 horizontal_alignment = 1
 
-[node name="SlotResurrect" type="PanelContainer" parent="Panel/Layout/WheelArea/Wheel"]
+[node name="SlotFireworks" type="PanelContainer" parent="Panel/Layout/WheelArea/Wheel"]
 custom_minimum_size = Vector2(180, 110)
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
 
-[node name="SlotResurrectContent" type="VBoxContainer" parent="Panel/Layout/WheelArea/Wheel/SlotResurrect"]
+[node name="SlotFireworksContent" type="VBoxContainer" parent="Panel/Layout/WheelArea/Wheel/SlotFireworks"]
 alignment = 1
 theme_override_constants/separation = 6
 
-[node name="SlotResurrectIcon" type="TextureRect" parent="Panel/Layout/WheelArea/Wheel/SlotResurrect/SlotResurrectContent"]
+[node name="SlotFireworksIcon" type="TextureRect" parent="Panel/Layout/WheelArea/Wheel/SlotFireworks/SlotFireworksContent"]
 texture = ExtResource("5")
 custom_minimum_size = Vector2(56, 56)
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SlotResurrectLabel" type="Label" parent="Panel/Layout/WheelArea/Wheel/SlotResurrect/SlotResurrectContent"]
-text = "Resurrect 1%"
+[node name="SlotFireworksLabel" type="Label" parent="Panel/Layout/WheelArea/Wheel/SlotFireworks/SlotFireworksContent"]
+text = "Fireworks 1%"
 horizontal_alignment = 1
 
 [node name="Arrow" type="Label" parent="Panel/Layout/WheelArea"]

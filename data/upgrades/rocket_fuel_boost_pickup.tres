@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ShopUpgrade" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/shop_upgrade.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/rocket_fuel_boost.aseprite" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "rocket_fuel_boost_pickup"
+display_name = "Fuel Canister"
+description = "Enables rare fuel canisters in the air."
+price = 150
+icon = ExtResource("2")
+rarity = "common"
+effect_id = "rocket_fuel_boost_pickup"
+requires_ids = ["rocket"]

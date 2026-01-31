@@ -45,8 +45,12 @@ func _process(_delta):
 	height_label.text = "Wysokość: %d m" % abs(player.global_position.y / 10.0)
 	
 	# Paliwo i Monety
-	if "current_fuel" in player:
-		fuel_bar.value = player.current_fuel
+	if player.has_meta("rocket_enabled") and player.get_meta("rocket_enabled"):
+		fuel_bar.visible = true
+		if "current_fuel" in player:
+			fuel_bar.value = player.current_fuel
+	else:
+		fuel_bar.visible = false
 	
 	if GlobalSingleton.global != null:
 		coins_label.text = str(GlobalSingleton.global.coins)

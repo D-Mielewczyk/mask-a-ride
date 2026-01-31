@@ -31,6 +31,10 @@ func _process(delta: float) -> void:
 	if _alive_count() >= max_alive:
 		return
 
+	var global = GlobalSingleton.global
+	if global == null or not global.is_upgrade_bought("rocket_fuel_boost_pickup"):
+		return
+
 	var player = get_node_or_null(player_path) as Node2D
 	if player == null:
 		return

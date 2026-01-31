@@ -3,10 +3,10 @@ extends Control
 
 signal outcome_selected(outcome: String)
 
-@export var weight_nothing := 0.59
+@export var weight_nothing := 0.599
 @export var weight_shop := 0.3
 @export var weight_double := 0.1
-@export var weight_resurrect := 0.01
+@export var weight_fireworks := 0.01
 @export var spin_duration := 4.0
 @export var spins := 5
 @export var radius_x := 150.0
@@ -19,14 +19,14 @@ signal outcome_selected(outcome: String)
 @onready var slot_nothing: Control = $Panel/Layout/WheelArea/Wheel/SlotNothing
 @onready var slot_shop: Control = $Panel/Layout/WheelArea/Wheel/SlotShop
 @onready var slot_double: Control = $Panel/Layout/WheelArea/Wheel/SlotDouble
-@onready var slot_resurrect: Control = $Panel/Layout/WheelArea/Wheel/SlotResurrect
+@onready var slot_fireworks: Control = $Panel/Layout/WheelArea/Wheel/SlotFireworks
 @onready var label_nothing: Label = $Panel/Layout/WheelArea/Wheel/SlotNothing/SlotNothingContent/SlotNothingLabel
 @onready var label_shop: Label = $Panel/Layout/WheelArea/Wheel/SlotShop/SlotShopContent/SlotShopLabel
 @onready var label_double: Label = $Panel/Layout/WheelArea/Wheel/SlotDouble/SlotDoubleContent/SlotDoubleLabel
-@onready var label_resurrect: Label = $Panel/Layout/WheelArea/Wheel/SlotResurrect/SlotResurrectContent/SlotResurrectLabel
+@onready var label_fireworks: Label = $Panel/Layout/WheelArea/Wheel/SlotFireworks/SlotFireworksContent/SlotFireworksLabel
 @onready var result_label: Label = $Panel/Layout/ResultLabel
 
-var _outcomes := ["nothing", "shop", "double", "resurrect"]
+var _outcomes := ["nothing", "shop", "double", "fireworks"]
 var _current_angle := 0.0
 var _spinning := false
 var _slot_angles := {}
@@ -50,7 +50,7 @@ func _update_wheel_positions() -> void:
 	_place_slot(slot_nothing, _slot_angles.get("nothing", 0.0) + _current_angle)
 	_place_slot(slot_shop, _slot_angles.get("shop", TAU / 4.0) + _current_angle)
 	_place_slot(slot_double, _slot_angles.get("double", 2.0 * TAU / 4.0) + _current_angle)
-	_place_slot(slot_resurrect, _slot_angles.get("resurrect", 3.0 * TAU / 4.0) + _current_angle)
+	_place_slot(slot_fireworks, _slot_angles.get("fireworks", 3.0 * TAU / 4.0) + _current_angle)
 
 
 func _place_slot(slot: Control, angle: float) -> void:
@@ -83,7 +83,7 @@ func spin() -> void:
 
 
 func _weighted_pick() -> String:
-	var total = weight_nothing + weight_shop + weight_double + weight_resurrect
+	var total = weight_nothing + weight_shop + weight_double + weight_fireworks
 	if total <= 0.0:
 		return "nothing"
 	var roll = randf() * total
@@ -93,7 +93,7 @@ func _weighted_pick() -> String:
 		return "shop"
 	elif roll < weight_nothing + weight_shop + weight_double:
 		return "double"
-	return "resurrect"
+	return "fireworks"
 
 
 func _show_result(outcome: String) -> void:
@@ -103,25 +103,25 @@ func _show_result(outcome: String) -> void:
 			result_label.text = "Shop appears!"
 		"double":
 			result_label.text = "Double coins!"
-		"resurrect":
-			result_label.text = "Resurrect!"
+		"fireworks":
+			result_label.text = "Fireworks! (kidding this does nothing)"
 		_:
 			result_label.text = "Nothing this time."
 	outcome_selected.emit(outcome)
 
 
 func _update_labels() -> void:
-	var total = weight_nothing + weight_shop + weight_double + weight_resurrect
+	var total = weight_nothing + weight_shop + weight_double + weight_fireworks
 	if total <= 0.0:
 		total = 1.0
 	label_nothing.text = "Nothing %d%%" % int(round((weight_nothing / total) * 100.0))
 	label_shop.text = "Shop %d%%" % int(round((weight_shop / total) * 100.0))
 	label_double.text = "Double %d%%" % int(round((weight_double / total) * 100.0))
-	label_resurrect.text = "Resurrect %d%%" % int(round((weight_resurrect / total) * 100.0))
+	label_fireworks.text = "Fireworks %d%%" % int(round((weight_fireworks / total) * 100.0))
 
 	label_shop.modulate = Color(0.6, 0.2, 1.0, 1.0)
 	label_double.modulate = Color(1.0, 0.55, 0.1, 1.0)
-	label_resurrect.modulate = Color(0.2, 1.0, 0.6, 1.0)
+	label_fireworks.modulate = Color(1.0, 0.4, 0.8, 1.0)
 
 
 func _shuffle_slot_angles() -> void:
@@ -130,4 +130,4 @@ func _shuffle_slot_angles() -> void:
 	_slot_angles["nothing"] = angles[0]
 	_slot_angles["shop"] = angles[1]
 	_slot_angles["double"] = angles[2]
-	_slot_angles["resurrect"] = angles[3]
+	_slot_angles["fireworks"] = angles[3]
