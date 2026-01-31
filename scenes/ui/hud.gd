@@ -51,7 +51,7 @@ func _process(_delta):
 		fuel_bar.value = player.current_fuel
 	
 	if "coins" in player:
-		coins_label.text = "Monety: %s" % str(player.coins)
+		coins_label.text = str(player.coins)
 	
 	# Debugowanie wartości w konsoli co jakiś czas (np. raz na 60 klatek)
 	if Engine.get_frames_drawn() % 60 == 0:

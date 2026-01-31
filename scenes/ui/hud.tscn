@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnx6slv3dsdaf"]
 
 [ext_resource type="Script" uid="uid://d2xdqj8ti64vk" path="res://scenes/ui/hud.gd" id="1_0mwgc"]
+[ext_resource type="Script" path="res://scripts/ui/coin_anim.gd" id="2_coin_anim"]
 
 [node name="HUD" type="CanvasLayer" unique_id=17031371]
 script = ExtResource("1_0mwgc")
@@ -43,3 +44,26 @@ anchor_bottom = 1.0
 offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=911403287]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -170.0
+offset_top = 18.0
+offset_right = -20.0
+offset_bottom = 58.0
+grow_horizontal = 0
+theme_override_constants/separation = 8
+
+[node name="CoinAnim" type="TextureRect" parent="Control/HBoxContainer" unique_id=2078406753]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+script = ExtResource("2_coin_anim")
+
+[node name="CoinsLabel" type="Label" parent="Control/HBoxContainer" unique_id=2106530433]
+layout_mode = 2
+text = "0"
