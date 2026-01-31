@@ -99,7 +99,9 @@ func build_island(body_node, curve: Curve2D):
 	
 	body_node.get_node("Polygon2D").polygon = poly
 	body_node.get_node("CollisionPolygon2D").polygon = poly
-	body_node.get_node("Line2D").points = baked
+	var line = body_node.get_node("Line2D")
+	line.points = baked
+	_register_surface(line)
 	
 	var uv = PackedVector2Array()
 	for p in poly:
@@ -123,3 +125,10 @@ func _on_screen_exited():
 	# Chunk wyszedł całkowicie z ekranu -> usuwamy go z pamięci
 
 	queue_free() 
+
+
+func _register_surface(line: Line2D) -> void:
+	if line == null:
+		return
+	if not line.is_in_group("terrain_surface"):
+		line.add_to_group("terrain_surface")
