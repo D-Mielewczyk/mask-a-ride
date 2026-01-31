@@ -1,22 +1,24 @@
 [gd_scene format=3 uid="uid://dvjb3m1wtxnku"]
 
 [ext_resource type="Script" uid="uid://cn8520kfh0r18" path="res://scripts/player.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://y7hfq8j0etxk" path="res://assets/player.png" id="2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g2els"]
 friction = 0.2
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3vyb7"]
+load_path = "res://.godot/imported/player.png-be2216fcaabb5c62aa2466cd9a5726a8.ctex"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 37.0
 height = 110.0
 
-[node name="Player" type="RigidBody2D" unique_id=358743943]
+[node name="Player" type="RigidBody2D" unique_id=358743943 groups=["player"]]
 physics_material_override = SubResource("PhysicsMaterial_g2els")
 script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=221682578]
 scale = Vector2(4, 4)
-texture = ExtResource("2")
+texture = SubResource("CompressedTexture2D_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119381307]
 position = Vector2(-2, 22)

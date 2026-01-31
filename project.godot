@@ -24,6 +24,10 @@ window/size/viewport_height=720
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
+[global_group]
+
+player=""
+
 [physics]
 
 common/physics_ticks_per_second=120

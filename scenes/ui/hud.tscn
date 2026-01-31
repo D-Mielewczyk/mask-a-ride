@@ -1,3 +1,45 @@
-[gd_scene format=3 uid="uid://lo5q7r8s9t0u1v"]
+[gd_scene format=3 uid="uid://cnx6slv3dsdaf"]
 
-[node name="HUD" type="CanvasLayer"]
+[ext_resource type="Script" uid="uid://d2xdqj8ti64vk" path="res://scenes/ui/hud.gd" id="1_0mwgc"]
+
+[node name="HUD" type="CanvasLayer" unique_id=17031371]
+script = ExtResource("1_0mwgc")
+
+[node name="Control" type="Control" parent="." unique_id=1474528801]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=731229351]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DistanceLabel" type="Label" parent="Control/VBoxContainer" unique_id=395237085]
+layout_mode = 2
+text = "Dystans"
+
+[node name="MaxDistanceLabel" type="Label" parent="Control/VBoxContainer" unique_id=1240386066]
+layout_mode = 2
+text = "Rekord"
+
+[node name="SpeedLabel" type="Label" parent="Control/VBoxContainer" unique_id=1301961197]
+layout_mode = 2
+text = "Prędkość"
+
+[node name="HeightLabel" type="Label" parent="Control/VBoxContainer" unique_id=860910533]
+layout_mode = 2
+text = "Wysokość"
+
+[node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=1789695963]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
