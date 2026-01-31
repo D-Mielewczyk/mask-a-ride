@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cnx6slv3dsdaf"]
 
 [ext_resource type="Script" uid="uid://d2xdqj8ti64vk" path="res://scenes/ui/hud.gd" id="1_0mwgc"]
-[ext_resource type="Script" path="res://scripts/ui/coin_anim.gd" id="2_coin_anim"]
+[ext_resource type="Script" uid="uid://cwp24qm4822jy" path="res://scripts/ui/coin_anim.gd" id="2_coin_anim"]
 
 [node name="HUD" type="CanvasLayer" unique_id=17031371]
 script = ExtResource("1_0mwgc")
@@ -34,6 +34,12 @@ text = "Prędkość"
 [node name="HeightLabel" type="Label" parent="Control/VBoxContainer" unique_id=860910533]
 layout_mode = 2
 text = "Wysokość"
+
+[node name="CurLvlLabel" type="Label" parent="Control/VBoxContainer" unique_id=1450467146]
+layout_mode = 2
+
+[node name="TargetXLabel" type="Label" parent="Control/VBoxContainer" unique_id=720785437]
+layout_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=1789695963]
 layout_mode = 1
