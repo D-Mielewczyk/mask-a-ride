@@ -3,6 +3,7 @@ extends Node
 
 @export var roulette_scene: PackedScene = preload("res://scenes/ui/roulette_bar.tscn")
 @export var shop_scene: PackedScene = preload("res://scenes/menu/shop.tscn")
+@export var fireworks_scene: PackedScene = preload("res://scenes/ui/fireworks_effect.tscn")
 @export var player_path: NodePath
 
 var _player: Node = null
@@ -40,17 +41,22 @@ func _show_roulette() -> void:
 
 
 func _on_roulette_outcome(outcome: String, roulette: Node) -> void:
-	if roulette != null:
-		roulette.queue_free()
 	match outcome:
 		"shop":
+			if roulette != null:
+				roulette.queue_free()
 			_show_shop()
 		"double":
+			if roulette != null:
+				roulette.queue_free()
 			_double_coins()
 			_start_new_run()
-		"resurrect":
-			_resume_from_death()
+		"fireworks":
+			await _play_fireworks(roulette)
+			_start_new_run()
 		_:
+			if roulette != null:
+				roulette.queue_free()
 			_start_new_run()
 
 
@@ -80,11 +86,20 @@ func _start_new_run() -> void:
 	get_tree().reload_current_scene()
 
 
-func _resume_from_death() -> void:
-	_handled_death = false
-	get_tree().paused = false
-	if _player != null and _player.has_method("revive"):
-		_player.revive()
+func _play_fireworks(roulette: Node) -> void:
+	if fireworks_scene == null:
+		if roulette != null:
+			roulette.queue_free()
+		return
+	var effect = fireworks_scene.instantiate()
+	effect.process_mode = Node.PROCESS_MODE_ALWAYS
+	_overlay.add_child(effect)
+	if effect.has_signal("finished"):
+		await effect.finished
+	else:
+		await get_tree().create_timer(1.2, false, true).timeout
+	if roulette != null:
+		roulette.queue_free()
 
 
 func _pause_game() -> void:
