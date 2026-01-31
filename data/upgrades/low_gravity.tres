@@ -11,6 +11,6 @@ description = "Reduces gravity for longer air time."
 price = 200
 icon = ExtResource("2")
 rarity = "epic"
-stat_name = "gravity"
+stat_name = "gravity_scale"
 apply_mode = "mul"
 stat_value = 0.9

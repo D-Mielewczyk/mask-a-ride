@@ -12,7 +12,8 @@ var _is_dead := false
 @export var acceleration_scale = 6000.0  # Jak mocno pcha w dół (Alto style)
 @export var ground_damp = 0.025           # Im mniejszy, tym lepszy poślizg na ziemi
 @export var sticky_force = 300.0         # Siła docisku (magnes)
-						  
+@export var move_speed = 400.0           # Bazowa prędkość jazdy po ziemi
+
 @export_group("Powietrze i Zwrotność")
 @export var air_damp = 0.1               # Opór powietrza (im mniej, tym dalej lecisz)
 @export var rotation_power = 15000.0     # ZWROTNOŚĆ: Siła obracania fikołków
@@ -113,6 +114,8 @@ func _physics_process(delta):
 		
 		if n.x > 0.05: # Zjazd
 			apply_central_force(slope_dir * acceleration_scale * n.x)
+		if linear_velocity.x < move_speed:
+			linear_velocity.x = move_speed
 		
 		slide()
 		

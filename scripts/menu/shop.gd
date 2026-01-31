@@ -119,6 +119,11 @@ func _on_buy_pressed(index: int) -> void:
 	global.coins -= upgrade.price
 	upgrade.bought = true
 	global.set_upgrade_bought(upgrade.id, true)
+	var player = get_tree().get_first_node_in_group("player")
+	if upgrade.can_apply_to(player):
+		upgrade.apply_to(player)
+		if upgrade.effect_id == "rocket_fuel" and "current_fuel" in player and "max_fuel" in player:
+			player.current_fuel = min(player.max_fuel, player.current_fuel + upgrade.stat_value)
 	_update_coins()
 	_render_option(index, upgrade)
 	_close_shop()
