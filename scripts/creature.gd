@@ -25,6 +25,9 @@ extends CharacterBody2D
 var _player: Node2D = null
 var _dying := false
 
+@onready var death1 = $DeathSound1
+@onready var death2 = $DeathSound2
+
 
 func _ready() -> void:
 	_pick_row()
@@ -124,6 +127,11 @@ func _die() -> void:
 	anim.play("death")
 	_award_money()
 	anim.animation_finished.connect(_on_death_finished, CONNECT_ONE_SHOT)
+	if randf() < 0.25:
+		if randf() < 0.5:
+			death1.play()
+			return
+		death2.play()
 
 
 func _on_death_finished() -> void:

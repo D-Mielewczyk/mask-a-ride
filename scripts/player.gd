@@ -17,6 +17,10 @@ extends RigidBody2D
 @export var max_fuel = 100.0             # Maksymalne paliwo
 @export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
+var was_on_ground: bool = true 
+@onready var jump_sound = $JumpSound
+@onready var land_sound = $LandSound
+
 var last_animation_was_not_slide = false
 
 ## --- ZMIENNE STANU ---
@@ -27,6 +31,7 @@ var coins: int = 0
 @onready var maska = $"rotating/maska"
 var spawn_time
 var SPAWN_PROTECTION_TIME: int = 2000
+@onready var rocket_foam: CPUParticles2D = $"rotating/RocketFoam"
 
 func _ready():
 	current_fuel = max_fuel # Startujemy z pełnym bakiem
@@ -36,6 +41,7 @@ func _ready():
 	last_animation_was_not_slide = false
 	gostek.connect("animation_finished", slide)
 	spawn_time = Time.get_ticks_msec()
+	_setup_rocket_foam()
 
 func _physics_process(delta):
 	var rot_dir = Input.get_axis("ui_left", "ui_right")
@@ -72,6 +78,10 @@ func _physics_process(delta):
 			angular_velocity = lerp(angular_velocity, 0.0, 0.1)
 		else:
 			apply_torque(rot_dir * rotation_power)
+		
+		if not was_on_ground:
+			land_sound.play()
+			was_on_ground = true
 
 	else:
 		# --- LOGIKA W POWIETRZU ---
@@ -82,6 +92,9 @@ func _physics_process(delta):
 		
 		if rot_dir != 0:
 			apply_torque(rot_dir * rotation_power)
+		if was_on_ground:
+			jump_sound.play( )
+			was_on_ground = false
 
 	# --- SYSTEM RAKIETOWY (Działa zawsze po wciśnięciu Boosta) ---
 	if is_boosting:
@@ -94,6 +107,9 @@ func _physics_process(delta):
 		death()
 		
 	
+		print("Paliwo: ", int(current_fuel)) # Debug w konsoli
+	if rocket_foam != null:
+		rocket_foam.emitting = is_boosting
 
 # Funkcja do ulepszeń: tankowanie paliwa (np. po zebraniu znajdźki)
 func add_fuel(amount):
@@ -131,3 +147,13 @@ func add_coins(amount: int) -> void:
 
 func _on_death_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	death()
+
+func _setup_rocket_foam() -> void:
+	if rocket_foam == null:
+		return
+	if rocket_foam.texture != null:
+		return
+	var size := 8
+	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	img.fill(Color(1, 1, 1, 1))
+	rocket_foam.texture = ImageTexture.create_from_image(img)

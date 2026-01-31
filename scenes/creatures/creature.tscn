@@ -1,6 +1,8 @@
 [gd_scene format=4 uid="uid://creature1"]
 
 [ext_resource type="Script" uid="uid://1d56o52p0f0m" path="res://scripts/creature.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://ch27nb4bs5u6o" path="res://assets/sound/!UDERZENIE 1.mp3" id="2_2j263"]
+[ext_resource type="AudioStream" uid="uid://clxt0w2f0ebgc" path="res://assets/sound/!UDERZENIE 2.mp3" id="3_j87y4"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_wpspf"]
 _data = PackedByteArray("AAADAAUAAAABAAAAQAAAADAAAAA6AgAAUklGRjICAABXRUJQVlA4TCYCAAAvP8ALEBeCtm3bMOgjXfv/bR0dv8E2kiQn/RqZBBYe+edECC8UtW0keRbJglj+mPY/l9ta25bmw711h4oKBrCNcjJTNmGD1Faldc/vcZ8n0KPB/N4LWHDE9n8fMCCAjzZ3rvbsAQF8tE1zamSIS5BgwRE7fFtn3UCTBoQQDUtFSFgHSpEEAkhYQwBgoI2rw8AFHAgXYJyBQCGAQYHxmBWlBUAt6i5w+rnOiAFzzvLQ5Y8NYNm2nbYxvzAzp9yQ3TBD3/wnJcl6ksr9iug/A7eNFKXTY+jswSPwm5BlWR+b0+LS7kMzJwCo5CJF5jScg7WhCQKi4XEg2+TS7kMhp34O83ypvlBlmMHsOCMikhjuA0GFr50DGGA+x2f7cXy4Lbos0wZQaASMFqgABK75It9013U9ffSK2fM0rTDMFJ4gPUA3ihzHcXyfTplVINFsjoiFTCYU4PaphazUIzEuMEvJZDLFS1WccdLpaCZZQrzKPEog4g1H3ASZahxkThf6tRggBwA5kn1heAnFG4TVkDGfn+dRFBVK7U5lHkf+iDggdVhkvArXEDzPM8qlQkoyp0BEeQ7hcUvvJdzNjwpUTkDNHPQ7xy70nyDbtoPggwm4PrI4yeTqLcYypo0pptP3aavb7Q6e68KWxeK4OOx2u+12vzTCZPIyGY/Hg+Hj0/1E2LpdzOfzLdfCBOv1+oFxNxz0+FyoBd+2PTUMrQt3C1Y5/Fh92NkI")
@@ -136,3 +138,11 @@ shape = SubResource("CircleShape2D_1")
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox" unique_id=1432041578]
 scale = Vector2(1.5778215, 1.0964333)
 shape = SubResource("CapsuleShape2D_wpspf")
+
+[node name="DeathSound1" type="AudioStreamPlayer2D" parent="." unique_id=745258229]
+stream = ExtResource("2_2j263")
+attenuation = 0.0
+
+[node name="DeathSound2" type="AudioStreamPlayer2D" parent="." unique_id=722786973]
+stream = ExtResource("3_j87y4")
+attenuation = 0.0
