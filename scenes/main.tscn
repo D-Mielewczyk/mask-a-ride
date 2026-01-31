@@ -50,7 +50,7 @@ speed_multiplier = 0.013
 
 [node name="MainMusic" type="AudioStreamPlayer2D" parent="Player" unique_id=906802444]
 stream = ExtResource("4_trceg")
-volume_db = -20.0
+volume_db = -5.0
 autoplay = true
 attenuation = 0.0
 
