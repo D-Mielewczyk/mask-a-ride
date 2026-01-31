@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ShopUpgrade" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/shop_upgrade.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/light_chasis.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "low_gravity"
+display_name = "Light Chassis"
+description = "Reduces gravity for longer air time."
+price = 200
+icon = ExtResource("2")
+rarity = "epic"
+stat_name = "gravity"
+apply_mode = "mul"
+stat_value = 0.9

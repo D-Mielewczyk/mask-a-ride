@@ -7,15 +7,15 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0.07, 0.07, 0.09, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 border_color = Color(0.18, 0.18, 0.22, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_left = 14
+corner_radius_bottom_right = 14
 content_margin_left = 16
 content_margin_top = 16
 content_margin_right = 16
@@ -48,10 +48,10 @@ anchor_bottom = 1.0
 color = Color(0.05, 0.05, 0.07, 1)
 
 [node name="Frame" type="PanelContainer" parent="."]
-anchor_left = 0.05
-anchor_top = 0.05
-anchor_right = 0.95
-anchor_bottom = 0.95
+anchor_left = 0.03
+anchor_top = 0.04
+anchor_right = 0.97
+anchor_bottom = 0.96
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 
 [node name="Layout" type="VBoxContainer" parent="Frame"]
@@ -91,13 +91,25 @@ vertical_alignment = 1
 
 [node name="OptionsRow" type="HBoxContainer" parent="Frame/Layout"]
 alignment = 1
-theme_override_constants/separation = 18
+theme_override_constants/separation = 32
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Option1" type="PanelContainer" parent="Frame/Layout/OptionsRow"]
 custom_minimum_size = Vector2(260, 420)
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+clip_contents = false
+
+[node name="Option1Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+show_behind_parent = true
+z_index = -10
+mouse_filter = 2
 
 [node name="Option1Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option1"]
 alignment = 1
@@ -113,6 +125,11 @@ stretch_mode = 5
 text = "Upgrade Name"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 18
+
+[node name="Option1Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
+text = "COMMON"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
 
 [node name="Option1Description" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
 text = "Short description of the upgrade goes here."
@@ -143,6 +160,18 @@ groups = ["shop_buy_button"]
 [node name="Option2" type="PanelContainer" parent="Frame/Layout/OptionsRow"]
 custom_minimum_size = Vector2(260, 420)
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+clip_contents = false
+
+[node name="Option2Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+show_behind_parent = true
+z_index = -10
+mouse_filter = 2
 
 [node name="Option2Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option2"]
 alignment = 1
@@ -158,6 +187,11 @@ stretch_mode = 5
 text = "Upgrade Name"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 18
+
+[node name="Option2Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
+text = "COMMON"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
 
 [node name="Option2Description" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
 text = "Short description of the upgrade goes here."
@@ -188,6 +222,18 @@ groups = ["shop_buy_button"]
 [node name="Option3" type="PanelContainer" parent="Frame/Layout/OptionsRow"]
 custom_minimum_size = Vector2(260, 420)
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+clip_contents = false
+
+[node name="Option3Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+show_behind_parent = true
+z_index = -10
+mouse_filter = 2
 
 [node name="Option3Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option3"]
 alignment = 1
@@ -203,6 +249,11 @@ stretch_mode = 5
 text = "Upgrade Name"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 18
+
+[node name="Option3Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
+text = "COMMON"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
 
 [node name="Option3Description" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
 text = "Short description of the upgrade goes here."
@@ -234,8 +285,8 @@ groups = ["shop_buy_button"]
 alignment = 1
 theme_override_constants/separation = 12
 
-[node name="BackButton" type="Button" parent="Frame/Layout/Footer"]
-text = "Back"
+[node name="SkipButton" type="Button" parent="Frame/Layout/Footer"]
+text = "Skip"
 
 [node name="DecisionProgress" type="ProgressBar" parent="Frame/Layout"]
 custom_minimum_size = Vector2(0, 18)
