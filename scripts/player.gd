@@ -25,6 +25,7 @@ var coins: int = 0
 @onready var ray = $"rotating/RayCast2D"
 @onready var gostek = $"rotating/gostek"
 @onready var maska = $"rotating/maska"
+@onready var rocket_foam: CPUParticles2D = $"rotating/RocketFoam"
 
 func _ready():
 	current_fuel = max_fuel # Startujemy z pełnym bakiem
@@ -33,6 +34,7 @@ func _ready():
 	slide()
 	last_animation_was_not_slide = false
 	gostek.connect("animation_finished", slide)
+	_setup_rocket_foam()
 
 func _physics_process(delta):
 	var rot_dir = Input.get_axis("ui_left", "ui_right")
@@ -87,6 +89,8 @@ func _physics_process(delta):
 		apply_central_force(boost_dir * rocket_power)
 		current_fuel -= fuel_consumption * delta
 		print("Paliwo: ", int(current_fuel)) # Debug w konsoli
+	if rocket_foam != null:
+		rocket_foam.emitting = is_boosting
 
 # Funkcja do ulepszeń: tankowanie paliwa (np. po zebraniu znajdźki)
 func add_fuel(amount):
@@ -120,3 +124,14 @@ func add_coins(amount: int) -> void:
 	coins = max(0, coins + amount)
 	if GlobalSingleton.global != null:
 		GlobalSingleton.global.money = coins
+
+
+func _setup_rocket_foam() -> void:
+	if rocket_foam == null:
+		return
+	if rocket_foam.texture != null:
+		return
+	var size := 8
+	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	img.fill(Color(1, 1, 1, 1))
+	rocket_foam.texture = ImageTexture.create_from_image(img)
