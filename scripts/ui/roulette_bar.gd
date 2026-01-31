@@ -33,6 +33,7 @@ var _slot_angles := {}
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_update_labels()
 	_update_wheel_positions()
 	spin()
@@ -74,6 +75,7 @@ func spin() -> void:
 	_current_angle = 0.0
 	_spinning = true
 	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "_current_angle", target_angle, spin_duration)
@@ -100,7 +102,7 @@ func _show_result(outcome: String) -> void:
 		"shop":
 			result_label.text = "Shop appears!"
 		"double":
-			result_label.text = "Double money!"
+			result_label.text = "Double coins!"
 		"resurrect":
 			result_label.text = "Resurrect!"
 		_:

@@ -50,7 +50,9 @@ func _process(_delta):
 	if "current_fuel" in player:
 		fuel_bar.value = player.current_fuel
 	
-	if "coins" in player:
+	if GlobalSingleton.global != null:
+		coins_label.text = str(GlobalSingleton.global.coins)
+	elif "coins" in player:
 		coins_label.text = str(player.coins)
 	
 	# Debugowanie wartości w konsoli co jakiś czas (np. raz na 60 klatek)
