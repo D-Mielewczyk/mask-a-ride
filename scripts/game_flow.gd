@@ -11,7 +11,6 @@ var _overlay: CanvasLayer
 var _handled_death := false
 var _next_lvl_processing := false
 
-var current_goal_x: float = 20000.0
 var level_count: int = 1
 var difficulty_scale: float = 1.3
 
@@ -90,6 +89,8 @@ func _on_player_died() -> void:
 
 
 func _show_roulette() -> void:
+	if _player != null and "current_fuel" in _player:
+		_player.current_fuel = max(_player.current_fuel, 100)
 	_pause_game()
 	var roulette = roulette_scene.instantiate()
 	roulette.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -150,7 +151,6 @@ func _resume_from_death() -> void:
 	_resume_game()
 	if _player != null and _player.has_method("revive"):
 		_player.revive()
-
 
 func _pause_game() -> void:
 	get_tree().paused = true
