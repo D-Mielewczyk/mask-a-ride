@@ -8,8 +8,9 @@ var _is_dead := false
 @export var max_animation_speed = 2
 
 @export_group("Ruch i Slidowanie")
-@export var acceleration_scale = 4000.0  # Jak mocno pcha w dół (Alto style)
-@export var ground_damp = 0.05           # Im mniejszy, tym lepszy poślizg na ziemi
+@export var jump_force = 1000.0
+@export var acceleration_scale = 6000.0  # Jak mocno pcha w dół (Alto style)
+@export var ground_damp = 0.025           # Im mniejszy, tym lepszy poślizg na ziemi
 @export var sticky_force = 300.0         # Siła docisku (magnes)
 						  
 @export_group("Powietrze i Zwrotność")
@@ -91,7 +92,7 @@ func _physics_process(delta):
 		var n = ray.get_collision_normal()
 		
 		# Docisk (tylko gdy lekko odrywamy się od ziemi)
-		if global_position.distance_to(ray.get_collision_point()) > 20:
+		if global_position.distance_to(ray.get_collision_point()) > 40:
 			apply_central_force(-n * sticky_force)
 		
 		# Napęd w dół rampy (Tangent)
@@ -106,7 +107,7 @@ func _physics_process(delta):
 		# Skok
 		if Input.is_action_just_pressed("ui_up"):
 			jump()
-			apply_central_impulse(n * 500.0) # Stała siła skoku
+			apply_central_impulse(n * jump_force) # Stała siła skoku
 
 		# Prostowanie lub obracanie
 		if rot_dir == 0:
