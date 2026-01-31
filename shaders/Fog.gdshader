@@ -6,7 +6,7 @@ uniform sampler2D screen_texture : hint_screen_texture, filter_nearest;
 uniform float pixel_size : hint_range(1.0, 16.0) = 3.0; 
 
 // --- Konfiguracja Mgły ---
-uniform vec4 fog_color : source_color = vec4(0.6, 0.7, 0.8, 1.0);
+uniform vec4 fog_color : source_color = vec4(0.9, 0.6, 0.2, 1.0);
 uniform float fog_height : hint_range(0.0, 1.0) = 0.25;
 uniform float fog_density : hint_range(0.0, 1.0) = 0.8;
 uniform float fog_edge_softness : hint_range(0.01, 0.5) = 0.1; 
