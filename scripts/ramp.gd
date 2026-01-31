@@ -68,7 +68,7 @@ func generate_ramp():
 
 	curve.add_point(p3_pos, p3_in, Vector2.ZERO)
 
-	curve.bake_interval = 20.0
+	curve.bake_interval = 100.0
 	var baked_points = curve.get_baked_points()
 
 	var polygon_points = PackedVector2Array(baked_points)
