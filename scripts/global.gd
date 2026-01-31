@@ -13,7 +13,7 @@ const COINS_SAVE_PATH := "user://coins.json"
 func _init() -> void:
 	if global == null:
 		global = self
-		load_upgrades()
+		reset_upgrades()
 		_load_coins()
 	else:
 		printerr("Trying to create another instance of MySingleton. Deleting it.")
@@ -22,7 +22,6 @@ func _init() -> void:
 
 func set_upgrade_bought(upgrade_id: String, bought: bool) -> void:
 	bought_upgrades[upgrade_id] = bought
-	_save_upgrades()
 
 
 func is_upgrade_bought(upgrade_id: String) -> bool:
@@ -39,19 +38,16 @@ func apply_upgrades_to(player: Node) -> void:
 
 
 func load_upgrades() -> void:
-	var file = FileAccess.open("user://shop_upgrades.json", FileAccess.READ)
-	if file == null:
-		return
-	var data = JSON.parse_string(file.get_as_text())
-	if typeof(data) == TYPE_DICTIONARY:
-		bought_upgrades = data
+	return
 
 
 func _save_upgrades() -> void:
-	var file = FileAccess.open("user://shop_upgrades.json", FileAccess.WRITE)
-	if file == null:
-		return
-	file.store_string(JSON.stringify(bought_upgrades))
+	return
+
+
+func reset_upgrades() -> void:
+	bought_upgrades.clear()
+	bought_upgrades["rocket"] = true
 
 
 func _load_coins() -> void:

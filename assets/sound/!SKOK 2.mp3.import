@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dixe7rhh8fv"
+path="res://.godot/imported/!SKOK 2.mp3-aba88d75e5aeec7f2821b634de940bfe.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/!SKOK 2.mp3"
+dest_files=["res://.godot/imported/!SKOK 2.mp3-aba88d75e5aeec7f2821b634de940bfe.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -139,8 +139,13 @@ func _double_coins() -> void:
 
 func _start_new_run() -> void:
 	_handled_death = false
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	var tree = get_tree()
+	if tree == null:
+		return
+	if GlobalSingleton.global != null:
+		GlobalSingleton.global.reset_upgrades()
+	tree.paused = false
+	tree.reload_current_scene()
 
 
 
