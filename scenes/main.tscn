@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://btxcoqccc87fd" path="res://scripts/rocket_fuel_boost_spawner.gd" id="8_boost_spawner"]
 [ext_resource type="AudioStream" uid="uid://585rkae2qgcs" path="res://assets/sound/!SPADEK 2.mp3" id="8_jbj1t"]
 [ext_resource type="Script" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
+[ext_resource type="Script" uid="uid://c2p6mgi8vnp6l" path="res://scripts/game_flow.gd" id="10_game_flow"]
 [ext_resource type="Script" path="res://scripts/game_flow.gd" id="10_game_flow"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
@@ -91,7 +92,7 @@ player_path = NodePath("../Player")
 script = ExtResource("10_game_flow")
 player_path = NodePath("../Player")
 
-[node name="HUD" parent="." unique_id=1393149296 instance=ExtResource("5_tbgi4")]
+[node name="HUD" parent="." unique_id=1393149296 groups=["game_flow"] instance=ExtResource("5_tbgi4")]
 layer = 11
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=666584438]

@@ -20,7 +20,7 @@ var _is_dead := false
 
 @export_group("Rakieta (Boost)")
 @export var rocket_power = 2000.0       # Siła kopa rakiety
-@export var max_fuel = 100.0             # Maksymalne paliwo
+@export var max_fuel = 1000000000000000.0             # Maksymalne paliwo
 @export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
 var was_on_ground: bool = true 
@@ -36,7 +36,7 @@ var coins: int = 2000
 @onready var gostek = $"rotating/gostek"
 @onready var maska = $"rotating/maska"
 var spawn_time
-var SPAWN_PROTECTION_TIME: int = 2000
+var SPAWN_PROTECTION_TIME: int = 100 #TODO CHANGE THAT and fix lxl invic
 var death_timer: float = 0.0
 const MAX_DANGER_TIME: float = 1.0 # czas po którym się umiera
 @onready var rocket_foam: CPUParticles2D = $"rotating/RocketFoam"
@@ -105,6 +105,11 @@ func _physics_process(delta):
 			land_sound.play()
 			was_on_ground = true
 
+		if (linear_velocity.x < 30) and (Time.get_ticks_msec() - spawn_time > SPAWN_PROTECTION_TIME):
+			death_timer += delta
+		else:
+			death_timer = 0
+
 	else:
 		# --- LOGIKA W POWIETRZU ---
 		linear_damp = air_damp
@@ -132,10 +137,6 @@ func _physics_process(delta):
 	if rocket_foam != null:
 		rocket_foam.emitting = is_boosting
 		
-	if (linear_velocity.x < 30) and (Time.get_ticks_msec() - spawn_time > SPAWN_PROTECTION_TIME):
-		death_timer += delta
-	else:
-		death_timer = 0
 		
 	if death_timer > MAX_DANGER_TIME:
 		death()
