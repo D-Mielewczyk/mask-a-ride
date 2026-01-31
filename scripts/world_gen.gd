@@ -4,7 +4,7 @@ extends StaticBody2D
 @export var chunk_width: float = 1920.0  # Szerokość jednego kawałka terenu
 @export var num_hills: int = 4  # Ile górek na jeden kawałek (zagęszczenie)
 @export var height_variation: float = 200.0  # Jak bardzo góra/dół skacze Y
-@export var hill_roughness: float = 0.5  # Siła "wygięcia" (0 = płasko, 1 = pętle)
+@export var hill_roughness: float = 0.4  # Siła "wygięcia" (0 = płasko, 1 = pętle)
 
 # Zmienne wewnętrzne
 var end_point_world: Vector2  # Tu zapiszemy, gdzie ten chunk się kończy
@@ -40,27 +40,30 @@ func generate_terrain(start_world_pos: Vector2):
 		# Ogranicznik, żeby nie poszło za wysoko/nisko w nieskończoność
 		target_y = clamp(target_y, -500, 1000)
 
-		# 2. Losuj "Hopki" (Kształt krzywej)
-		# To jest sekret Alto: losowe wektory kontrolne
-		var handle_length = segment_step * hill_roughness
-
-		# in_handle: wejście w górkę (w lewo)
-		var in_vec = Vector2(-handle_length * randf_range(0.5, 1.2), 0)
-		# Możesz dodać lekkie pochylenie Y do rączek, żeby były ostrzejsze szczyty:
-		in_vec.y = randf_range(-50, 50)
-
-		# out_handle: wyjście z górki (w prawo)
-		var out_vec = Vector2(handle_length * randf_range(0.5, 1.2), 0)
-		out_vec.y = randf_range(-50, 50)
-
-		# Dodaj punkt do krzywej
+# 2. Losuj "Hopki" - WERSJA GŁADKA (SMOOTH)
+		
+		# Zwiększamy bazową długość rączki. 
+		# Wcześniej było * hill_roughness (0.5). Dajmy więcej, żeby łuki były szersze.
+		# Wartość 0.5 * segment_step to "połowa drogi do sąsiada".
+		var handle_length = segment_step * hill_roughness # Eksperymentuj z 0.3 do 0.6
+		
+		# in_handle (w lewo): MUSI BYĆ POZIOME (y=0)
+		# Usuwamy losowanie Y. Zostawiamy tylko losową długość.
+		var in_vec = Vector2(-handle_length * randf_range(0.8, 1.5), 0)
+		
+		# out_handle (w prawo): MUSI BYĆ POZIOME (y=0)
+		var out_vec = Vector2(handle_length * randf_range(0.8, 1.5), 0)
+		
+		# UWAGA: Usunęliśmy in_vec.y = ... oraz out_vec.y = ...
+		# To one odpowiadały za "ostre zęby" terenu.
+		
 		curve.add_point(Vector2(current_x, target_y), in_vec, out_vec)
 
 		# Zapamiętaj Y dla następnej pętli
 		current_y = target_y
 
 	# --- BUDOWANIE GEOMETRII ---
-	curve.bake_interval = 20.0
+	curve.bake_interval = 10.0
 	var baked_points = curve.get_baked_points()
 	var poly_points = PackedVector2Array(baked_points)
 
