@@ -1,63 +1,84 @@
 extends RigidBody2D
 
-## --- USTAWIENIA ALTO STYLE ---
-@export_group("Ruch i Napęd")
-@export var acceleration_scale = 1000.0  # Siła pchająca wzdłuż rampy
-@export var sticky_force = 800.0        # Docisk do podłoża
-@export var alignment_speed = 10.0      # Szybkość prostowania do kąta rampy
+## --- PARAMETRY DO ULEPSZEŃ (Eksportowane do Inspektora) ---
+@export_group("Ruch i Slidowanie")
+@export var acceleration_scale = 4000.0  # Jak mocno pcha w dół (Alto style)
+@export var ground_damp = 0.05           # Im mniejszy, tym lepszy poślizg na ziemi
+@export var sticky_force = 300.0         # Siła docisku (magnes)
+						  
+@export_group("Powietrze i Zwrotność")
+@export var air_damp = 0.1               # Opór powietrza (im mniej, tym dalej lecisz)
+@export var rotation_power = 15000.0     # ZWROTNOŚĆ: Siła obracania fikołków
+@export var dive_force = 1800.0          # Jak szybko nurkujesz w dół
+@export var alignment_speed = 12.0       # Jak szybko postać prostuje się do rampy
 
-@export_group("Sterowanie Powietrzne")
-@export var rotation_power = 20000.0     # Siła fikołków (Torque)
-@export var air_damp = 0.2              # Opór powietrza w locie
-@export var ground_damp = 0.0           # Opór na ziemi (0 = max pęd)
+@export_group("Rakieta (Boost)")
+@export var rocket_power = 2000.0       # Siła kopa rakiety
+@export var max_fuel = 100.0             # Maksymalne paliwo
+@export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
+## --- ZMIENNE STANU ---
+var current_fuel = 0.0
 @onready var ray = $RayCast2D
 
 func _ready():
-	# Podstawowa konfiguracja fizyki w kodzie dla pewności
-	can_sleep = false
-	contact_monitor = true
-	max_contacts_reported = 2
-	# Ustawienie Continuous Collision Detection zapobiega wypadaniu z mapy
-	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+	current_fuel = max_fuel # Startujemy z pełnym bakiem
+	# Ustawiamy tarcie materiału na 0 w kodzie, żeby nic nie blokowało slajdu
+	physics_material_override.friction = 0.0
 
 func _physics_process(delta):
-	var rotation_direction = Input.get_axis("ui_left", "ui_right")
-	
-	# Resetujemy siły stałe w każdej klatce, aby obliczyć je na nowo
+	var rot_dir = Input.get_axis("ui_left", "ui_right")
+	var is_boosting = Input.is_action_pressed("ui_accept") and current_fuel > 0 # np. Spacja
+
+	# Reset sił stałych
 	constant_force = Vector2.ZERO
-	constant_torque = 0.0
 
 	if ray.is_colliding():
 		# --- LOGIKA NA ZIEMI ---
 		linear_damp = ground_damp
 		var n = ray.get_collision_normal()
 		
-		# 1. Docisk prostopadły do rampy
-		apply_central_force(-n * sticky_force)
+		# Docisk (tylko gdy lekko odrywamy się od ziemi)
+		if global_position.distance_to(ray.get_collision_point()) > 20:
+			apply_central_force(-n * sticky_force)
 		
-		# 2. Napęd wzdłuż rampy (Tangent)
-		# Obracamy normalną o 90 stopni, by uzyskać kierunek ruchu (w prawo)
+		# Napęd w dół rampy (Tangent)
 		var slope_dir = n.rotated(PI/2)
+		if slope_dir.x < 0: slope_dir = -slope_dir
 		
-		# Jeśli jedziemy w prawo, upewniamy się że wektor pcha w prawo
-		if slope_dir.x < 0:
-			slope_dir = -slope_dir
+		if n.x > 0.05: # Zjazd
+			apply_central_force(slope_dir * acceleration_scale * n.x)
 		
-		# Aplikujemy siłę napędową (im bardziej stromo w dół, tym x jest większe)
-		# Mnożymy przez slope_dir.x aby postać nie przyspieszała pod górę tak samo jak w dół
-		if slope_dir.x > 0.1:
-			apply_central_force(slope_dir * acceleration_scale)
-		
-		# 3. Automatyczne prostowanie do rampy
-		if rotation_direction == 0:
+		# Skok
+		if Input.is_action_just_pressed("ui_up"):
+			apply_central_impulse(n * 500.0) # Stała siła skoku
+
+		# Prostowanie lub obracanie
+		if rot_dir == 0:
 			var target_angle = n.angle() + PI/2
 			rotation = lerp_angle(rotation, target_angle, alignment_speed * delta)
 			angular_velocity = lerp(angular_velocity, 0.0, 0.1)
+		else:
+			apply_torque(rot_dir * rotation_power)
 
 	else:
 		# --- LOGIKA W POWIETRZU ---
 		linear_damp = air_damp
 		
-		if rotation_direction != 0:
-			apply_torque(rotation_direction * rotation_power)
+		if Input.is_action_pressed("ui_down"):
+			apply_central_force(Vector2.DOWN * dive_force)
+		
+		if rot_dir != 0:
+			apply_torque(rot_dir * rotation_power)
+
+	# --- SYSTEM RAKIETOWY (Działa zawsze po wciśnięciu Boosta) ---
+	if is_boosting:
+		# Pchamy postać w stronę, w którą jest aktualnie zwrócona
+		var boost_dir = Vector2.RIGHT.rotated(rotation)
+		apply_central_force(boost_dir * rocket_power)
+		current_fuel -= fuel_consumption * delta
+		print("Paliwo: ", int(current_fuel)) # Debug w konsoli
+
+# Funkcja do ulepszeń: tankowanie paliwa (np. po zebraniu znajdźki)
+func add_fuel(amount):
+	current_fuel = clamp(current_fuel + amount, 0, max_fuel)
