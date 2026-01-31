@@ -17,6 +17,10 @@ extends RigidBody2D
 @export var max_fuel = 100.0             # Maksymalne paliwo
 @export var fuel_consumption = 40.0      # Zużycie paliwa na sekundę
 
+var was_on_ground: bool = true 
+@onready var jump_sound = $JumpSound
+@onready var land_sound = $LandSound
+
 var last_animation_was_not_slide = false
 
 ## --- ZMIENNE STANU ---
@@ -71,6 +75,10 @@ func _physics_process(delta):
 			angular_velocity = lerp(angular_velocity, 0.0, 0.1)
 		else:
 			apply_torque(rot_dir * rotation_power)
+		
+		if not was_on_ground:
+			land_sound.play()
+			was_on_ground = true
 
 	else:
 		# --- LOGIKA W POWIETRZU ---
@@ -81,6 +89,9 @@ func _physics_process(delta):
 		
 		if rot_dir != 0:
 			apply_torque(rot_dir * rotation_power)
+		if was_on_ground:
+			jump_sound.play( )
+			was_on_ground = false
 
 	# --- SYSTEM RAKIETOWY (Działa zawsze po wciśnięciu Boosta) ---
 	if is_boosting:
