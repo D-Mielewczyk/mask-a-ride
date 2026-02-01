@@ -35,6 +35,8 @@ var _is_dead := false
 var was_on_ground: bool = true 
 @onready var jump_sound = $JumpSound
 @onready var land_sound = $LandSound
+@onready var win_sound1 = $win1
+@onready var win_sound2 = $win2
 
 var last_animation_was_not_slide = false
 
@@ -197,6 +199,11 @@ func play_launch_confetti() -> void:
 	
 	confetti_3.restart()
 	confetti_3.emitting = true
+	
+	if randf() < 0.5:
+		win_sound1.play()
+	else:
+		win_sound2.play()
 
 func _play_jump_sound() -> void:
 	if jump_sound == null:

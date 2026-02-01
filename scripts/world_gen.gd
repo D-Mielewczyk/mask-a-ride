@@ -89,8 +89,8 @@ func generate_terrain(start_world_pos: Vector2):
 	var baked_points = curve.get_baked_points()
 	var poly_points = PackedVector2Array(baked_points)
 	
-	poly_points.append(Vector2(chunk_width, 2000))
-	poly_points.append(Vector2(0, 2000))
+	poly_points.append(Vector2(chunk_width, 8000))
+	poly_points.append(Vector2(0, 8000))
 	
 	$Polygon2D.polygon = poly_points
 	$CollisionPolygon2D.polygon = poly_points
