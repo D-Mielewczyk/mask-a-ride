@@ -20,7 +20,6 @@ var _pool := ShopUpgradePool.new()
 	$Frame/Layout/OptionsRow/Option3
 ]
 
-
 func _ready() -> void:
 	_time_left = decision_time
 	_pool.load_upgrades()
@@ -31,7 +30,6 @@ func _ready() -> void:
 	_update_progress()
 	_connect_buttons()
 	_connect_skip()
-
 
 func _process(delta: float) -> void:
 	if _time_left <= 0.0:

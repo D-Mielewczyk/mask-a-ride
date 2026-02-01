@@ -117,7 +117,7 @@ func _show_result(outcome: String) -> void:
 			result_label.text = "Nothing this time."
 	if outcome != "nothing":
 		_play_win_sound()
-		await get_tree().create_timer(0.6, false, true).timeout
+		await get_tree().create_timer(0.6, true, false).timeout
 	outcome_selected.emit(outcome)
 
 
