@@ -13,3 +13,6 @@ icon = ExtResource("2")
 rarity = "rare"
 effect_id = "rocket_fuel"
 requires_ids = PackedStringArray("rocket_fuel_t2")
+stat_name = "max_fuel"
+apply_mode = "add"
+stat_value = 80.0

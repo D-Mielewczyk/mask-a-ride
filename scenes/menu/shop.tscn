@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://pq9u1v2w3x4y5z"]
+[gd_scene format=3 uid="uid://bneooewt5mx30"]
 
-[ext_resource type="Script" path="res://scripts/menu/shop.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/placeholder2.png" id="2"]
-[ext_resource type="Script" path="res://scripts/ui/coin_anim.gd" id="3"]
-[ext_resource type="Texture2D" path="res://assets/coin.png" id="4"]
+[ext_resource type="Script" uid="uid://d24n7tx301lct" path="res://scripts/menu/shop.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dppri1feyyyt8" path="res://assets/placeholder2.png" id="2"]
+[ext_resource type="Script" uid="uid://cwp24qm4822jy" path="res://scripts/ui/coin_anim.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bc1sktcpme2ye" path="res://assets/coin.png" id="4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
 bg_color = Color(0.07, 0.07, 0.09, 0.95)
 border_width_left = 3
 border_width_top = 3
@@ -14,14 +18,14 @@ border_width_bottom = 3
 border_color = Color(0.18, 0.18, 0.22, 1)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
-corner_radius_bottom_left = 14
 corner_radius_bottom_right = 14
-content_margin_left = 16
-content_margin_top = 16
-content_margin_right = 16
-content_margin_bottom = 16
+corner_radius_bottom_left = 14
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
 bg_color = Color(0.12, 0.12, 0.16, 1)
 border_width_left = 2
 border_width_top = 2
@@ -30,279 +34,297 @@ border_width_bottom = 2
 border_color = Color(0.3, 0.3, 0.4, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
-corner_radius_bottom_left = 10
 corner_radius_bottom_right = 10
-content_margin_left = 12
-content_margin_top = 12
-content_margin_right = 12
-content_margin_bottom = 12
+corner_radius_bottom_left = 10
 
-[node name="Shop" type="Control"]
+[node name="Shop" type="Control" unique_id=757389591]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=166802608]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.05, 0.05, 0.07, 1)
 
-[node name="Frame" type="PanelContainer" parent="."]
+[node name="Frame" type="PanelContainer" parent="." unique_id=1830890501]
+layout_mode = 0
 anchor_left = 0.03
 anchor_top = 0.04
 anchor_right = 0.97
 anchor_bottom = 0.96
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 
-[node name="Layout" type="VBoxContainer" parent="Frame"]
-alignment = 1
+[node name="Layout" type="VBoxContainer" parent="Frame" unique_id=1144556259]
+layout_mode = 2
 theme_override_constants/separation = 18
-
-[node name="Header" type="HBoxContainer" parent="Frame/Layout"]
 alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="Frame/Layout" unique_id=561683501]
+layout_mode = 2
 theme_override_constants/separation = 12
-
-[node name="Title" type="Label" parent="Frame/Layout/Header"]
-text = "Shop"
-horizontal_alignment = 0
-vertical_alignment = 1
-theme_override_font_sizes/font_size = 30
-size_flags_horizontal = 3
-
-[node name="MoneyPanel" type="PanelContainer" parent="Frame/Layout/Header"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_2")
-size_flags_horizontal = 0
-
-[node name="MoneyRow" type="HBoxContainer" parent="Frame/Layout/Header/MoneyPanel"]
 alignment = 1
-theme_override_constants/separation = 8
 
-[node name="MoneyIcon" type="TextureRect" parent="Frame/Layout/Header/MoneyPanel/MoneyRow"]
-texture = ExtResource("4")
-script = ExtResource("3")
+[node name="Title" type="Label" parent="Frame/Layout/Header" unique_id=1941799389]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Shop"
+vertical_alignment = 1
+
+[node name="MoneyPanel" type="PanelContainer" parent="Frame/Layout/Header" unique_id=532242099]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="MoneyRow" type="HBoxContainer" parent="Frame/Layout/Header/MoneyPanel" unique_id=1580503680]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="MoneyIcon" type="TextureRect" parent="Frame/Layout/Header/MoneyPanel/MoneyRow" unique_id=1110132991]
 custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("3")
 
-[node name="MoneyLabel" type="Label" parent="Frame/Layout/Header/MoneyPanel/MoneyRow"]
-text = "0"
+[node name="MoneyLabel" type="Label" parent="Frame/Layout/Header/MoneyPanel/MoneyRow" unique_id=1104235006]
+layout_mode = 2
 theme_override_font_sizes/font_size = 20
+text = "0"
 vertical_alignment = 1
 
-[node name="OptionsRow" type="HBoxContainer" parent="Frame/Layout"]
-alignment = 1
-theme_override_constants/separation = 32
+[node name="OptionsRow" type="HBoxContainer" parent="Frame/Layout" unique_id=811757229]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 32
+alignment = 1
 
-[node name="Option1" type="PanelContainer" parent="Frame/Layout/OptionsRow"]
+[node name="Option1" type="PanelContainer" parent="Frame/Layout/OptionsRow" unique_id=1867359120]
 custom_minimum_size = Vector2(260, 420)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
-clip_contents = false
 
-[node name="Option1Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option1"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -18.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 18.0
+[node name="Option1Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option1" unique_id=1288827823]
 show_behind_parent = true
 z_index = -10
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Option1Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option1"]
-alignment = 1
+[node name="Option1Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option1" unique_id=216688983]
+layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 1
 
-[node name="Option1Image" type="TextureRect" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
-texture = ExtResource("2")
+[node name="Option1Image" type="TextureRect" parent="Frame/Layout/OptionsRow/Option1/Option1Content" unique_id=289065684]
 custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Option1Name" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
+[node name="Option1Name" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content" unique_id=1164924530]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "Upgrade Name"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
 
-[node name="Option1Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
+[node name="Option1Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content" unique_id=1211470919]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "COMMON"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 12
 
-[node name="Option1Description" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
-text = "Short description of the upgrade goes here."
-autowrap_mode = 3
-theme_override_font_sizes/font_size = 14
-horizontal_alignment = 1
+[node name="Option1Description" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content" unique_id=1788781216]
+layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Short description of the upgrade goes here."
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Option1Price" type="HBoxContainer" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
-alignment = 1
+[node name="Option1Price" type="HBoxContainer" parent="Frame/Layout/OptionsRow/Option1/Option1Content" unique_id=392577470]
+layout_mode = 2
 theme_override_constants/separation = 6
+alignment = 1
 
-[node name="Option1PriceIcon" type="TextureRect" parent="Frame/Layout/OptionsRow/Option1/Option1Content/Option1Price"]
-texture = ExtResource("4")
-script = ExtResource("3")
+[node name="Option1PriceIcon" type="TextureRect" parent="Frame/Layout/OptionsRow/Option1/Option1Content/Option1Price" unique_id=1261272238]
 custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("4")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("3")
 
-[node name="Option1PriceLabel" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content/Option1Price"]
-text = "999"
+[node name="Option1PriceLabel" type="Label" parent="Frame/Layout/OptionsRow/Option1/Option1Content/Option1Price" unique_id=1187368999]
+layout_mode = 2
 theme_override_font_sizes/font_size = 16
+text = "999"
 
-[node name="Option1Buy" type="Button" parent="Frame/Layout/OptionsRow/Option1/Option1Content"]
+[node name="Option1Buy" type="Button" parent="Frame/Layout/OptionsRow/Option1/Option1Content" unique_id=1737226436]
+layout_mode = 2
 text = "Buy"
-groups = ["shop_buy_button"]
 
-[node name="Option2" type="PanelContainer" parent="Frame/Layout/OptionsRow"]
+[node name="Option2" type="PanelContainer" parent="Frame/Layout/OptionsRow" unique_id=1300332040]
 custom_minimum_size = Vector2(260, 420)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
-clip_contents = false
 
-[node name="Option2Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -18.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 18.0
+[node name="Option2Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option2" unique_id=1322001258]
 show_behind_parent = true
 z_index = -10
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Option2Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option2"]
-alignment = 1
+[node name="Option2Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option2" unique_id=415071878]
+layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 1
 
-[node name="Option2Image" type="TextureRect" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
-texture = ExtResource("2")
+[node name="Option2Image" type="TextureRect" parent="Frame/Layout/OptionsRow/Option2/Option2Content" unique_id=491325950]
 custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Option2Name" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
+[node name="Option2Name" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content" unique_id=895040231]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "Upgrade Name"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
 
-[node name="Option2Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
+[node name="Option2Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content" unique_id=686564656]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "COMMON"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 12
 
-[node name="Option2Description" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
-text = "Short description of the upgrade goes here."
-autowrap_mode = 3
-theme_override_font_sizes/font_size = 14
-horizontal_alignment = 1
+[node name="Option2Description" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content" unique_id=1550832575]
+layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Short description of the upgrade goes here."
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Option2Price" type="HBoxContainer" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
-alignment = 1
+[node name="Option2Price" type="HBoxContainer" parent="Frame/Layout/OptionsRow/Option2/Option2Content" unique_id=1268043284]
+layout_mode = 2
 theme_override_constants/separation = 6
+alignment = 1
 
-[node name="Option2PriceIcon" type="TextureRect" parent="Frame/Layout/OptionsRow/Option2/Option2Content/Option2Price"]
-texture = ExtResource("4")
-script = ExtResource("3")
+[node name="Option2PriceIcon" type="TextureRect" parent="Frame/Layout/OptionsRow/Option2/Option2Content/Option2Price" unique_id=1238886359]
 custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("4")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("3")
 
-[node name="Option2PriceLabel" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content/Option2Price"]
-text = "999"
+[node name="Option2PriceLabel" type="Label" parent="Frame/Layout/OptionsRow/Option2/Option2Content/Option2Price" unique_id=2085949605]
+layout_mode = 2
 theme_override_font_sizes/font_size = 16
+text = "999"
 
-[node name="Option2Buy" type="Button" parent="Frame/Layout/OptionsRow/Option2/Option2Content"]
+[node name="Option2Buy" type="Button" parent="Frame/Layout/OptionsRow/Option2/Option2Content" unique_id=1122315055]
+layout_mode = 2
 text = "Buy"
-groups = ["shop_buy_button"]
 
-[node name="Option3" type="PanelContainer" parent="Frame/Layout/OptionsRow"]
+[node name="Option3" type="PanelContainer" parent="Frame/Layout/OptionsRow" unique_id=1095722074]
 custom_minimum_size = Vector2(260, 420)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
-clip_contents = false
 
-[node name="Option3Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -18.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 18.0
+[node name="Option3Glow" type="Panel" parent="Frame/Layout/OptionsRow/Option3" unique_id=1182155118]
 show_behind_parent = true
 z_index = -10
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Option3Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option3"]
-alignment = 1
+[node name="Option3Content" type="VBoxContainer" parent="Frame/Layout/OptionsRow/Option3" unique_id=1043600293]
+layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 1
 
-[node name="Option3Image" type="TextureRect" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
-texture = ExtResource("2")
+[node name="Option3Image" type="TextureRect" parent="Frame/Layout/OptionsRow/Option3/Option3Content" unique_id=547697209]
 custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Option3Name" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
+[node name="Option3Name" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content" unique_id=621126961]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "Upgrade Name"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
 
-[node name="Option3Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
+[node name="Option3Rarity" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content" unique_id=1547275685]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
 text = "COMMON"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 12
 
-[node name="Option3Description" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
-text = "Short description of the upgrade goes here."
-autowrap_mode = 3
-theme_override_font_sizes/font_size = 14
-horizontal_alignment = 1
+[node name="Option3Description" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content" unique_id=1597547566]
+layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Short description of the upgrade goes here."
+horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Option3Price" type="HBoxContainer" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
-alignment = 1
+[node name="Option3Price" type="HBoxContainer" parent="Frame/Layout/OptionsRow/Option3/Option3Content" unique_id=1060286967]
+layout_mode = 2
 theme_override_constants/separation = 6
+alignment = 1
 
-[node name="Option3PriceIcon" type="TextureRect" parent="Frame/Layout/OptionsRow/Option3/Option3Content/Option3Price"]
-texture = ExtResource("4")
-script = ExtResource("3")
+[node name="Option3PriceIcon" type="TextureRect" parent="Frame/Layout/OptionsRow/Option3/Option3Content/Option3Price" unique_id=1473739342]
 custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("4")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("3")
 
-[node name="Option3PriceLabel" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content/Option3Price"]
-text = "999"
+[node name="Option3PriceLabel" type="Label" parent="Frame/Layout/OptionsRow/Option3/Option3Content/Option3Price" unique_id=1062601748]
+layout_mode = 2
 theme_override_font_sizes/font_size = 16
+text = "999"
 
-[node name="Option3Buy" type="Button" parent="Frame/Layout/OptionsRow/Option3/Option3Content"]
+[node name="Option3Buy" type="Button" parent="Frame/Layout/OptionsRow/Option3/Option3Content" unique_id=1639848606]
+layout_mode = 2
 text = "Buy"
-groups = ["shop_buy_button"]
 
-[node name="Footer" type="HBoxContainer" parent="Frame/Layout"]
-alignment = 1
+[node name="Footer" type="HBoxContainer" parent="Frame/Layout" unique_id=1178028527]
+layout_mode = 2
 theme_override_constants/separation = 12
+alignment = 1
 
-[node name="SkipButton" type="Button" parent="Frame/Layout/Footer"]
+[node name="SkipButton" type="Button" parent="Frame/Layout/Footer" unique_id=746767798]
+layout_mode = 2
 text = "Skip"
 
-[node name="DecisionProgress" type="ProgressBar" parent="Frame/Layout"]
+[node name="DecisionProgress" type="ProgressBar" parent="Frame/Layout" unique_id=580718756]
 custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+size_flags_horizontal = 3
 max_value = 10.0
 value = 10.0
-size_flags_horizontal = 3
 show_percentage = false
 
-[node name="DecisionTimeLabel" type="Label" parent="Frame/Layout/DecisionProgress"]
-text = "10s"
+[node name="DecisionTimeLabel" type="Label" parent="Frame/Layout/DecisionProgress" unique_id=909288618]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.0
 offset_top = -2.0
-offset_right = 0.0
 offset_bottom = -2.0
+theme_override_font_sizes/font_size = 14
+text = "10s"
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_font_sizes/font_size = 14

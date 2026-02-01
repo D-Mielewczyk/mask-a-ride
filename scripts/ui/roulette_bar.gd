@@ -3,8 +3,8 @@ extends Control
 
 signal outcome_selected(outcome: String)
 
-@export var weight_nothing := 0.599
-@export var weight_shop := 0.3
+@export var weight_nothing := 0.399
+@export var weight_shop := 0.5
 @export var weight_double := 0.1
 @export var weight_fireworks := 0.01
 @export var spin_duration := 4.0
@@ -85,7 +85,7 @@ func spin() -> void:
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "_current_angle", target_angle, spin_duration)
+	tween.tween_property(self , "_current_angle", target_angle, spin_duration)
 	tween.finished.connect(func(): _show_result(outcome))
 
 
@@ -106,6 +106,7 @@ func _weighted_pick() -> String:
 func _show_result(outcome: String) -> void:
 	_spinning = false
 	_stop_spin_sound()
+	print("ROULETTE WINNER: ", outcome)
 	match outcome:
 		"shop":
 			result_label.text = "Shop appears!"
@@ -117,6 +118,7 @@ func _show_result(outcome: String) -> void:
 			result_label.text = "Nothing this time."
 	if outcome != "nothing":
 		_play_win_sound()
+		await get_tree().create_timer(0.6, true, false).timeout
 	outcome_selected.emit(outcome)
 
 

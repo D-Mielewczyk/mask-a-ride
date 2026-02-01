@@ -7,7 +7,7 @@
 script = ExtResource("1")
 id = "bounce_plate"
 display_name = "Spring Plate"
-description = "Adds a stronger bounce on collisions."
+description = "Adds a strong bounce on first landing."
 price = 180
 icon = ExtResource("2")
 rarity = "rare"
