@@ -14,7 +14,7 @@ config/name="Mask a ride"
 run/main_scene="uid://8gu8caguctdb"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.9490196, 0.72156864, 0.5764706, 1)
-config/icon="res://icon.svg"
+config/icon="uid://bg5gq8x1r4wmd"
 
 [autoload]
 
