@@ -7,6 +7,10 @@ var _is_dead := false
 @export var max_animation_velocity = 300
 @export var max_animation_speed = 2
 
+@onready var confetti_1 = $konfeti1
+@onready var confetti_2 = $konfeti2
+@onready var confetti_3 = $konfeti3
+
 @export_group("Ruch i Slidowanie")
 @export var jump_force = 1000.0
 @export var acceleration_scale = 6000.0  # Jak mocno pcha w dół (Alto style)
@@ -31,6 +35,8 @@ var _is_dead := false
 var was_on_ground: bool = true 
 @onready var jump_sound = $JumpSound
 @onready var land_sound = $LandSound
+@onready var win_sound1 = $win1
+@onready var win_sound2 = $win2
 
 var last_animation_was_not_slide = false
 
@@ -183,6 +189,21 @@ func jump():
 	gostek.play("jump")
 	current_animation = "jump"
 
+func play_launch_confetti() -> void:
+	# Restart sprawia, że jeśli były już odpalone, zresetują się i strzelą znowu
+	confetti_1.restart()
+	confetti_1.emitting = true
+	
+	confetti_2.restart()
+	confetti_2.emitting = true
+	
+	confetti_3.restart()
+	confetti_3.emitting = true
+	
+	if randf() < 0.5:
+		win_sound1.play()
+	else:
+		win_sound2.play()
 
 func _play_jump_sound() -> void:
 	if jump_sound == null:

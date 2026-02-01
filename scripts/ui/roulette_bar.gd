@@ -106,6 +106,7 @@ func _weighted_pick() -> String:
 func _show_result(outcome: String) -> void:
 	_spinning = false
 	_stop_spin_sound()
+	print("ROULETTE WINNER: ", outcome)
 	match outcome:
 		"shop":
 			result_label.text = "Shop appears!"

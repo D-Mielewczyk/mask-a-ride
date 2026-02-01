@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b6jfxqhhlr681" path="res://scenes/downhill.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://diehvdm53lm11" path="res://scenes/camera_2d.gd" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://tcmhrnnnhloe" path="res://scenes/background.tscn" id="3_sugp2"]
-[ext_resource type="PackedScene" path="res://scenes/world.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://ch16615gmuibv" path="res://scenes/world.tscn" id="4_jyhfs"]
 [ext_resource type="AudioStream" uid="uid://6hysxv5ho63i" path="res://assets/sound/muzka gra loop.mp3" id="4_trceg"]
 [ext_resource type="PackedScene" uid="uid://cnx6slv3dsdaf" path="res://scenes/ui/hud.tscn" id="5_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://vqpvqd3gyo4s" path="res://assets/sound/!SKOK.mp3" id="5_ya4ey"]
@@ -14,7 +14,9 @@
 [ext_resource type="AudioStream" uid="uid://b2afic4xf8m2b" path="res://assets/sound/!SPADEK 1.wav" id="7_jkv2x"]
 [ext_resource type="Script" uid="uid://btxcoqccc87fd" path="res://scripts/rocket_fuel_boost_spawner.gd" id="8_boost_spawner"]
 [ext_resource type="AudioStream" uid="uid://585rkae2qgcs" path="res://assets/sound/!SPADEK 2.mp3" id="8_jbj1t"]
-[ext_resource type="Script" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
+[ext_resource type="AudioStream" uid="uid://dbjia06n7eyb4" path="res://assets/sound/!HEHENICE.mp3" id="9_dp3eg"]
+[ext_resource type="Script" uid="uid://keh7fbgqx7i8" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
+[ext_resource type="AudioStream" uid="uid://d3m4ea8sfuab5" path="res://assets/sound/!ALLRIGHT.mp3" id="10_0ld40"]
 [ext_resource type="Script" uid="uid://c2p6mgi8vnp6l" path="res://scripts/game_flow.gd" id="10_game_flow"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o6xl0"]
@@ -71,6 +73,80 @@ attenuation = 0.0
 stream = ExtResource("8_jbj1t")
 attenuation = 0.0
 
+[node name="konfeti1" type="CPUParticles2D" parent="Player" unique_id=962328030]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+local_coords = true
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 400.0
+initial_velocity_max = 600.0
+angular_velocity_min = -128.31
+angular_velocity_max = 228.12
+linear_accel_min = 15.84
+linear_accel_max = 15.84
+scale_amount_min = 5.0
+scale_amount_max = 50.0
+color = Color(0.9697868, 0.44990396, 0.42170712, 1)
+
+[node name="konfeti2" type="CPUParticles2D" parent="Player" unique_id=885090842]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+local_coords = true
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 400.0
+initial_velocity_max = 600.0
+angular_velocity_min = -128.31
+angular_velocity_max = 228.12
+linear_accel_min = 15.84
+linear_accel_max = 15.84
+scale_amount_min = 5.0
+scale_amount_max = 50.0
+color = Color(0.116176836, 0.72293776, 0.7145845, 1)
+
+[node name="konfeti3" type="CPUParticles2D" parent="Player" unique_id=1251709961]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+local_coords = true
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 400.0
+initial_velocity_max = 600.0
+angular_velocity_min = -128.31
+angular_velocity_max = 228.12
+linear_accel_min = 15.84
+linear_accel_max = 15.84
+scale_amount_min = 5.0
+scale_amount_max = 50.0
+color = Color(0.7118317, 0.6403565, 0.12542999, 1)
+
+[node name="win1" type="AudioStreamPlayer2D" parent="Player" unique_id=1316373945]
+stream = ExtResource("9_dp3eg")
+volume_db = 10.0
+attenuation = 0.0
+
+[node name="win2" type="AudioStreamPlayer2D" parent="Player" unique_id=1863306966]
+scale = Vector2(1.0000001, 1.0000001)
+stream = ExtResource("10_0ld40")
+volume_db = 10.0
+attenuation = 0.0
+
 [node name="downhill" parent="." unique_id=1582961432 instance=ExtResource("2_0wfyh")]
 
 [node name="World" parent="." unique_id=1185056397 instance=ExtResource("4_jyhfs")]
@@ -92,7 +168,7 @@ script = ExtResource("10_game_flow")
 player_path = NodePath("../Player")
 
 [node name="HUD" parent="." unique_id=1393149296 groups=["game_flow"] instance=ExtResource("5_tbgi4")]
-layer = 11
+layer = 12
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=666584438]
 layer = 10

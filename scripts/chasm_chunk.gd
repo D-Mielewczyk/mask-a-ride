@@ -95,8 +95,8 @@ func build_island(body_node, curve: Curve2D):
 	
 	var last_x = baked[-1].x
 	var first_x = baked[0].x
-	poly.append(Vector2(last_x, 2000))
-	poly.append(Vector2(first_x, 2000))
+	poly.append(Vector2(last_x, 8000))
+	poly.append(Vector2(first_x, 8000))
 	
 	body_node.get_node("Polygon2D").polygon = poly
 	body_node.get_node("CollisionPolygon2D").polygon = poly
