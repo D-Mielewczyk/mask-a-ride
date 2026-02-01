@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://btxcoqccc87fd" path="res://scripts/rocket_fuel_boost_spawner.gd" id="8_boost_spawner"]
 [ext_resource type="AudioStream" uid="uid://585rkae2qgcs" path="res://assets/sound/!SPADEK 2.mp3" id="8_jbj1t"]
 [ext_resource type="AudioStream" uid="uid://dbjia06n7eyb4" path="res://assets/sound/!HEHENICE.mp3" id="9_dp3eg"]
-[ext_resource type="Script" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
+[ext_resource type="Script" uid="uid://keh7fbgqx7i8" path="res://scripts/trap_spawner.gd" id="9_trap_spawner"]
 [ext_resource type="AudioStream" uid="uid://d3m4ea8sfuab5" path="res://assets/sound/!ALLRIGHT.mp3" id="10_0ld40"]
 [ext_resource type="Script" uid="uid://c2p6mgi8vnp6l" path="res://scripts/game_flow.gd" id="10_game_flow"]
 

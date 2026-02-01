@@ -3,7 +3,7 @@ extends Node2D
 
 @export var creature_scene: PackedScene = preload("res://scenes/creatures/creature.tscn")
 @export var spawn_interval: float = 0.4
-@export var max_alive: int = 20
+@export var max_alive: int = 99999999999999999999
 @export var spawn_distance_min: float = 1200.0
 @export var spawn_distance_max: float = 2200.0
 @export var raycast_height: float = 1600.0

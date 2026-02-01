@@ -19,7 +19,7 @@ const DEFAULT_GOAL_X: float = 20000.0
 var current_goal_x: float = DEFAULT_GOAL_X
 const DEFAULT_LEVEL_COUNT: int = 1
 var level_count: int = DEFAULT_LEVEL_COUNT
-var difficulty_scale: float = 1.3
+var difficulty_scale: float = 1.2
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

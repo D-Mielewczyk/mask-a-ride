@@ -3,7 +3,7 @@ extends Node2D
 
 @export var trap_scene: PackedScene = preload("res://scenes/traps/trap.tscn")
 @export var spawn_interval: float = 6.0
-@export var max_alive: int = 3
+@export var max_alive: int = 99999999
 @export var spawn_distance_min: float = 1500.0
 @export var spawn_distance_max: float = 2600.0
 @export var min_player_x_to_spawn: float = 1200.0

@@ -17,6 +17,7 @@ var _is_dead := false
 @export var ground_damp = 0.025           # Im mniejszy, tym lepszy poślizg na ziemi
 @export var sticky_force = 300.0         # Siła docisku (magnes)
 @export var move_speed = 400.0           # Bazowa prędkość jazdy po ziemi
+@export var uphill_carry := 0.35		# jak mocno przenosi moment na ścianę w górę
 
 @export_group("Powietrze i Zwrotność")
 @export var air_damp = 0.1               # Opór powietrza (im mniej, tym dalej lecisz)
@@ -101,6 +102,7 @@ func _physics_process(delta):
 		# --- LOGIKA NA ZIEMI ---
 		linear_damp = ground_damp
 		var n = ray.get_collision_normal()
+		
 		var is_ramp = _is_on_starting_ramp()
 		var is_terrain = not is_ramp
 		if is_terrain and not _last_ground_is_terrain and not bounce_plate_used and _has_bounce_plate():
@@ -126,7 +128,8 @@ func _physics_process(delta):
 		# Skok
 		if Input.is_action_just_pressed("ui_up"):
 			jump()
-			apply_central_impulse(n * jump_force) # Stała siła skoku
+			#apply_central_impulse(n * jump_force) # Stała siła skoku
+			apply_central_impulse(Vector2(0, -jump_force))
 
 		# Prostowanie lub obracanie
 		if rot_dir == 0:

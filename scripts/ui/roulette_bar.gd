@@ -3,9 +3,9 @@ extends Control
 
 signal outcome_selected(outcome: String)
 
-@export var weight_nothing := 0.399
-@export var weight_shop := 0.5
-@export var weight_double := 0.1
+@export var weight_nothing := 0.199
+@export var weight_shop := 0.65
+@export var weight_double := 0.15
 @export var weight_fireworks := 0.01
 @export var spin_duration := 4.0
 @export var spins := 5
