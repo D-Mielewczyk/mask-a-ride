@@ -1,6 +1,6 @@
 extends Node2D
 
-var simultaneous_scene = preload("res://scenes/main.tscn").instantiate()
+@export var main_scene: PackedScene = preload("res://scenes/main.tscn")
 
 var audio: AnimationPlayer = null
 @export var klik: AudioStreamPlayer2D = null
