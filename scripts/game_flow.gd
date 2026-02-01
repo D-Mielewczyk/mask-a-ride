@@ -55,13 +55,17 @@ func _reach_level_end() -> void:
 	var launch_force = Vector2(0, -800 * 4) # TODO change to dynamic ramp height, if we will change that bc of ipgrades
 	_player.apply_central_impulse(launch_force)
 	_player.angular_velocity = 5.0
-	
+	_player.play_launch_confetti()
 	await get_tree().create_timer(1.0, true, false).timeout
 	########################
 	_pause_game()
 	# Zwiększamy cel dla następnego poziomu
 	current_goal_x += current_goal_x * difficulty_scale
+	GlobalSingleton.global.current_goal_x = current_goal_x
 	level_count += 1
+	GlobalSingleton.global.level_count = level_count
+	
+	
 	_spawn_next_ramp(player_x0, player_y0)
 	_show_roulette()
 	_roulette_done = false
@@ -170,8 +174,10 @@ func _start_new_run() -> void:
 
 
 func _reset_level_state() -> void:
-	current_goal_x = 25000.0
-	level_count = 1
+	current_goal_x = DEFAULT_GOAL_X
+	GlobalSingleton.global.current_goal_x = current_goal_x
+	level_count = DEFAULT_LEVEL_COUNT
+	GlobalSingleton.global.level_count = level_count
 	_next_lvl_processing = false
 
 

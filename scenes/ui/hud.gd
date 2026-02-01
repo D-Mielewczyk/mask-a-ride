@@ -27,7 +27,10 @@ func _process(_delta):
 		# Próbujemy znaleźć gracza ponownie, jeśli go zgubiliśmy
 		player = get_tree().get_first_node_in_group("player")
 		return
-	
+	if not game_flow:
+		game_flow = get_tree().get_first_node_in_group("game_flow")
+		return
+		
 	# Obliczanie dystansu
 	var current_dist = max(0, (player.global_position.x - start_pos_x) / 100.0)
 	if current_dist > max_distance:
@@ -37,8 +40,8 @@ func _process(_delta):
 	dist_label.text = "Dystans: %d m" % current_dist
 	max_dist_label.text = "Rekord: %d m" % max_distance
 	speed_label.text = "Prędkość: %d km/h" % (player.linear_velocity.length() / 10.0)
-	lvl_label.text = "LVL: %d" % game_flow.level_count
-	taget_x_label.text = "Cel następnego LVL: %d m" % (game_flow.current_goal_x / 100.0)
+	lvl_label.text = "LVL: %d" % GlobalSingleton.global.level_count
+	taget_x_label.text = "Cel następnego LVL: %d m" % (GlobalSingleton.global.current_goal_x / 100.0)
 	
 	
 	# Wysokość (Y w dół to wartości dodatnie, więc odejmujemy od jakiegoś poziomu lub używamy minusa)
@@ -60,3 +63,4 @@ func _process(_delta):
 	# Debugowanie wartości w konsoli co jakiś czas (np. raz na 60 klatek)
 	if Engine.get_frames_drawn() % 260 == 0:
 		print("DEBUG: Dystans: ", current_dist, " Prędkość: ", player.linear_velocity.length())
+		print("DEBUG: CEL: ", game_flow.current_goal_x / 100.0, " LVL: ", game_flow.level_count)

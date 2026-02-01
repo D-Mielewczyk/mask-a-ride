@@ -7,7 +7,8 @@ static var global: GlobalSingleton = null
 
 var coins: int = 0
 var bought_upgrades: Dictionary = {}
-
+var level_count: int = 1
+var current_goal_x: float = 20000.0
 
 func _init() -> void:
 	if global == null:
@@ -47,7 +48,6 @@ func _save_upgrades() -> void:
 func reset_upgrades() -> void:
 	bought_upgrades.clear()
 	bought_upgrades["rocket"] = true
-
 
 func reset_coins() -> void:
 	coins = 0

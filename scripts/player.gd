@@ -120,9 +120,7 @@ func _physics_process(delta):
 		
 		if n.x > 0.05: # Zjazd
 			apply_central_force(slope_dir * acceleration_scale * n.x)
-		if linear_velocity.x < move_speed:
-			linear_velocity.x = move_speed
-		
+
 		slide()
 		
 		# Skok
