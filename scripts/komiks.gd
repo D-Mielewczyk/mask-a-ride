@@ -28,7 +28,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		_next()
-		get_viewport().set_input_as_handled()
+		#get_viewport().set_input_as_handled()
 		return
 
 	if event is InputEventKey and event.pressed:
