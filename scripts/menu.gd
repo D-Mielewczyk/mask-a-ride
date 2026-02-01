@@ -1,6 +1,7 @@
 extends Node2D
 
 var simultaneous_scene = preload("res://scenes/main.tscn").instantiate()
+
 var audio: AnimationPlayer = null
 @export var klik: AudioStreamPlayer2D = null
 func load_main() -> void:
