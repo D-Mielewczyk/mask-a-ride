@@ -10,7 +10,7 @@ func load_main() -> void:
 			audio = c.get_child(0) as AnimationPlayer
 			audio.play("fade")
 		c.queue_free()
-	get_tree().root.add_child(simultaneous_scene)
+	get_tree().change_scene_to_packed(main_scene)
 
 func delete_audio_stream_player() -> void:
 	if audio != null:
