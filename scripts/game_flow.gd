@@ -54,6 +54,9 @@ func _spawn_next_ramp_and_launch() -> void:
 	
 	_player.linear_velocity = Vector2.ZERO
 	_player.angular_velocity = 0
+	
+	_player.play_launch_confetti()
+		
 		# 3. IMPULS zamiast Tweena
 	# Wektor: (X: lekko w przód, Y: bardzo mocno w górę)
 	var launch_force = Vector2(0, -800 * 4) # TODO change to dynamic ramp height, if we will change that bc of ipgrades
