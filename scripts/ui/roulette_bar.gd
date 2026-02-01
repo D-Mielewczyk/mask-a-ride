@@ -3,8 +3,8 @@ extends Control
 
 signal outcome_selected(outcome: String)
 
-@export var weight_nothing := 0.399
-@export var weight_shop := 0.5
+@export var weight_nothing := 0.599
+@export var weight_shop := 0.3
 @export var weight_double := 0.1
 @export var weight_fireworks := 0.01
 @export var spin_duration := 4.0
@@ -85,7 +85,7 @@ func spin() -> void:
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self , "_current_angle", target_angle, spin_duration)
+	tween.tween_property(self, "_current_angle", target_angle, spin_duration)
 	tween.finished.connect(func(): _show_result(outcome))
 
 
