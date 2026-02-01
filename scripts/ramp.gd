@@ -73,7 +73,7 @@ func generate_ramp():
 
 	var polygon_points = PackedVector2Array(baked_points)
 
-	var bottom_depth = 500.0
+	var bottom_depth = 8000.0
 	polygon_points.append(Vector2(slope_length + ramp_length, bottom_depth))
 	polygon_points.append(Vector2(0, bottom_depth))
 
