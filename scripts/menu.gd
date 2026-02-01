@@ -1,6 +1,6 @@
 extends Node2D
 
-var simultaneous_scene = preload("res://scenes/main.tscn").instantiate()
+@export var main_scene: PackedScene = preload("res://scenes/main.tscn")
 var audio: AnimationPlayer = null
 @export var klik: AudioStreamPlayer2D = null
 func load_main() -> void:
@@ -9,7 +9,7 @@ func load_main() -> void:
 			audio = c.get_child(0) as AnimationPlayer
 			audio.play("fade")
 		c.queue_free()
-	get_tree().root.add_child(simultaneous_scene)
+	get_tree().change_scene_to_packed(main_scene)
 
 func delete_audio_stream_player() -> void:
 	if audio != null:
