@@ -1,6 +1,10 @@
 extends Node2D
 
-@export var main_scene: PackedScene = preload("res://scenes/main.tscn")
+#@export var main_scene: PackedScene = preload("res://scenes/main.tscn")
+@export var comic_scene: PackedScene = preload("res://scenes/komiks.tscn")
+
+@onready var comic_layer: CanvasLayer = $ComicLayer
+@onready var comic_sprite: Sprite2D = $ComicLayer/ComicSprite
 
 var audio: AnimationPlayer = null
 @export var klik: AudioStreamPlayer2D = null
@@ -9,8 +13,9 @@ func load_main() -> void:
 		if c.get_class() == "AudioStreamPlayer2D":
 			audio = c.get_child(0) as AnimationPlayer
 			audio.play("fade")
+			#comic_scene.add_child(audio)
 		c.queue_free()
-	get_tree().change_scene_to_packed(main_scene)
+	get_tree().change_scene_to_packed(comic_scene)
 
 func delete_audio_stream_player() -> void:
 	if audio != null:
